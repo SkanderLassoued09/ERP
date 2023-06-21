@@ -63,7 +63,6 @@ export class TicketService {
           emplacement
           numero
           remarqueTech
-          getTicketFinished
           reparable
           pdr
           techNameSug
@@ -71,6 +70,7 @@ export class TicketService {
           typeClient
           createdBy
           assignedTo
+          image
           affectedToCompany
           affectedToClient
           createdAt

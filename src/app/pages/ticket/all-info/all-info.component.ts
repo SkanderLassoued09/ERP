@@ -1,6 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { log } from "console";
-import * as moment from "moment";
 
 @Component({
   selector: "ngx-all-info",
@@ -9,36 +7,40 @@ import * as moment from "moment";
 })
 export class AllInfoComponent implements OnInit {
   allData;
+  totalPrix: number;
   constructor() {}
 
   ngOnInit(): void {
     console.log("all data", this.allData);
+    this.calculateTotalPrixTotale();
   }
 
-
-
-  calculateTotalPrixTotale(): number {
+  calculateTotalPrixTotale() {
     let totalPrixTotale = 0;
     for (let c of this.allData.composants) {
       totalPrixTotale += c.quantity * c.sellPrice;
     }
-    return totalPrixTotale;
+    this.totalPrix = totalPrixTotale;
   }
 
-calculateTotalTemps(){
-let tempsTotal 
-console.log(typeof(this.allData.reparationTimeByTech),"this.allData.reparationTimeByTech")
+  // calculateTotalTemps() {
+  //   let tempsTotal;
+  //   console.log(
+  //     typeof this.allData.reparationTimeByTech,
+  //     "this.allData.reparationTimeByTech"
+  //   );
 
-let diagTime=moment(this.allData.diagnosticTimeByTech).format("HH:mm:ss")
-let repairTime=moment(this.allData.reparationTimeByTech).format("HH:mm:ss")
-let x=new Date(diagTime)
-console.log("value of x ",x)
-console.log(repairTime,"repairTime")
-console.log(typeof(diagTime),"diagTime")
+  //   let diagTime = moment(this.allData.diagnosticTimeByTech).format("HH:mm:ss");
+  //   let repairTime = moment(this.allData.reparationTimeByTech).format(
+  //     "HH:mm:ss"
+  //   );
+  //   let x = new Date(diagTime);
+  //   console.log("value of x ", x);
+  //   console.log(repairTime, "repairTime");
+  //   console.log(typeof diagTime, "diagTime");
 
-tempsTotal=repairTime+diagTime
+  //   tempsTotal = repairTime + diagTime;
 
-return tempsTotal
-}
-
+  //   return tempsTotal;
+  // }
 }

@@ -24,6 +24,7 @@ export class AddTicketComponent implements OnInit {
     affectedToClient: new FormControl("", []),
     remarque: new FormControl("", []),
     title: new FormControl("", []),
+    image: new FormControl("", []),
   });
 
   emplacement;
@@ -53,6 +54,7 @@ export class AddTicketComponent implements OnInit {
   listOfClient;
   listOfCompany;
   checkedTypeClient: any;
+  imageStr: string | ArrayBuffer;
   constructor(
     private ticketService: TicketService,
     private clientService: TableClientService,
@@ -67,8 +69,28 @@ export class AddTicketComponent implements OnInit {
     this.getClientList();
   }
 
+  onSelectFile(image: any) {
+    console.log(image, "bc");
+    const file = image.target.files && image.target.files[0];
+    console.log(file, "file");
+    if (file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (event) => {
+        console.log(event, "event onload");
+        this.imageStr = reader.result;
+        // this.url = (<FileReader>event.target).result;
+      };
+    }
+
+    console.log(this.imageStr, "pdf str");
+  }
+
   sendTicket() {
     this.addTicket.value.createdBy = localStorage.getItem("username");
+    this.addTicket.value.image = this.imageStr;
+    console.log(this.addTicket.value);
     this.ticketService.addTicket(this.addTicket.value);
     this.nbToastr.success("Ticket a été ajouté avec succès", "Ticket ajouté");
     this.addTicket.reset();

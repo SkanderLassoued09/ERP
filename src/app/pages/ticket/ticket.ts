@@ -18,5 +18,6 @@ export interface Ticket {
   pdfComposant?: string;
   affectedToCompany?: string;
   affectedToClient?: string;
+  image?: any;
   composant: any[];
 }

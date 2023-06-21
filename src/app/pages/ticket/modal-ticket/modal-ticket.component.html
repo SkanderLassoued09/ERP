@@ -3,6 +3,11 @@
     <nb-card-header class="justify-header">
       <span>Début du diagnostic depuis</span>
       <span>{{ minutes }}:{{ seconds }}:{{ milliseconds }}</span>
+      <span>
+        <a [href]="'http://192.168.43.174:3000/' + rowData.image"
+          >image</a
+        ></span
+      >
     </nb-card-header>
     <nb-card-body>
       <form [formGroup]="updateTicket">

@@ -9,14 +9,33 @@ import { NbDialogRef } from "@nebular/theme";
   styleUrls: ["./modal-add-issue.component.scss"],
 })
 export class ModalAddIssueComponent implements OnInit {
+  isToEdit: boolean = false;
   panneInput: string;
+  updatedIssue;
+  issues = [
+    { _id: 0, issue: "Moteur" },
+    { _id: 1, issue: "Condo" },
+    { _id: 2, issue: "Bobine" },
+    { _id: 3, issue: "Résistance" },
+    { _id: 4, issue: "Termostat" },
+  ];
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
     private dialogRef: NbDialogRef<ModalAddIssueComponent>
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.updatedIssue, "updatedIssue");
+  }
+
+  updateIssue(_id) {
+    console.log(_id, "gonna be updated");
+    this.isToEdit = !status;
+  }
+  deleteIssue(_id) {
+    console.log(_id, "gonna be deleted");
+  }
 
   addIssue() {
     this.apollo

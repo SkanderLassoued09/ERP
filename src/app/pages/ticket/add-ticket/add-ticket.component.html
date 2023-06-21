@@ -72,30 +72,7 @@
         </div>
       </div>
 
-      <!-- to hide administration -->
       <div class="row">
-        <!-- <div class="col-lg-12">
-          <label class="label" for="">Réparable</label>
-          <nb-radio-group formControlName="reparable" name="ng-model-group">
-            <nb-radio value="Oui">Oui</nb-radio>
-            <nb-radio value="Non">Non</nb-radio>
-          </nb-radio-group>
-
-          <label class="label" for="">PDR</label>
-          <nb-radio-group formControlName="pdr" name="reactive-forms-group">
-            <nb-radio value="Oui">Oui</nb-radio>
-            <nb-radio value="Non">Non</nb-radio>
-          </nb-radio-group>
-        </div> -->
-        <!-- PDF 4 fields -->
-
-        <!--
-          <div>
-          Devis
-          <input formControlName="Devis" type="file" (change)="onFileSelected($event)" />
-          <button (click)="saveSelectedFile()">Valider</button>
-        </div> -->
-
         <div class="col-lg-12">
           <label for="" class="label">Remarque</label>
           <textarea
@@ -104,6 +81,17 @@
             placeholder="Textarea"
             formControlName="remarque"
           ></textarea>
+        </div>
+        <div class="col-lg-12">
+          <label for="" class="label">Ajouter une image</label>
+          <input
+            nbInput
+            fullWidth
+            placeholder="Textarea"
+            formControlName="image"
+            type="file"
+            (change)="onSelectFile($event)"
+          />
         </div>
       </div>
 
