@@ -12,6 +12,8 @@ import {
   MENU_ITEMS_MANAGER,
   MENU_ITEMS_TECH,
 } from "./pages-menu";
+import { TicketService } from "./ticket/ticket/ticket.service";
+import { NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-pages",
@@ -28,7 +30,9 @@ export class PagesComponent implements OnInit {
   constructor(
     private router: Router,
     private apollo: Apollo,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private ticketService: TicketService,
+    private toastr: NbToastrService
   ) {}
   ngOnInit(): void {
     this.getRole();
@@ -37,6 +41,21 @@ export class PagesComponent implements OnInit {
     if (!token) {
       this.router.navigate([""]);
     }
+  }
+
+  notification() {
+    this.ticketService
+      .getNotifcationForTechFroCoordinator()
+      .subscribe((data) => {
+        console.log(data, "from coo");
+        this.toastr.success(
+          ``,
+          "Nouveau Ticket diagnostiqué coo from pages.comp",
+          {
+            duration: 0,
+          }
+        );
+      });
   }
 
   public async getUser() {

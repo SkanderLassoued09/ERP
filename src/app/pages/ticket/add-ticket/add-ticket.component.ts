@@ -19,9 +19,8 @@ export class AddTicketComponent implements OnInit {
     numSerie: new FormControl("", []),
     emplacement: new FormControl("", []),
     numero: new FormControl("", []),
-    assignedTo: new FormControl("", []),
-    affectedToCompany: new FormControl("", []),
-    affectedToClient: new FormControl("", []),
+    affectedToCompany: new FormControl("empty", []),
+    affectedToClient: new FormControl("empty", []),
     remarque: new FormControl("", []),
     title: new FormControl("", []),
     image: new FormControl("", []),
@@ -29,19 +28,6 @@ export class AddTicketComponent implements OnInit {
 
   emplacement;
 
-  tec = [
-    { local: "Tech 1" },
-    { local: "Tech 2" },
-    { local: "Tech 3" },
-    { local: "Tech 4" },
-    { local: "Tech 5" },
-    { local: "Tech 6" },
-  ];
-
-  options = [
-    { value: "This is value 1", label: "Oui" },
-    { value: "This is value 2", label: "Non" },
-  ];
   options1 = [
     { value: "This is value 1", label: "Oui" },
     { value: "This is value 2", label: "Non" },
@@ -70,9 +56,8 @@ export class AddTicketComponent implements OnInit {
   }
 
   onSelectFile(image: any) {
-    console.log(image, "bc");
     const file = image.target.files && image.target.files[0];
-    console.log(file, "file");
+
     if (file) {
       var reader = new FileReader();
       reader.readAsDataURL(file);
@@ -80,7 +65,6 @@ export class AddTicketComponent implements OnInit {
       reader.onload = (event) => {
         console.log(event, "event onload");
         this.imageStr = reader.result;
-        // this.url = (<FileReader>event.target).result;
       };
     }
 
@@ -88,10 +72,12 @@ export class AddTicketComponent implements OnInit {
   }
 
   sendTicket() {
+    console.log("1");
     this.addTicket.value.createdBy = localStorage.getItem("username");
     this.addTicket.value.image = this.imageStr;
-    console.log(this.addTicket.value);
+    console.log("2");
     this.ticketService.addTicket(this.addTicket.value);
+    console.log("3");
     this.nbToastr.success("Ticket a été ajouté avec succès", "Ticket ajouté");
     this.addTicket.reset();
   }

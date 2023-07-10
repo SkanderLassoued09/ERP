@@ -19,5 +19,5 @@ export interface Ticket {
   affectedToCompany?: string;
   affectedToClient?: string;
   image?: any;
-  composant: any[];
+  composant?: any[];
 }

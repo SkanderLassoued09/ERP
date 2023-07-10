@@ -91,8 +91,13 @@ export class TicketComponentTraiter implements OnInit {
         valuePrepareFunction: (val) => {
           console.log(val, "val");
           return val.map((el) => {
+            var raw = new Date(el.comingDate);
             console.log(el, "el");
-            return el.comingDate;
+            var formatted = this.datePipe.transform(
+              raw,
+              "dd MMM yyyy hh:mm:ss"
+            );
+            return formatted;
           });
         },
       },
@@ -158,7 +163,6 @@ export class TicketComponentTraiter implements OnInit {
   seeData(seeData) {
     let modal = this.nbDialog.open(AllInfoComponent);
     modal.componentRef.instance.allData = seeData.data;
-    console.log("this is where my data come",seeData)
+    console.log("this is where my data come", seeData);
   }
-  
 }

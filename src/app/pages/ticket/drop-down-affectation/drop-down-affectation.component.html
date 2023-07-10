@@ -1,0 +1,15 @@
+<nb-select
+  (selectedChange)="affectTicketToTech($event)"
+  placeholder="Select Showcase"
+>
+  <nb-option
+    *ngFor="let tech of listOfTech"
+    [value]="tech.username"
+    [disabled]="tech.ticketCount >= 3"
+  >
+    <div class="option">
+      <span>{{ tech.username }}</span
+      >|<span>{{ tech.ticketCount }}</span>
+    </div>
+  </nb-option>
+</nb-select>

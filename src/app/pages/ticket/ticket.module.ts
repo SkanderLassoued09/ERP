@@ -38,6 +38,11 @@ import { ModalFinalComponent } from "./modal-final/modal-final.component";
 import { ToggleActivateComponent } from "./toggle-activate/toggle-activate.component";
 import { ToggleIgnoreComponent } from "./toggle-ignore/toggle-ignore.component";
 import { AllInfoComponent } from "./all-info/all-info.component";
+import { CoordinatorAffectationComponent } from "./coordinator-affectation/coordinator-affectation.component";
+import { DragDropModule } from "@angular/cdk/drag-drop";
+import { DropDownAffectationComponent } from './drop-down-affectation/drop-down-affectation.component';
+import { DropDownAdminsCooComponent } from './drop-down-admins-coo/drop-down-admins-coo.component';
+import { BtnAffectReparationComponent } from './btn-affect-reparation/btn-affect-reparation.component';
 
 @NgModule({
   declarations: [
@@ -60,8 +65,13 @@ import { AllInfoComponent } from "./all-info/all-info.component";
     ToggleActivateComponent,
     ToggleIgnoreComponent,
     AllInfoComponent,
+    CoordinatorAffectationComponent,
+    DropDownAffectationComponent,
+    DropDownAdminsCooComponent,
+    BtnAffectReparationComponent,
   ],
   imports: [
+    DragDropModule,
     NbSelectModule,
     CommonModule,
     TicketRoutingModule,

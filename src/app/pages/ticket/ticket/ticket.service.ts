@@ -12,7 +12,7 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class TicketService {
-  socket: any;
+  socket: Socket;
   constructor(private toastr: NbToastrService) {
     this.socket = io(URL.SOCKET, {
       transports: ["websocket", "polling"],
@@ -28,6 +28,7 @@ export class TicketService {
    *
    */
   addTicket(ticket: Ticket) {
+    console.log("hello");
     console.log("from service", ticket);
     this.socket.emit("send-ticket", ticket);
   }
@@ -35,6 +36,18 @@ export class TicketService {
   sendToMagasin(ticket: Ticket) {
     console.log(ticket, "ticket magasin sending");
     this.socket.emit("send-data-magasin", ticket);
+  }
+
+  coordinatorSendTicketToTech(paylodToSend) {
+    this.socket.emit("send-to-tech", paylodToSend);
+  }
+
+  getNotifcationForTechFroCoordinator() {
+    return new Observable((observer) => {
+      this.socket.on("tech-recieve-coordinator", (payloadCoo) => {
+        observer.next(payloadCoo);
+      });
+    });
   }
 
   getNotification(): Observable<any> {
@@ -100,10 +113,40 @@ export class TicketService {
     `;
   }
 
+  getTicketsForCoordinator() {
+    return gql`
+      {
+        getTicketForCoordinator {
+          _id
+          title
+          designiation
+          emplacement
+          numero
+          remarqueTech
+          reparable
+          pdr
+        }
+      }
+    `;
+  }
+
   getAllTech() {
     return gql`
       {
         getAllTech {
+          _id
+          username
+          ticketCount
+        }
+      }
+    `;
+  }
+
+  getAllAdmins() {
+    return gql`
+      {
+        getAllAdmins {
+          _id
           username
         }
       }
@@ -255,6 +298,13 @@ export class TicketService {
     `;
   }
 
+  makeTicketAvailableForAdmin(_id) {
+    return gql`
+    mutation {
+      makeTicketAvailableForAdmin(_id: "${_id}")
+    }
+  `;
+  }
   getListForAdmins() {
     return gql`
       {
@@ -327,6 +377,14 @@ export class TicketService {
         )
       }
     `;
+  }
+
+  setTicketReparable(_id) {
+    return gql`
+    mutation {
+      setIsReparable(_id: "${_id}")
+    }
+  `;
   }
 
   getTicketFinished() {
@@ -409,6 +467,14 @@ export class TicketService {
     return gql`
       mutation {
         toAdminTech(_id: "${_id}")
+      }
+    `;
+  }
+
+  affectToTechByCoordinator(_id: string, sentTo: string) {
+    return gql`
+      mutation {
+        affectTechToTechByCoordinator(_id: "${_id}", sentTo: "${sentTo}")
       }
     `;
   }

@@ -7,11 +7,7 @@ export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
     link: "/pages/dashboardGlobal/dashboardGlobal",
     home: true,
   },
-  // {
-  //   title: "IoT Dashboard",
-  //   icon: "home-outline",
-  //   link: "/pages/iot-dashboard",
-  // },
+
   {
     title: "Features",
     group: true,
@@ -67,6 +63,10 @@ export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
       {
         title: "Ticket consulté",
         link: "/pages/ticket/ticket-list-traiter",
+      },
+      {
+        title: "Ticket coordinateur",
+        link: "/pages/ticket/coordinator",
       },
     ],
   },
@@ -214,8 +214,8 @@ export const MENU_ITEMS_MAGASIN: NbMenuItem[] = [
         link: "/pages/ticket/ticket-list",
       },
       {
-        title: "Ticket consulté",
-        link: "/pages/ticket/ticket-list-traiter",
+        title: "Ticket coordinateur",
+        link: "/pages/ticket/coordinator",
       },
     ],
   },
@@ -257,10 +257,10 @@ export const MENU_ITEMS_TECH: NbMenuItem[] = [
         title: "List tickets",
         link: "/pages/ticket/ticket-list",
       },
-      {
-        title: "Ticket consulté",
-        link: "/pages/ticket/ticket-list-traiter",
-      },
+      // {
+      //   title: "Ticket consulté",
+      //   link: "/pages/ticket/ticket-list-traiter",
+      // },
     ],
   },
 ];

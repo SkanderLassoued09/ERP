@@ -39,6 +39,7 @@ export class TicketMagasinListComponent implements OnInit {
    */
 
   updateMagasin(nameComposant: string) {
+    console.log(this.magasinField.value, "date check");
     console.log(nameComposant, "name composant");
     this.apollo
       .mutate<any>({

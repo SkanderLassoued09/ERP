@@ -26,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { GraphQlModule } from "./graphql.modules";
 import { CommonModule } from "@angular/common";
 import { LoginComponent } from "./pages/login/login.component";
+import { URL } from "./URLs";
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],

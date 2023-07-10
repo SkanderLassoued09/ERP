@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { TicketComponent } from "./ticket/ticket.component";
 import { AddTicketComponent } from "./add-ticket/add-ticket.component";
 import { TicketComponentTraiter } from "./list-ticket-finie/list-ticket-finie.component";
+import { CoordinatorAffectationComponent } from "./coordinator-affectation/coordinator-affectation.component";
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: "ticket-list-traiter",
     component: TicketComponentTraiter,
+  },
+  {
+    path: "coordinator",
+    component: CoordinatorAffectationComponent,
   },
 ];
 

@@ -50,5 +50,18 @@ export class AppComponent implements OnInit {
         });
       }
     });
+
+    this.ticketService
+      .getNotifcationForTechFroCoordinator()
+      .subscribe((data) => {
+        console.log(data, "from coo");
+        this.toastr.success(
+          ``,
+          "Nouveau Ticket diagnostiqué coo from app.Component",
+          {
+            duration: 0,
+          }
+        );
+      });
   }
 }
