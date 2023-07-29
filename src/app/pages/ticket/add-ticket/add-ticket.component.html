@@ -31,7 +31,7 @@
       <div class="col-lg-6" *ngIf="checkedTypeClient === 'Client'">
         <label class="label" for="">Choisr le client</label>
         <nb-select fullWidth formControlName="affectedToClient">
-          <nb-option *ngFor="let c of listOfClient" [value]="c._id">
+          <nb-option *ngFor="let c of listOfClient" [value]="c.firstName">
             {{ c.firstName }}
           </nb-option>
         </nb-select>
@@ -40,7 +40,7 @@
       <div class="col-lg-6" *ngIf="checkedTypeClient === 'Société'">
         <label class="label" for="">Choisr la société</label>
         <nb-select fullWidth formControlName="affectedToCompany">
-          <nb-option *ngFor="let c of listOfCompany" [value]="c._id">
+          <nb-option *ngFor="let c of listOfCompany" [value]="c.companyName">
             {{ c.companyName }}
           </nb-option>
         </nb-select>
@@ -53,7 +53,7 @@
         <div class="col-lg-4">
           <label class="label" for="">Emplacement</label>
           <nb-select fullWidth formControlName="emplacement">
-            <nb-option *ngFor="let e of emplacement" [value]="e._id">
+            <nb-option *ngFor="let e of emplacement" [value]="e.locationName">
               {{ e.locationName }}
             </nb-option>
           </nb-select>
@@ -71,7 +71,7 @@
             nbInput
             fullWidth
             placeholder="Textarea"
-            formControlName="remarque"
+            formControlName="remarqueManager"
           ></textarea>
         </div>
         <div class="col-lg-12">

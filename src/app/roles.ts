@@ -4,6 +4,7 @@ export const ROLE = {
   MANAGER: "MANAGER",
   TECH: "TECH",
   MAGASIN: "MAGASIN",
+  COORDINATOR: "COORDINATOR",
 };
 
 export interface ROLE {
@@ -12,4 +13,5 @@ export interface ROLE {
   MANAGER: "MANAGER";
   TECH: "TECH";
   MAGASIN: "MAGASIN";
+  COORDINATOR: "COORDINATOR";
 }

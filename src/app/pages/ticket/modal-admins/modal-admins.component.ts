@@ -15,6 +15,20 @@ export class ModalAdminsComponent implements OnInit {
     finalPrice: new FormControl("", [Validators.required]),
   });
 
+  arr = [
+    { name: "test", value: 1 },
+    { name: "test", value: 1 },
+
+    { name: "test", value: 1 },
+
+    { name: "test", value: 1 },
+
+    { name: "test", value: 1 },
+
+    { name: "test", value: 1 },
+    { name: "test", value: 1 },
+  ];
+
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
@@ -23,6 +37,9 @@ export class ModalAdminsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.rowData);
+  }
+  say() {
+    console.log("hello");
   }
 
   submitTicket() {

@@ -30,12 +30,13 @@ export class ModalTicketComponent implements OnInit {
     typeClient: new FormControl("", [Validators.required]),
     numSerie: new FormControl("", [Validators.required]),
     numero: new FormControl("", [Validators.required]),
+    issue: new FormControl("", [Validators.required]),
     assignedTo: new FormControl("", [Validators.required]),
     reparable: new FormControl("", [Validators.required]),
     pdr: new FormControl("non", [Validators.required]),
     remarqueTech: new FormControl("", [Validators.required]),
     emplacement: new FormControl("", [Validators.required]),
-    role: new FormControl("", [Validators.required]),
+    role: new FormControl("MAGASIN", [Validators.required]),
   });
 
   pdrControl: FormControl;
@@ -160,6 +161,7 @@ export class ModalTicketComponent implements OnInit {
       pdr: this.updateTicket.value.pdr,
       lapTime: this.lapTime,
       role: this.updateTicket.value.role,
+      issue: this.updateTicket.value.issue,
       composant: this.trees,
     };
 

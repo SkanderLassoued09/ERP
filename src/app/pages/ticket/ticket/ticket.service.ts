@@ -42,9 +42,9 @@ export class TicketService {
     this.socket.emit("send-to-tech", paylodToSend);
   }
 
-  getNotifcationForTechFroCoordinator() {
+  getNotifcationForTechFroCoordinator(): Observable<any> {
     return new Observable((observer) => {
-      this.socket.on("tech-recieve-coordinator", (payloadCoo) => {
+      this.socket.on("tech-recieve-coordinator", (payloadCoo: any) => {
         observer.next(payloadCoo);
       });
     });
@@ -125,6 +125,13 @@ export class TicketService {
           remarqueTech
           reparable
           pdr
+          assignedTo
+          affectedToClient
+          affectedToCompany
+          status
+          magasinDone
+          assignedTo
+          toMagasin
         }
       }
     `;
@@ -173,6 +180,7 @@ export class TicketService {
           remarqueTech: "${updateTicket.remarqueTech}",
           reparable: "${updateTicket.reparable}",
           pdr: "${updateTicket.pdr}",
+          issue: "${updateTicket.issue}",
           diagnosticTimeByTech: "${updateTicket.lapTime}",
           composants: [${composantInputs}]
        
@@ -385,6 +393,14 @@ export class TicketService {
       setIsReparable(_id: "${_id}")
     }
   `;
+  }
+
+  discount(_id: string) {
+    return gql`
+      mutation {
+        discount(_id: "${_id}")
+      }
+    `;
   }
 
   getTicketFinished() {

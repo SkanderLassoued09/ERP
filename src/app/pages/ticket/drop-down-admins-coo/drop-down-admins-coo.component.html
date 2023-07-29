@@ -7,4 +7,11 @@
   </nb-option>
 </nb-select> -->
 
-<button nbButton (click)="valider()" status="info">Affect to admins</button>
+<button
+  nbButton
+  (click)="valider()"
+  status="info"
+  [disabled]="disableBtnAffectToAdmin"
+>
+  Affect to admins
+</button>

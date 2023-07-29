@@ -28,12 +28,94 @@
           >
             {{ stautsToggle ? "Valider" : "Annuler" }}
           </nb-toggle>
-          <input
-            nbInput
-            placeholder="Pourcentage de remise"
-            formControlName="remise"
-            fullWidth
-          />
+
+          <div class="c">
+            <span *ngIf="role === 'MANAGER'">
+              <mat-slider
+                formControlName="remise"
+                min="0.0"
+                max="5.0"
+                step="0.1"
+                showTickMarks="true"
+                discrete
+                [displayWith]="formatLabel"
+                thumbLabel="true"
+                (ngModelChange)="testSlider($event)"
+              >
+                <input matSliderThumb /> </mat-slider
+            ></span>
+            <span *ngIf="role === 'ADMIN_MANAGER'">
+              <mat-slider
+                formControlName="remise"
+                min="10.0"
+                max="15.0"
+                step="0.1"
+                showTickMarks="true"
+                discrete
+                [displayWith]="formatLabel"
+                thumbLabel="true"
+                (ngModelChange)="testSlider($event)"
+              >
+                <input matSliderThumb /> </mat-slider
+            ></span>
+            <span *ngIf="role === 'ADMIN_TECH'">
+              <mat-slider
+                formControlName="remise"
+                min="5.0"
+                max="10.0"
+                step="0.1"
+                showTickMarks="true"
+                discrete
+                [displayWith]="formatLabel"
+                thumbLabel="true"
+                (ngModelChange)="testSlider($event)"
+              >
+                <input matSliderThumb /> </mat-slider
+            ></span>
+            <span *ngIf="valueSlider === 5 && role === 'MANAGER'"
+              ><button
+                nbButton
+                size="tiny"
+                status="info"
+                nbTooltip="Envoyer à Walid"
+                nbTooltipPlacement="top"
+                (click)="discountPyramid()"
+              >
+                <nb-icon
+                  size="tiny"
+                  icon="arrow-forward-outline"
+                ></nb-icon></button
+            ></span>
+            <span *ngIf="valueSlider === 10 && role === 'ADMIN_TECH'"
+              ><button
+                nbButton
+                size="tiny"
+                status="warning"
+                nbTooltip="Envoyer à Naim"
+                nbTooltipPlacement="top"
+                (click)="discountPyramid()"
+              >
+                <nb-icon
+                  size="tiny"
+                  icon="arrow-forward-outline"
+                ></nb-icon></button
+            ></span>
+            <span *ngIf="valueSlider === 15 && role === 'ADMIN_MANAGER'"
+              ><button
+                nbButton
+                size="tiny"
+                status="danger"
+                nbTooltip="Envoyer pour mise à jour le prix"
+                nbTooltipPlacement="top"
+                (click)="discountPyramid()"
+              >
+                <nb-icon
+                  size="tiny"
+                  icon="arrow-forward-outline"
+                ></nb-icon></button
+            ></span>
+          </div>
+
           <input
             fullWidth
             nbInput

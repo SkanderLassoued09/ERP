@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { NbDialogService } from "@nebular/theme";
 import { TicketMagasinListComponent } from "../ticket-magasin-list/ticket-magasin-list.component";
 
@@ -9,11 +9,32 @@ import { TicketMagasinListComponent } from "../ticket-magasin-list/ticket-magasi
 })
 export class BtnOpenModalMagasinComponent implements OnInit {
   @Input() rowData: any;
-  constructor(private ngDialog: NbDialogService) {}
+  disableAffectationBtn: boolean;
 
-  ngOnInit(): void {}
+  constructor(
+    private ngDialog: NbDialogService,
+    private cdRef: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    console.log(this.rowData, "this row data");
+    this.isDisableAffectationBtn();
+  }
   openModalMagasin() {
     let modal = this.ngDialog.open(TicketMagasinListComponent);
     modal.componentRef.instance.dataTicketSelected = this.rowData;
+    modal.onClose.subscribe((el) => {
+      console.log(el, "comes from");
+      this.disableAffectationBtn = el;
+      this.cdRef.detectChanges();
+    });
+  }
+
+  isDisableAffectationBtn() {
+    let arrComposant = this.rowData.composants;
+    this.disableAffectationBtn = arrComposant.every(
+      (el) => el.isAffected === true
+    );
+    console.log(this.disableAffectationBtn, "after checking all array");
   }
 }

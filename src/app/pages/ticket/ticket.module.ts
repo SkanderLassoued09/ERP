@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { TicketComponent } from "./ticket/ticket.component";
 import { TicketRoutingModule } from "./ticket-routing.module";
 import {
+  NbActionsModule,
   NbBadgeModule,
   NbButtonModule,
   NbCardModule,
@@ -12,11 +13,13 @@ import {
   NbInputModule,
   NbLayoutScrollService,
   NbListModule,
+  NbProgressBarModule,
   NbRadioModule,
   NbSelectModule,
   NbStepperModule,
   NbTagModule,
   NbToggleModule,
+  NbTooltipModule,
 } from "@nebular/theme";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Ng2SmartTableModule } from "ng2-smart-table";
@@ -40,9 +43,10 @@ import { ToggleIgnoreComponent } from "./toggle-ignore/toggle-ignore.component";
 import { AllInfoComponent } from "./all-info/all-info.component";
 import { CoordinatorAffectationComponent } from "./coordinator-affectation/coordinator-affectation.component";
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { DropDownAffectationComponent } from './drop-down-affectation/drop-down-affectation.component';
-import { DropDownAdminsCooComponent } from './drop-down-admins-coo/drop-down-admins-coo.component';
-import { BtnAffectReparationComponent } from './btn-affect-reparation/btn-affect-reparation.component';
+import { DropDownAffectationComponent } from "./drop-down-affectation/drop-down-affectation.component";
+import { DropDownAdminsCooComponent } from "./drop-down-admins-coo/drop-down-admins-coo.component";
+import { BtnAffectReparationComponent } from "./btn-affect-reparation/btn-affect-reparation.component";
+import { MatSliderModule } from "@angular/material/slider";
 
 @NgModule({
   declarations: [
@@ -88,6 +92,10 @@ import { BtnAffectReparationComponent } from './btn-affect-reparation/btn-affect
     NbToggleModule,
     NbDatepickerModule,
     NbIconModule,
+    NbActionsModule,
+    NbProgressBarModule,
+    MatSliderModule,
+    NbTooltipModule,
   ],
 })
 export class TicketModule {}

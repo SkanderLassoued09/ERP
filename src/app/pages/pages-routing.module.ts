@@ -20,6 +20,7 @@ const routes: Routes = [
         ROLE.MANAGER,
         ROLE.MAGASIN,
         ROLE.TECH,
+        ROLE.COORDINATOR,
       ],
     },
     children: [

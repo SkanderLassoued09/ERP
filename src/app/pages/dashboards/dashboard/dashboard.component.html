@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
   <div class="col-lg-12">
     <nb-card>
       <nb-card-header>Statistique des clients</nb-card-header>
@@ -7,4 +7,102 @@
       </nb-card-body>
     </nb-card>
   </div>
+</div> -->
+
+<div class="row">
+  <nb-card class="col-lg-2 card-size custom-border-total">
+    <h6>Total ticket</h6>
+    <h6>{{ totalTicket }}</h6>
+  </nb-card>
+  <nb-card class="col-lg-2 card-size custom-border-pending"
+    ><h6>En attente</h6>
+    <h6>{{ enAttente ? enAttente : "-" }}</h6></nb-card
+  >
+  <nb-card accent="info" class="col-lg-2 card-size"
+    ><h6>En cours</h6>
+    <h6>{{ ticketEnCours ? ticketEnCours : "-" }}</h6></nb-card
+  >
+  <nb-card accent="success" class="col-lg-2 card-size"
+    ><h6>Finie</h6>
+    <h6>{{ ticketFinie ? ticketFinie : "-" }}</h6></nb-card
+  >
+  <nb-card accent="warning" class="col-lg-2 card-size"
+    ><h6>Retour</h6>
+    <h6>{{ ticketRetour ? ticketRetour : "-" }}</h6></nb-card
+  >
+  <nb-card accent="danger" class="col-lg-2 card-size"
+    ><h6>Annuler</h6>
+    <h6>{{ ticketAnnuler ? ticketAnnuler : "-" }}</h6></nb-card
+  >
+</div>
+
+<div class="row container-middle-card">
+  <nb-card class="col-lg-12">
+    <nb-card-header>Client par region</nb-card-header>
+    <nb-card-body>
+      <div echarts [options]="option" class="echart"></div>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card class="col-lg-8 card-gain">
+    <nb-card-header>Statistique des clients</nb-card-header>
+    <nb-card-body>
+      <div echarts [options]="options" class="demo-chart"></div>
+    </nb-card-body>
+  </nb-card>
+  <nb-card class="col-lg-4 fix-card-spacing">
+    <section>
+      <div class="subtitle">$ Gain total</div>
+      <div class="h3">350 000</div>
+
+      <nb-progress-bar status="success" [value]="70"></nb-progress-bar>
+      <div class="caption description">Gain des demandes d'intervention</div>
+    </section>
+
+    <section>
+      <div class="subtitle">Retour</div>
+      <div class="h3">160</div>
+
+      <nb-progress-bar status="warning" [value]="30"></nb-progress-bar>
+      <div class="caption description">Retour des demandes d'intervention</div>
+    </section>
+
+    <section>
+      <div class="subtitle">Perte</div>
+      <div class="h3">35</div>
+
+      <nb-progress-bar status="danger" [value]="20"></nb-progress-bar>
+      <div class="caption description">Les demandes d'intervention annulés</div>
+    </section>
+  </nb-card>
+
+  <nb-card class="col-lg-6 card-tech">
+    <nb-card-header class="header-tech">
+      <div><span>Techniciens</span></div>
+      <div class="container-items">
+        <span class="totalD"></span>
+        <span class="totalR"></span>
+        <span class="avergeD"></span>
+        <span class="averageR"></span>
+      </div>
+    </nb-card-header>
+    <nb-list>
+      <nb-list-item class="list-tech" *ngFor="let tech of techs">
+        <!-- tech - total ticket - total diag - total rep - moy dia - moy rep -->
+
+        <span> {{ tech.techName }} </span>
+        <span class="totalDF"> {{ tech.totalDiag }} </span>
+        <span class="totalRF"> {{ tech.totalRep }} </span>
+        <span class="avergeDF"> {{ tech.moyDiag }} </span>
+        <span class="averageRF"> {{ tech.moyRep }} </span>
+        <!-- <span echarts [options]="issueChart" class="col-lg-2"></span> -->
+      </nb-list-item>
+    </nb-list>
+  </nb-card>
+  <nb-card class="col-lg-6">
+    <nb-card-header>Panne</nb-card-header>
+    <nb-card-body
+      ><div echarts [options]="issueChart" class="demo-chart"></div
+    ></nb-card-body>
+  </nb-card>
 </div>

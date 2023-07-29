@@ -28,6 +28,8 @@ export class ModalFinalComponent implements OnInit {
   devis: string | ArrayBuffer;
   bl: string | ArrayBuffer;
   facturePdf: string | ArrayBuffer;
+  valueSlider: number;
+  role: string;
 
   constructor(
     private apollo: Apollo,
@@ -37,6 +39,8 @@ export class ModalFinalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.role = localStorage.getItem("role");
+    console.log(this.role, "signed in");
     console.log(this.rowData, "row data from final modal");
     this.test();
   }
@@ -48,9 +52,22 @@ export class ModalFinalComponent implements OnInit {
     return { finalPrice: final.toString(), discount };
   }
 
+  discountPyramid() {
+    this.apollo
+      .mutate<any>({
+        mutation: this.ticketService.discount(this.rowData._id),
+      })
+      .subscribe(({ data }) => {
+        if (data) {
+          this.toastr.success("", "discount sent to superior profile");
+        }
+      });
+  }
+
   test() {
     this.managerForm.valueChanges.subscribe((el) => {
       console.log(el.remise, "el");
+      this.valueSlider = el.remise;
       this.finalPrice = this.caculateDiscount(
         this.rowData.finalPrice,
         el.remise
@@ -59,6 +76,12 @@ export class ModalFinalComponent implements OnInit {
     });
   }
 
+  testSlider(d) {
+    console.log(d, "d");
+  }
+  formatLabel(value: number): string {
+    return `${value}%`;
+  }
   onSelectFile(pdf: any) {
     console.log(pdf, "bc");
     const file = pdf.target.files && pdf.target.files[0];

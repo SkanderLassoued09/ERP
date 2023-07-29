@@ -43,19 +43,49 @@ export class CoordinatorAffectationComponent implements OnInit {
         title: "ID",
         type: "string",
       },
-      typeClient: {
-        title: "Type",
+      status: {
+        title: "Status",
         type: "string",
       },
 
       emplacement: {
         title: "emplacement",
         type: "string",
+        valuePrepareFunction: (data) => {
+          if (!data) {
+            return "-";
+          } else {
+            return data;
+          }
+        },
+      },
+      affectedToClient: {
+        title: "Client",
+        type: "string",
+        valuePrepareFunction: (data) => {
+          if (data === "empty") {
+            return "-";
+          } else {
+            return data;
+          }
+        },
+      },
+      affectedToCompany: {
+        title: "Société",
+        type: "string",
+        valuePrepareFunction: (data) => {
+          if (data === "empty") {
+            return "-";
+          } else {
+            return data;
+          }
+        },
       },
       selectTech: {
         title: "Choisir tech",
         type: "custom",
         renderComponent: DropDownAffectationComponent,
+        width: "5rem",
       },
       selectAdmin: {
         title: "dop",
@@ -63,7 +93,7 @@ export class CoordinatorAffectationComponent implements OnInit {
         renderComponent: DropDownAdminsCooComponent,
       },
       affectToReparation: {
-        title: "dop",
+        title: "Réparation",
         type: "custom",
         renderComponent: BtnAffectReparationComponent,
       },
@@ -82,6 +112,7 @@ export class CoordinatorAffectationComponent implements OnInit {
         query: this.ticketservice.getTicketsForCoordinator(),
       })
       .subscribe(({ data }) => {
+        console.log(data, "coordinator");
         this.listOfCoordinator = data.getTicketForCoordinator;
       });
   }

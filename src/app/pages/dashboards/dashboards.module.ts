@@ -2,12 +2,17 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { DashboardsRoutingModule } from "./dashboards-routing.module";
-import { NbCardModule } from "@nebular/theme";
+import {
+  NbCardModule,
+  NbListModule,
+  NbProgressBarModule,
+} from "@nebular/theme";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { NgxEchartsModule } from "ngx-echarts";
 import { NgxEchartsDirective } from "ngx-echarts/lib/ngx-echarts.directive";
 import { ChartModule } from "angular2-chartjs";
 import { ChartsModule } from "../charts/charts.module";
+import { EchartsBarComponent } from "../charts/echarts/echarts-bar.component";
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -17,6 +22,9 @@ import { ChartsModule } from "../charts/charts.module";
     NbCardModule,
     NgxEchartsModule,
     ChartsModule,
+    NgxEchartsModule,
+    NbProgressBarModule,
+    NbListModule,
   ],
 })
 export class DashboardsModule {}

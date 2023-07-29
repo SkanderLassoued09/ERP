@@ -4,10 +4,12 @@
       <span>Début du diagnostic depuis</span>
       <span>{{ minutes }}:{{ seconds }}:{{ milliseconds }}</span>
       <span>
-        <a [href]="'http://192.168.43.174:3000/' + rowData.image"
-          >image</a
-        ></span
-      >
+        <a
+          [href]="'http://192.168.43.174:3000/' + rowData.image"
+          target="_blank"
+        >
+          <nb-icon icon="image-outline"></nb-icon> </a
+      ></span>
     </nb-card-header>
     <nb-card-body>
       <form [formGroup]="updateTicket">
@@ -25,8 +27,8 @@
             <p>{{ rowData.remarqueManager }}</p>
           </div>
           <label class="label" for="">Choisir type de panne</label>
-          <nb-select fullWidth>
-            <nb-option *ngFor="let i of listOfIssue" [value]="i._id">
+          <nb-select fullWidth formControlName="issue">
+            <nb-option *ngFor="let i of listOfIssue" [value]="i.issueName">
               {{ i.issueName }}
             </nb-option>
           </nb-select>
@@ -131,18 +133,6 @@
               placeholder="Textarea"
               formControlName="remarqueTech"
             ></textarea>
-          </div>
-          <div class="col-lg-12">
-            <label class="label" for="">Qui peut voir cette notifcation</label>
-            <nb-select
-              fullWidth
-              placeholder="Choisir un role"
-              formControlName="role"
-            >
-              <nb-option *ngFor="let role of ROLE" [value]="role">
-                {{ role }}
-              </nb-option>
-            </nb-select>
           </div>
         </div>
 

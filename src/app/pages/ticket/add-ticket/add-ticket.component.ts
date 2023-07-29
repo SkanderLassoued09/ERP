@@ -21,7 +21,7 @@ export class AddTicketComponent implements OnInit {
     numero: new FormControl("", []),
     affectedToCompany: new FormControl("empty", []),
     affectedToClient: new FormControl("empty", []),
-    remarque: new FormControl("", []),
+    remarqueManager: new FormControl("", []),
     title: new FormControl("", []),
     image: new FormControl("", []),
   });
@@ -127,28 +127,4 @@ export class AddTicketComponent implements OnInit {
         this.listOfCompany = data.getAllCompany;
       });
   }
-  // selectedFile: File | null = null;
-
-  // onFileSelected(event: any) {
-  //   this.selectedFile = event.target.files[0];
-  // }
-
-  // saveSelectedFile() {
-  //   if (this.selectedFile) {
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       const fileArrayBuffer = reader.result as ArrayBuffer;
-  //       const fileBlob = new Blob([fileArrayBuffer], {
-  //         type: this.selectedFile.type,
-  //       });
-  //       console.log("reader", reader);
-  //       console.log("fileArrayBuffer", fileArrayBuffer);
-  //       console.log(typeof fileArrayBuffer, "type de cette variable");
-  //       console.log("fileBlob===> ", fileBlob);
-  //     };
-  //     const BlobPDF = reader.readAsArrayBuffer(this.selectedFile);
-  //     console.log("BlobPDF===> ", BlobPDF);
-  //   }
-
-  // }
 }

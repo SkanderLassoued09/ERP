@@ -64,10 +64,6 @@ export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
         title: "Ticket consulté",
         link: "/pages/ticket/ticket-list-traiter",
       },
-      {
-        title: "Ticket coordinateur",
-        link: "/pages/ticket/coordinator",
-      },
     ],
   },
 ];
@@ -261,6 +257,54 @@ export const MENU_ITEMS_TECH: NbMenuItem[] = [
       //   title: "Ticket consulté",
       //   link: "/pages/ticket/ticket-list-traiter",
       // },
+    ],
+  },
+];
+
+export const MENU_ITEMS_COORDINATOR: NbMenuItem[] = [
+  {
+    title: "Accueil",
+    icon: "shopping-cart-outline",
+    link: "/pages/dashboardGlobal/dashboardGlobal",
+    home: true,
+  },
+
+  {
+    title: "Features",
+    group: true,
+  },
+
+  {
+    title: "Client",
+    icon: "person-outline",
+    children: [
+      {
+        title: "Liste des clients",
+        link: "/pages/tableClient/table-user",
+      },
+      {
+        title: "List des société",
+        link: "/pages/tableClient/table-company",
+      },
+    ],
+  },
+
+  {
+    title: "Ticket",
+    icon: "file-text-outline",
+    children: [
+      {
+        title: "List tickets",
+        link: "/pages/ticket/ticket-list",
+      },
+      {
+        title: "Ticket consulté",
+        link: "/pages/ticket/ticket-list-traiter",
+      },
+      {
+        title: "Ticket coordinateur",
+        link: "/pages/ticket/coordinator",
+      },
     ],
   },
 ];

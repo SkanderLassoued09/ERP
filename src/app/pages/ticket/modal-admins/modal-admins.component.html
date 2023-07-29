@@ -1,4 +1,4 @@
-<nb-card>
+<!-- <nb-card class="fix-width-card">
   <nb-card-header class="space-between-elements-header">
     <div class="col-lg-12 Rep">
       <div>
@@ -13,8 +13,8 @@
           ><strong>{{ rowData.reparable }}</strong></span
         >
       </div>
-      <div class="col-lg-4 justify-items">
-        <div>
+      <div class="col-lg-6 justify-items">
+        <div class="fix-right-side-header">
           <span> Client:</span
           ><span>
             <strong>
@@ -26,7 +26,7 @@
             ></span
           >
         </div>
-        <div>
+        <div class="fix-right-side-header">
           <span> Créé le:</span>
           <span>
             <strong>{{ rowData.createdAt | date : "dd/MM/yyyy" }}</strong></span
@@ -61,7 +61,7 @@
 
     <div class="row scroll-container">
       <div class="col-lg-6" *ngFor="let c of rowData.composants">
-        <nb-card status="success">
+        <nb-card status="success" size="medium">
           <nb-card-header
             ><strong>{{ c.nameComposant }}</strong></nb-card-header
           >
@@ -77,7 +77,7 @@
               >{{ c.sellPrice | currency : "TND" : "symbol" : "1.2-2" }}
             </strong>
             <br />
-            Date d'arrivage: <strong>{{ c.comingDate }}</strong> <br />
+            Date d'arrivage: <strong>{{ c.comingDate | date }}</strong> <br />
           </nb-card-body>
           <nb-card-footer>
             Quantité: <strong>{{ c.quantity }}</strong>
@@ -97,7 +97,7 @@
   <nb-card-footer>
     <form [formGroup]="AdminTechForm" (ngSubmit)="submitTicket()">
       <div class="col-lg-12 final-price">
-        <h6>Prix total des composants:</h6>
+        <p>Prix total des composants:</p>
         <p>
           {{
             calculateTotalPrixTotale() | currency : "TND" : "symbol" : "1.2-2"
@@ -115,4 +115,66 @@
       </div>
     </form></nb-card-footer
   >
+</nb-card> -->
+<!-- ----------------- -->
+
+<nb-card class="fix" >
+  <nb-card-header><div >
+    <div><span class="label-ticket" >Titre: </span><span>Hello World</span></div>
+  </div></nb-card-header>
+  <nb-card-body>
+ <div class="row header-cus" >
+
+  
+  <div class="col-lg-6">
+  <div>  <span class="label-ticket">Téchnicien: </span>Alex</div>
+   <div> <span class="label-ticket">Temps de diagnostique: </span>00:00:00</div>
+  </div>
+  <div class="col-lg-6">
+      <div> <span class="label-ticket">Remarque de téchnicien: </span>Alex</div>
+    <div><span class="label-ticket">Remarque de l'administration: </span>XXX</div>
+  </div>
+ </div>
+
+    <div class="row">
+     
+      <nb-card accent="info"  class="col-lg-4 crd" *ngFor="let item of arr">
+        <nb-card-header class="header"  >   
+            <div> <span *ngIf="rowData.reparable === 'oui'">
+          <nb-icon icon="done-all-outline" class="green-icon"></nb-icon>
+        </span>
+        <span *ngIf="rowData.reparable !== 'oui'">
+          <nb-icon icon="alert-circle-outline" class="red-icon"></nb-icon>
+        </span></div>
+          
+           <div>{{ rowData.createdAt | date : "dd/MM/yyyy" }}</div>
+          </nb-card-header>
+        <nb-card-body>
+              <div>Status :xx</div>
+            <div>Prix d'achat :xx</div>
+            <div>Prix de vente :xx</div>
+            <div>Date d'arrivage :xx</div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </nb-card-body>
+  <nb-card-footer><form [formGroup]="AdminTechForm" (ngSubmit)="submitTicket()">
+      <div class="col-lg-12 final-price">
+        <p>Prix total des composants:</p>
+        <p>
+          {{
+            calculateTotalPrixTotale() | currency : "TND" : "symbol" : "1.2-2"
+          }}
+        </p>
+      </div>
+
+      <div class="col-lg-12">
+        <input
+          nbInput
+          formControlName="finalPrice"
+          placeholder="Affecter prix final"
+        />
+        <button nbButton status="success" type="submit">Confirmer</button>
+      </div>
+    </form></nb-card-footer>
 </nb-card>

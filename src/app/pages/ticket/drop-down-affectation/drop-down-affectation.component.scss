@@ -4,3 +4,36 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.color-badge-orange {
+  background-color: orange;
+  width: 16%;
+  text-align: center;
+  border-radius: 0.4rem;
+  position: absolute;
+  top: 50;
+  right: 5%;
+  color: white;
+}
+
+.color-badge-green {
+  background-color: green;
+  width: 16%;
+  text-align: center;
+  border-radius: 0.4rem;
+  position: absolute;
+  top: 50;
+  right: 5%;
+  color: white;
+}
+
+.color-badge-red {
+  background-color: red;
+  width: 16%;
+  text-align: center;
+  border-radius: 0.4rem;
+  position: absolute;
+  top: 50;
+  right: 5%;
+  color: white;
+}

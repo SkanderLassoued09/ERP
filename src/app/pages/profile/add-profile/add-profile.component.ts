@@ -20,7 +20,14 @@ export class AddProfileComponent implements OnInit {
     role: new FormControl("", [Validators.required]),
   });
 
-  roles = ["ADMIN_MANAGER", "ADMIN_TECH", "MANAGER", "MAGASIN", "TECH"];
+  roles = [
+    "ADMIN_MANAGER",
+    "ADMIN_TECH",
+    "MANAGER",
+    "MAGASIN",
+    "TECH",
+    "COORDINATOR",
+  ];
 
   constructor(private profileService: ProfileService, private apollo: Apollo) {}
 

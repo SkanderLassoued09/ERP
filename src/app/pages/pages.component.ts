@@ -8,6 +8,7 @@ import { ROLE } from "../roles";
 import {
   MENU_ITEMS_ADMIN_MANAGER,
   MENU_ITEMS_ADMIN_TECH,
+  MENU_ITEMS_COORDINATOR,
   MENU_ITEMS_MAGASIN,
   MENU_ITEMS_MANAGER,
   MENU_ITEMS_TECH,
@@ -81,6 +82,7 @@ export class PagesComponent implements OnInit {
       else if (role == ROLE.MANAGER) this.menu = MENU_ITEMS_MANAGER;
       else if (role == ROLE.MAGASIN) this.menu = MENU_ITEMS_MAGASIN;
       else if (role == ROLE.TECH) this.menu = MENU_ITEMS_TECH;
+      else if (role == ROLE.COORDINATOR) this.menu = MENU_ITEMS_COORDINATOR;
     }
   }
 }

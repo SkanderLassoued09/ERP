@@ -17,4 +17,54 @@ export class DashboardService {
       }
     `;
   }
+
+  getClientByRegion() {
+    return gql`
+      {
+        getClientByRegion {
+          name
+          value
+        }
+      }
+    `;
+  }
+
+  getIssuesChart() {
+    return gql`
+      {
+        getIssuesChart {
+          name
+          value
+        }
+      }
+    `;
+  }
+
+  cardTech() {
+    return gql`
+      {
+        getTicketByProfile {
+          techName
+          totalDiag
+          totalRep
+          moyDiag
+          moyRep
+        }
+      }
+    `;
+  }
+
+  getTotality() {
+    return gql`
+      {
+        totality {
+          totality {
+            name
+            value
+          }
+          count
+        }
+      }
+    `;
+  }
 }

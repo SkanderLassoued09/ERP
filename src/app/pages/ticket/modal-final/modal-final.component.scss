@@ -10,3 +10,15 @@
 input {
   margin-bottom: 1rem;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+nb-progress-bar {
+  flex: 1;
+}
+mat-slider {
+  width: 300px;
+}

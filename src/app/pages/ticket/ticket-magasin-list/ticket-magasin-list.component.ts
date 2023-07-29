@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
-import { NbToastrService } from "@nebular/theme";
+import { NbDialogRef, NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-ticket-magasin-list",
@@ -22,7 +22,8 @@ export class TicketMagasinListComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
-    private toastr: NbToastrService
+    private toastr: NbToastrService,
+    private dialogRef: NbDialogRef<TicketMagasinListComponent>
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +40,7 @@ export class TicketMagasinListComponent implements OnInit {
    */
 
   updateMagasin(nameComposant: string) {
+    let toDisableBtn: boolean;
     console.log(this.magasinField.value, "date check");
     console.log(nameComposant, "name composant");
     this.apollo
@@ -64,6 +66,11 @@ export class TicketMagasinListComponent implements OnInit {
           console.log(updatedComposants, "index");
           this.toastr.success("", "Composant affecté");
           this.magasinField.reset();
+          console.warn(this.composant.length, "length array composant");
+          if (this.composant.length === 0) {
+            toDisableBtn = true;
+            this.dialogRef.close(toDisableBtn);
+          }
         }
       });
   }

@@ -19,8 +19,13 @@ export class BtnAffectReparationComponent implements OnInit {
   ngOnInit(): void {}
 
   openToRepatation() {
-    this.apollo.mutate<any>({
-      mutation: this.ticketService.setTicketReparable(this.rowData._id),
-    });
+    this.apollo
+      .mutate<any>({
+        mutation: this.ticketService.setTicketReparable(this.rowData._id),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "data");
+        this.toastr.success("", "Reparation opened");
+      });
   }
 }
