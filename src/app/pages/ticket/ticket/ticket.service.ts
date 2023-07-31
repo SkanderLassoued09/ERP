@@ -80,6 +80,7 @@ export class TicketService {
           pdr
           techNameSug
           isReparable
+          isReadyForDiag
           typeClient
           createdBy
           assignedTo
@@ -132,6 +133,7 @@ export class TicketService {
           magasinDone
           assignedTo
           toMagasin
+          coordinatorToAdmin
         }
       }
     `;
@@ -427,6 +429,8 @@ export class TicketService {
           remarqueManager
           emplacement
           assignedTo
+          finalPriceToAdminManager
+          finalPriceToAdminTech
           finalPrice
           diagnosticTimeByTech
           priority
@@ -491,6 +495,22 @@ export class TicketService {
     return gql`
       mutation {
         affectTechToTechByCoordinator(_id: "${_id}", sentTo: "${sentTo}")
+      }
+    `;
+  }
+
+  setFinalPriceAvaiblableToAdminManager(_id: string) {
+    return gql`
+      mutation {
+        setFinalPriceAvaiblableToAdminManager(_id: "${_id}")
+      }
+    `;
+  }
+
+  setFinalPriceAvaiblableToAdminTech(_id: string) {
+    return gql`
+      mutation {
+        setFinalPriceAvaiblableToAdminTech(_id: "${_id}")
       }
     `;
   }

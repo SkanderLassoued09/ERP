@@ -19,6 +19,7 @@ export class ModalFinalComponent implements OnInit {
     bl: new FormControl(null),
     facture: new FormControl(null),
     devis: new FormControl(null),
+    updatePrice: new FormControl(null),
   });
   stautsToggle: boolean;
   finalPrice: string;
@@ -30,7 +31,7 @@ export class ModalFinalComponent implements OnInit {
   facturePdf: string | ArrayBuffer;
   valueSlider: number;
   role: string;
-
+  newPrice;
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
@@ -39,6 +40,7 @@ export class ModalFinalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.rowData, "hello");
     this.role = localStorage.getItem("role");
     console.log(this.role, "signed in");
     console.log(this.rowData, "row data from final modal");
@@ -52,15 +54,42 @@ export class ModalFinalComponent implements OnInit {
     return { finalPrice: final.toString(), discount };
   }
 
-  discountPyramid() {
+  affectationFinalPrice() {
     this.apollo
       .mutate<any>({
-        mutation: this.ticketService.discount(this.rowData._id),
+        mutation: this.ticketService.affectationFinalPrice(
+          this.rowData._id,
+          this.managerForm.value.updatePrice
+        ),
       })
       .subscribe(({ data }) => {
-        if (data) {
-          this.toastr.success("", "discount sent to superior profile");
-        }
+        console.log(data, "update prix");
+      });
+  }
+
+  toAdminTech() {
+    //to open slide to admin tech
+    this.apollo
+      .mutate<any>({
+        mutation: this.ticketService.setFinalPriceAvaiblableToAdminTech(
+          this.rowData._id
+        ),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "sent to admin tech");
+      });
+  }
+
+  toAdminManager() {
+    //to open slide to admin manager
+    this.apollo
+      .mutate<any>({
+        mutation: this.ticketService.setFinalPriceAvaiblableToAdminManager(
+          this.rowData._id
+        ),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "sent to admin manager");
       });
   }
 
@@ -77,7 +106,34 @@ export class ModalFinalComponent implements OnInit {
   }
 
   testSlider(d) {
-    console.log(d, "d");
+    console.log("percent", d);
+    // if (d === 5) {
+    //   this.apollo
+    //     .mutate<any>({
+    //       mutation: this.ticketService.setFinalPriceAvaiblableToAdminTech(
+    //         this.rowData._id
+    //       ),
+    //     })
+    //     .subscribe(({ data }) => {
+    //       console.log(data, "sent to admin tech");
+    //     });
+    // }
+
+    // if (d === 10) {
+    //   this.apollo
+    //     .mutate<any>({
+    //       mutation: this.ticketService.setFinalPriceAvaiblableToAdminManager(
+    //         this.rowData._id
+    //       ),
+    //     })
+    //     .subscribe(({ data }) => {
+    //       console.log(data, "sent to admin manager");
+    //     });
+    // }
+
+    // if (d === 15) {
+    //   console.log("to update field");
+    // }
   }
   formatLabel(value: number): string {
     return `${value}%`;

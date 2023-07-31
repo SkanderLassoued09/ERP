@@ -16,7 +16,16 @@ export class BtnOpenTicketModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.toClose = this.rowData.isOpenByTech;
+    this.handlebtnDiag();
+  }
+
+  handlebtnDiag() {
+    // this.toClose = this.rowData.isOpenByTech;
+    if (this.rowData.isReadyForDiag) {
+      this.toClose = false;
+    } else {
+      this.toClose = true;
+    }
   }
 
   openModal() {

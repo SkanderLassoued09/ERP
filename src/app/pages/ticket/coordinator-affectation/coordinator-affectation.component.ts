@@ -84,8 +84,8 @@ export class CoordinatorAffectationComponent implements OnInit {
       selectTech: {
         title: "Choisir tech",
         type: "custom",
+        width: "15rem",
         renderComponent: DropDownAffectationComponent,
-        width: "5rem",
       },
       selectAdmin: {
         title: "dop",

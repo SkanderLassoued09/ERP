@@ -23,6 +23,7 @@ export class DropDownAdminsCooComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log("row", this.rowData);
     this.getAllAdmins();
     this.handleBtn();
   }
@@ -51,52 +52,70 @@ export class DropDownAdminsCooComponent implements OnInit {
         ),
       })
       .subscribe(({ data }) => {
-        console.log(data);
         if (data) {
           this.toastr.success("", "Ticket available for admins");
-          // this.disableBtnAffectToAdmin = true;
-          // this.cdr.detectChanges();
+          this.disableBtnAffectToAdmin = true;
+          this.cdr.detectChanges();
         }
       });
   }
-
-  // toHandleSelect() {
-  //   console.log(this.rowData.assignedTo, "error was here");
-  //   // console.log(this.rowData.assignedTo.length, "in toHandleSelect");
-  //   if (this.rowData.assignedTo) {
-  //     if (this.rowData.assignedTo.length > 0) {
-  //       this.techName = this.rowData.assignedTo;
-  //       this.isDisable = true;
-  //     } else {
-  //       this.isDisable = false;
-  //     }
-  //   }
-  // }
-
+  // etat initial
   handleBtn() {
-    this.shareData.configCoordinator$.subscribe((data) => {
-      if (data === null) {
-        console.log("condion works");
-
-        this.disableBtnAffectToAdmin = this.rowData.magasinDone;
-      } else {
-        if (data._id === this.rowData._id) {
-          console.log(data, "in serv");
-          this.disableBtnAffectToAdmin = data.statusBtn;
-          this.cdr.detectChanges();
-        }
-      }
-    });
-
+    console.log("vvvvvvvvvvvvvvvvvvvvvv", this.rowData.coordinatorToAdmin);
     // if magasin finishs his job open btn
+    // if (this.rowData.coordinatorToAdmin) {
+    //   this.disableBtnAffectToAdmin = true;
+    //   this.cdr.detectChanges();
+    // }
+    // // else {
+    // //   this.disableBtnAffectToAdmin = false;
+    // //   this.cdr.detectChanges();
+    // // }
+    // if (this.rowData.magasinDone) {
+    //   this.disableBtnAffectToAdmin = false;
+    //   this.cdr.detectChanges();
+    // } else {
+    //   this.disableBtnAffectToAdmin = true;
+    //   this.cdr.detectChanges();
+    // }
+
+    // if (
+    //   !this.rowData.coordinatorToAdmin &&
+    //   !this.rowData.magasinDone &&
+    //   this.rowData.assignedTo === null
+    // ) {
+    //   this.disableBtnAffectToAdmin = true;
+    // } else {
+    //   this.disableBtnAffectToAdmin = false;
+    // }
+    if (
+      this.rowData.assignedTo === null &&
+      this.rowData.magasinDone &&
+      this.rowData.coordinatorToAdmin
+    ) {
+      this.disableBtnAffectToAdmin = true;
+    }
+
     if (this.rowData.magasinDone) {
       this.disableBtnAffectToAdmin = false;
     } else {
       this.disableBtnAffectToAdmin = true;
     }
-    // this.disableBtnAffectToAdmin = this.rowData.magasinDone;
 
+    if (this.rowData.coordinatorToAdmin) {
+      this.disableBtnAffectToAdmin = true;
+    }
     this.cdr.detectChanges();
-    console.log(this.disableBtnAffectToAdmin, "final");
+    this.shareData.configCoordinator$.subscribe((data) => {
+      console.log(data, "$subs");
+
+      if (data) {
+        if (data._id === this.rowData._id) {
+          this.disableBtnAffectToAdmin = !data.statusBtn;
+          this.cdr.detectChanges();
+        }
+        console.log(this.disableBtnAffectToAdmin, "HEY");
+      }
+    });
   }
 }

@@ -90,6 +90,9 @@ export class TicketComponent implements OnInit {
           if (cell === "IGNORED") {
             return '<div class="ignored">' + "Annulé" + "</div>";
           }
+          if (cell === "RETURN") {
+            return '<div class="ignored">' + "Retour" + "</div>";
+          }
         },
       },
 

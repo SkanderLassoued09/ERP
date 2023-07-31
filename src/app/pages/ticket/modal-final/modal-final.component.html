@@ -46,6 +46,7 @@
             ></span>
             <span *ngIf="role === 'ADMIN_MANAGER'">
               <mat-slider
+                [disabled]="!rowData.finalPriceToAdminManager"
                 formControlName="remise"
                 min="10.0"
                 max="15.0"
@@ -60,6 +61,7 @@
             ></span>
             <span *ngIf="role === 'ADMIN_TECH'">
               <mat-slider
+                [disabled]="!rowData.finalPriceToAdminTech"
                 formControlName="remise"
                 min="5.0"
                 max="10.0"
@@ -79,7 +81,7 @@
                 status="info"
                 nbTooltip="Envoyer à Walid"
                 nbTooltipPlacement="top"
-                (click)="discountPyramid()"
+                (click)="toAdminTech()"
               >
                 <nb-icon
                   size="tiny"
@@ -93,27 +95,45 @@
                 status="warning"
                 nbTooltip="Envoyer à Naim"
                 nbTooltipPlacement="top"
-                (click)="discountPyramid()"
+                (click)="toAdminManager()"
               >
                 <nb-icon
                   size="tiny"
                   icon="arrow-forward-outline"
                 ></nb-icon></button
             ></span>
-            <span *ngIf="valueSlider === 15 && role === 'ADMIN_MANAGER'"
+
+            <!-- <span *ngIf="valueSlider === 15 && role === 'ADMIN_MANAGER'"
               ><button
                 nbButton
                 size="tiny"
                 status="danger"
                 nbTooltip="Envoyer pour mise à jour le prix"
                 nbTooltipPlacement="top"
-                (click)="discountPyramid()"
+                (click)="toAdminManager()"
               >
                 <nb-icon
                   size="tiny"
                   icon="arrow-forward-outline"
                 ></nb-icon></button
-            ></span>
+            ></span> -->
+            <div
+              class="update-price"
+              *ngIf="valueSlider === 15 && role === 'ADMIN_MANAGER'"
+            >
+              <span>
+                <input
+                  nbInput
+                  type="text"
+                  placeholder="set new price"
+                  fullWidth
+                  formControlName="updatePrice" /></span
+              ><span
+                ><button nbButton (click)="affectationFinalPrice()">
+                  Réaffecte prix
+                </button></span
+              >
+            </div>
           </div>
 
           <input

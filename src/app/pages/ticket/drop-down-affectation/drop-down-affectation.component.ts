@@ -49,18 +49,20 @@ export class DropDownAffectationComponent implements OnInit {
       _id: this.rowData._id,
       statusBtn: false,
     });
+    this.isDisable = true;
   }
 
   toHandleSelect() {
     console.log(this.rowData.assignedTo, "error was here");
-    // console.log(this.rowData.assignedTo.length, "in toHandleSelect");
-    // if (this.rowData.toMagasin) {
-    if (this.rowData.assignedTo.length > 0) {
+
+    if (
+      this.rowData.assignedTo !== null &&
+      this.rowData.assignedTo.length > 0
+    ) {
       this.techName = this.rowData.assignedTo;
       this.isDisable = true;
     } else {
       this.isDisable = this.rowData.toMagasin;
     }
-    // }
   }
 }
