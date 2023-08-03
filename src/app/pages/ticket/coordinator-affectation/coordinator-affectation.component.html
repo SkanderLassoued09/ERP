@@ -4,6 +4,7 @@
     <ng2-smart-table
       [settings]="settings"
       [source]="listOfCoordinator"
+      (custom)="seeData($event)"
     ></ng2-smart-table>
   </nb-card-body>
 </nb-card>

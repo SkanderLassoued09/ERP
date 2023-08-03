@@ -1,4 +1,4 @@
-<div class="modal-container">
+<div id="section-to-print" class="modal-container">
   <nb-card class="custom-card">
     <nb-card-header>Titre: {{ allData.designiation }}</nb-card-header>
 
@@ -91,6 +91,7 @@
       <p>Status:{{ allData.finalStatusTicket }}</p>
       <p>Emplacement:{{ allData.emplacement }}</p>
       <p>Date de creation:{{ allData.createdAt | date : "dd/MM/yyyy" }}</p>
+      <button nbButton status="danger" (click)="print()">PRINT</button>
     </nb-card-footer>
   </nb-card>
 </div>

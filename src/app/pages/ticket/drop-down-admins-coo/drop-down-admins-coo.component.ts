@@ -23,14 +23,11 @@ export class DropDownAdminsCooComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log("row", this.rowData);
     this.getAllAdmins();
     this.handleBtn();
   }
 
-  affectTicketToAdmin(selectedAdmin) {
-    console.log(selectedAdmin, "admin");
-  }
+  affectTicketToAdmin(selectedAdmin) {}
 
   getAllAdmins() {
     this.apollo
@@ -38,13 +35,11 @@ export class DropDownAdminsCooComponent implements OnInit {
         query: this.ticketService.getAllAdmins(),
       })
       .subscribe(({ data }) => {
-        console.log(data, "data");
         this.listOfAdmins = data.getAllAdmins;
       });
   }
 
   valider() {
-    console.log(this.rowData._id, "_id in btn");
     this.apollo
       .mutate<any>({
         mutation: this.ticketService.makeTicketAvailableForAdmin(
@@ -61,33 +56,6 @@ export class DropDownAdminsCooComponent implements OnInit {
   }
   // etat initial
   handleBtn() {
-    console.log("vvvvvvvvvvvvvvvvvvvvvv", this.rowData.coordinatorToAdmin);
-    // if magasin finishs his job open btn
-    // if (this.rowData.coordinatorToAdmin) {
-    //   this.disableBtnAffectToAdmin = true;
-    //   this.cdr.detectChanges();
-    // }
-    // // else {
-    // //   this.disableBtnAffectToAdmin = false;
-    // //   this.cdr.detectChanges();
-    // // }
-    // if (this.rowData.magasinDone) {
-    //   this.disableBtnAffectToAdmin = false;
-    //   this.cdr.detectChanges();
-    // } else {
-    //   this.disableBtnAffectToAdmin = true;
-    //   this.cdr.detectChanges();
-    // }
-
-    // if (
-    //   !this.rowData.coordinatorToAdmin &&
-    //   !this.rowData.magasinDone &&
-    //   this.rowData.assignedTo === null
-    // ) {
-    //   this.disableBtnAffectToAdmin = true;
-    // } else {
-    //   this.disableBtnAffectToAdmin = false;
-    // }
     if (
       this.rowData.assignedTo === null &&
       this.rowData.magasinDone &&
@@ -106,15 +74,15 @@ export class DropDownAdminsCooComponent implements OnInit {
       this.disableBtnAffectToAdmin = true;
     }
     this.cdr.detectChanges();
-    this.shareData.configCoordinator$.subscribe((data) => {
-      console.log(data, "$subs");
 
+    // to check later
+    this.shareData.configCoordinator$.subscribe((data) => {
+      console.log(data, "toAdmins");
       if (data) {
         if (data._id === this.rowData._id) {
-          this.disableBtnAffectToAdmin = !data.statusBtn;
+          this.disableBtnAffectToAdmin = data.statusBtn;
           this.cdr.detectChanges();
         }
-        console.log(this.disableBtnAffectToAdmin, "HEY");
       }
     });
   }

@@ -16,7 +16,9 @@ export class BtnFinalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initBtn();
+    console.log(this.rowData, "this is row data");
+    // this.initBtn();
+    this.handleBtn();
   }
 
   initBtn() {
@@ -36,5 +38,13 @@ export class BtnFinalComponent implements OnInit {
       this.isModalColsedFinished = res;
       this.cdRef.detectChanges();
     });
+  }
+
+  handleBtn() {
+    if (this.rowData.finalPrice && this.rowData.finalPrice !== null) {
+      this.isModalColsedFinished = true;
+    } else {
+      this.isModalColsedFinished = false;
+    }
   }
 }

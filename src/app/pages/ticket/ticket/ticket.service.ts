@@ -115,10 +115,8 @@ export class TicketService {
   }
 
   getTicketsForCoordinator() {
-    return gql`
-      {
-        getTicketForCoordinator {
-          _id
+    /**
+     *   _id
           title
           designiation
           emplacement
@@ -131,9 +129,62 @@ export class TicketService {
           affectedToCompany
           status
           magasinDone
-          assignedTo
+          
           toMagasin
           coordinatorToAdmin
+     */
+
+    return gql`
+      {
+        getTicketForCoordinator {
+          _id
+          title
+          designiation
+          emplacement
+          numero
+          remarqueTech
+          reparable
+          pdr
+
+          affectedToClient
+          affectedToCompany
+          status
+          magasinDone
+
+          toMagasin
+          coordinatorToAdmin
+          finalPrice
+          techNameSug
+          typeClient
+          createdBy
+          createdAt
+          updatedAt
+          status
+          finalStatusTicket
+          reparationTimeByTech
+          remarqueManager
+          emplacement
+          assignedTo
+          finalPriceToAdminManager
+          finalPriceToAdminTech
+          finalPrice
+          diagnosticTimeByTech
+          priority
+          Devis
+          IsFinishedAdmins
+          facture
+          bc
+          bl
+          titre
+          pdfComposant
+          composants {
+            nameComposant
+            quantity
+            purchasePrice
+            sellPrice
+            statusComposant
+            comingDate
+          }
         }
       }
     `;

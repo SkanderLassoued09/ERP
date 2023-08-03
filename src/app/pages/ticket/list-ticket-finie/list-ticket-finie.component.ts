@@ -161,7 +161,11 @@ export class TicketComponentTraiter implements OnInit {
   }
 
   seeData(seeData) {
-    let modal = this.nbDialog.open(AllInfoComponent);
+    console.log(seeData, "see");
+    let modal = this.nbDialog.open(AllInfoComponent, {
+      closeOnBackdropClick: true,
+      closeOnEsc: true,
+    });
     modal.componentRef.instance.allData = seeData.data;
     console.log("this is where my data come", seeData);
   }

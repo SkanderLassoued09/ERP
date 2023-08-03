@@ -14,6 +14,7 @@ import { BtnOpenModalMagasinComponent } from "../btn-open-modal-magasin/btn-open
 import { ROLE } from "../../../roles";
 import { BtnAdminsComponent } from "../btn-admins/btn-admins.component";
 import { ToggleActivateComponent } from "../toggle-activate/toggle-activate.component";
+import { AllInfoComponent } from "../all-info/all-info.component";
 @Component({
   selector: "ngx-ticket",
   templateUrl: "./ticket.component.html",
@@ -33,6 +34,12 @@ export class TicketComponent implements OnInit {
       add: false,
       edit: false,
       delete: false,
+      custom: [
+        {
+          name: "seeData",
+          title: `<i class="nb-compose" title="Voir toutes les informations"></i>`,
+        },
+      ],
     },
 
     add: {
@@ -228,5 +235,13 @@ export class TicketComponent implements OnInit {
       delete this.settings.columns.affectationPrice;
       delete this.settings.columns.reactivateDiagnostique;
     }
+  }
+  seeData(seeData) {
+    let modal = this.nbDialog.open(AllInfoComponent, {
+      closeOnBackdropClick: true,
+      closeOnEsc: true,
+    });
+    modal.componentRef.instance.allData = seeData.data;
+    console.log("this is where my data come", seeData);
   }
 }

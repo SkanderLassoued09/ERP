@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { NbDialogService } from "@nebular/theme";
 import { TicketMagasinListComponent } from "../ticket-magasin-list/ticket-magasin-list.component";
+import { ShareDataService } from "../../../share-data.service";
 
 @Component({
   selector: "ngx-btn-open-modal-magasin",
@@ -13,7 +14,8 @@ export class BtnOpenModalMagasinComponent implements OnInit {
 
   constructor(
     private ngDialog: NbDialogService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private shareData: ShareDataService
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +29,10 @@ export class BtnOpenModalMagasinComponent implements OnInit {
       console.log(el, "comes from");
       this.disableAffectationBtn = el;
       this.cdRef.detectChanges();
+    });
+    this.shareData.updateDataForCoordinator({
+      _id: this.rowData._id,
+      statusBtn: false,
     });
   }
 

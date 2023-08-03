@@ -23,6 +23,9 @@ export class AllInfoComponent implements OnInit {
     this.totalPrix = totalPrixTotale;
   }
 
+  print() {
+    window.print();
+  }
   // calculateTotalTemps() {
   //   let tempsTotal;
   //   console.log(

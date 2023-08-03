@@ -5,12 +5,21 @@ import { BehaviorSubject } from "rxjs";
   providedIn: "root",
 })
 export class ShareService {
-  private tpeData = new BehaviorSubject<any>([]);
   constructor() {}
+  private tpeData = new BehaviorSubject<any>([]);
 
   currentMessage = this.tpeData.asObservable();
 
   changeMessage(message: any) {
     this.tpeData.next(message);
+  }
+
+  // --------------------------------
+  private selectedValue = new BehaviorSubject<any>(null);
+
+  currentValue = this.selectedValue.asObservable();
+
+  setValue(message: any) {
+    this.selectedValue.next(message);
   }
 }

@@ -4,6 +4,8 @@ import { Apollo } from "apollo-angular";
 import { DropDownAffectationComponent } from "../drop-down-affectation/drop-down-affectation.component";
 import { DropDownAdminsCooComponent } from "../drop-down-admins-coo/drop-down-admins-coo.component";
 import { BtnAffectReparationComponent } from "../btn-affect-reparation/btn-affect-reparation.component";
+import { AllInfoComponent } from "../all-info/all-info.component";
+import { NbDialogService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-coordinator-affectation",
@@ -100,7 +102,11 @@ export class CoordinatorAffectationComponent implements OnInit {
     },
   };
   listOfCoordinator: any;
-  constructor(private apollo: Apollo, private ticketservice: TicketService) {}
+  constructor(
+    private apollo: Apollo,
+    private ticketservice: TicketService,
+    private nbDialog: NbDialogService
+  ) {}
 
   ngOnInit(): void {
     this.listOfTicketsCoordinator();
@@ -115,5 +121,15 @@ export class CoordinatorAffectationComponent implements OnInit {
         console.log(data, "coordinator");
         this.listOfCoordinator = data.getTicketForCoordinator;
       });
+  }
+
+  seeData(seeData) {
+    console.log(seeData, "see test");
+    let modal = this.nbDialog.open(AllInfoComponent, {
+      closeOnBackdropClick: true,
+      closeOnEsc: true,
+    });
+    modal.componentRef.instance.allData = seeData.data;
+    console.log("this is where my data come", seeData);
   }
 }
