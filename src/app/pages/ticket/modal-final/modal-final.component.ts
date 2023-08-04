@@ -105,36 +105,6 @@ export class ModalFinalComponent implements OnInit {
     });
   }
 
-  testSlider(d) {
-    console.log("percent", d);
-    // if (d === 5) {
-    //   this.apollo
-    //     .mutate<any>({
-    //       mutation: this.ticketService.setFinalPriceAvaiblableToAdminTech(
-    //         this.rowData._id
-    //       ),
-    //     })
-    //     .subscribe(({ data }) => {
-    //       console.log(data, "sent to admin tech");
-    //     });
-    // }
-
-    // if (d === 10) {
-    //   this.apollo
-    //     .mutate<any>({
-    //       mutation: this.ticketService.setFinalPriceAvaiblableToAdminManager(
-    //         this.rowData._id
-    //       ),
-    //     })
-    //     .subscribe(({ data }) => {
-    //       console.log(data, "sent to admin manager");
-    //     });
-    // }
-
-    // if (d === 15) {
-    //   console.log("to update field");
-    // }
-  }
   formatLabel(value: number): string {
     return `${value}%`;
   }

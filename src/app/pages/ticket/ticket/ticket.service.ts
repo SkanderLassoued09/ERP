@@ -78,6 +78,7 @@ export class TicketService {
           remarqueTech
           reparable
           pdr
+          isReparationFinishedByTech
           techNameSug
           isReparable
           isReadyForDiag
@@ -85,10 +86,12 @@ export class TicketService {
           createdBy
           assignedTo
           image
+          price
           affectedToCompany
           affectedToClient
           createdAt
           updatedAt
+          coordinatorToAdmin
           status
           magasinDone
           diagnosticTimeByTech
@@ -160,7 +163,7 @@ export class TicketService {
           createdAt
           updatedAt
           status
-          finalStatusTicket
+          isReparable
           reparationTimeByTech
           remarqueManager
           emplacement
@@ -414,6 +417,14 @@ export class TicketService {
     `;
   }
 
+  affectPrice(_id: string, price: string) {
+    return gql`
+      mutation {
+        affectPrice(_id: "${_id}", price: "${price}")
+      }
+    `;
+  }
+
   updateTicketManager(
     _id: string,
     remise: string,
@@ -471,11 +482,12 @@ export class TicketService {
           finalPrice
           techNameSug
           typeClient
+          isFinalPriceAffected
           createdBy
           createdAt
           updatedAt
           status
-          finalStatusTicket
+
           reparationTimeByTech
           remarqueManager
           emplacement

@@ -112,7 +112,7 @@ export class ModalReparationComponent implements OnInit {
         console.log(data, "updated");
       });
     this.updateStatusToFinish();
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
   updateStatusToFinish() {
     this.apollo

@@ -21,3 +21,9 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media print {
+  button {
+    display: none !important;
+  }
+}

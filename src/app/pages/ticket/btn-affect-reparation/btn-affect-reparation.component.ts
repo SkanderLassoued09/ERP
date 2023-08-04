@@ -10,13 +10,17 @@ import { NbToastrService } from "@nebular/theme";
 })
 export class BtnAffectReparationComponent implements OnInit {
   @Input() rowData: any;
+  closeBtn: boolean;
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
     private toastr: NbToastrService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.rowData, "cc");
+    this.handleBtn();
+  }
 
   openToRepatation() {
     this.apollo
@@ -27,5 +31,13 @@ export class BtnAffectReparationComponent implements OnInit {
         console.log(data, "data");
         this.toastr.success("", "Reparation opened");
       });
+  }
+
+  handleBtn() {
+    if (this.rowData.finalPrice === null) {
+      this.closeBtn = true;
+    } else {
+      this.closeBtn = false;
+    }
   }
 }

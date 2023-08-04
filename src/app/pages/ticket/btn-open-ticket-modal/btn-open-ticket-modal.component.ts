@@ -16,12 +16,13 @@ export class BtnOpenTicketModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.rowData, "to fix diagnostique ==> fixed");
     this.handlebtnDiag();
   }
 
   handlebtnDiag() {
     // this.toClose = this.rowData.isOpenByTech;
-    if (this.rowData.isReadyForDiag) {
+    if (this.rowData.isReadyForDiag && this.rowData.isOpenByTech === false) {
       this.toClose = false;
     } else {
       this.toClose = true;

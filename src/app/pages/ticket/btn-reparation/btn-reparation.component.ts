@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { NbDialogService } from "@nebular/theme";
 import { ModalReparationComponent } from "../modal-reparation/modal-reparation.component";
 
@@ -9,14 +9,37 @@ import { ModalReparationComponent } from "../modal-reparation/modal-reparation.c
 })
 export class BtnReparationComponent implements OnInit {
   @Input() rowData;
-  constructor(private dialogService: NbDialogService) {}
+  disableBtn: boolean;
+  constructor(
+    private dialogService: NbDialogService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.rowData, "fix reparation btn");
+    this.handleBtn();
+  }
   openModal() {
     const modal = this.dialogService.open(ModalReparationComponent, {
       closeOnBackdropClick: false,
       closeOnEsc: false,
     });
     modal.componentRef.instance.rowData = this.rowData;
+    modal.onClose.subscribe((el) => {
+      console.log("hello", el);
+      this.disableBtn = el;
+      this.cdr.detectChanges();
+    });
+  }
+
+  handleBtn() {
+    if (
+      this.rowData.isReparable === true &&
+      this.rowData.isReparationFinishedByTech === true
+    ) {
+      this.disableBtn = true;
+    } else {
+      this.disableBtn = false;
+    }
   }
 }

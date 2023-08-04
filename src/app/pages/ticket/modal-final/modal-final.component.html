@@ -40,7 +40,6 @@
                 discrete
                 [displayWith]="formatLabel"
                 thumbLabel="true"
-                (ngModelChange)="testSlider($event)"
               >
                 <input matSliderThumb /> </mat-slider
             ></span>
@@ -55,7 +54,6 @@
                 discrete
                 [displayWith]="formatLabel"
                 thumbLabel="true"
-                (ngModelChange)="testSlider($event)"
               >
                 <input matSliderThumb /> </mat-slider
             ></span>
@@ -70,7 +68,6 @@
                 discrete
                 [displayWith]="formatLabel"
                 thumbLabel="true"
-                (ngModelChange)="testSlider($event)"
               >
                 <input matSliderThumb /> </mat-slider
             ></span>
@@ -103,20 +100,6 @@
                 ></nb-icon></button
             ></span>
 
-            <!-- <span *ngIf="valueSlider === 15 && role === 'ADMIN_MANAGER'"
-              ><button
-                nbButton
-                size="tiny"
-                status="danger"
-                nbTooltip="Envoyer pour mise à jour le prix"
-                nbTooltipPlacement="top"
-                (click)="toAdminManager()"
-              >
-                <nb-icon
-                  size="tiny"
-                  icon="arrow-forward-outline"
-                ></nb-icon></button
-            ></span> -->
             <div
               class="update-price"
               *ngIf="valueSlider === 15 && role === 'ADMIN_MANAGER'"

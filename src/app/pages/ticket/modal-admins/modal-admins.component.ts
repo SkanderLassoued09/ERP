@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Apollo } from "apollo-angular";
 import { TicketService } from "../ticket/ticket.service";
-import { NbToastrService } from "@nebular/theme";
+import { NbDialogRef, NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-modal-admins",
@@ -32,7 +32,8 @@ export class ModalAdminsComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
-    private toastr: NbToastrService
+    private toastr: NbToastrService,
+    private refDialog: NbDialogRef<ModalAdminsComponent>
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +46,20 @@ export class ModalAdminsComponent implements OnInit {
   submitTicket() {
     this.apollo
       .mutate<any>({
+        mutation: this.ticketService.affectPrice(
+          this.rowData._id,
+          this.AdminTechForm.value.finalPrice
+        ),
+      })
+      .subscribe(({ data }) => {
+        if (data) {
+          this.AdminTechForm.reset();
+          this.toastr.success("", "Prix affécté");
+          this.refDialog.close(true);
+        }
+      });
+    this.apollo
+      .mutate<any>({
         mutation: this.ticketService.affectationFinalPrice(
           this.rowData._id,
           this.AdminTechForm.value.finalPrice
@@ -53,7 +68,8 @@ export class ModalAdminsComponent implements OnInit {
       .subscribe(({ data }) => {
         if (data) {
           this.AdminTechForm.reset();
-          this.toastr.success("", "Prix finale affécté");
+          this.toastr.success("", "Prix affécté");
+          this.refDialog.close(true);
         }
       });
   }

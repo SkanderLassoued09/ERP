@@ -1,3 +1,8 @@
-<button nbButton (click)="openToRepatation()" status="warning">
+<button
+  nbButton
+  (click)="openToRepatation()"
+  status="warning"
+  [disabled]="closeBtn"
+>
   To reparation
 </button>
