@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { TicketService } from "../ticket/ticket.service";
 import { NbToastrService } from "@nebular/theme";
@@ -14,11 +14,12 @@ export class BtnAffectReparationComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
-    private toastr: NbToastrService
+    private toastr: NbToastrService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    console.log(this.rowData, "cc");
+    console.log(this.rowData, "fix reparation coordinator");
     this.handleBtn();
   }
 
@@ -28,16 +29,23 @@ export class BtnAffectReparationComponent implements OnInit {
         mutation: this.ticketService.setTicketReparable(this.rowData._id),
       })
       .subscribe(({ data }) => {
-        console.log(data, "data");
-        this.toastr.success("", "Reparation opened");
+        if (data) {
+          console.log(data, "data");
+          this.toastr.success("", "Reparation opened");
+          this.closeBtn = true;
+          this.cdr.detectChanges();
+        }
       });
   }
 
   handleBtn() {
-    if (this.rowData.finalPrice === null) {
-      this.closeBtn = true;
-    } else {
+    if (
+      this.rowData.finalPrice !== null &&
+      this.rowData.isReparable === false
+    ) {
       this.closeBtn = false;
+    } else {
+      this.closeBtn = true;
     }
   }
 }

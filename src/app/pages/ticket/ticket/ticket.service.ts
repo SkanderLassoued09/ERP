@@ -148,7 +148,7 @@ export class TicketService {
           remarqueTech
           reparable
           pdr
-
+          statusFinal
           affectedToClient
           affectedToCompany
           status
@@ -440,7 +440,7 @@ export class TicketService {
           updateTicketManager: {
             _id:"${_id}"
             remise:"${remise}"
-            statusFinal:"${statusFinal}"
+            statusFinal:${statusFinal}
             bc:"${bc}"
             bl:"${bl}"
             facture:"${facture}"

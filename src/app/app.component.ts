@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
     const currentUser = localStorage.getItem("username");
     const roleUser = localStorage.getItem("role");
 
-    this.ngZone.run(() => {
+    this.ngZone.runOutsideAngular(() => {
       this.ticketService
         .getNotifcationForTechFroCoordinator()
         .subscribe((data: any) => {

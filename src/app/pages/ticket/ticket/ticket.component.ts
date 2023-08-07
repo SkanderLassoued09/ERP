@@ -83,13 +83,13 @@ export class TicketComponent implements OnInit {
         valuePrepareFunction: (cell) => {
           console.log(cell);
           if (cell === "PENDING") {
-            return '<div class="pending">' + "Non diagnostiqué " + "</div>";
+            return '<div class="pending">' + "En attente" + "</div>";
           }
           if (cell === "IN_PROGRESS") {
             return '<div class="enCours">' + "En cours" + "</div>";
           }
           if (cell === "FINISHED") {
-            return '<div class="finished">' + "Diagnostiqué" + "</div>";
+            return '<div class="finished">' + "Finie" + "</div>";
           }
           if (cell === "PCR") {
             return '<div class="pcr">' + "PCR" + "</div>";

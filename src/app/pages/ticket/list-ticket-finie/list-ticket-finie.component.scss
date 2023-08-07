@@ -37,6 +37,70 @@
   color: #5dcfe3;
 }
 
+// :host /deep/ .finished {
+//   width: auto;
+//   border-radius: 4px;
+//   background-color: #da0a0a;
+//   padding: 0.3rem;
+//   margin: auto;
+//   text-align: center;
+//   color: #ffffff;
+//   font-weight: 600;
+// }
+
+// :host /deep/ .pending {
+//   width: auto;
+//   border-radius: 4px;
+//   background-color: #d69900;
+//   padding: 0.3rem;
+//   margin: auto;
+//   text-align: center;
+//   color: #ffffff;
+//   font-weight: 600;
+// }
+// :host /deep/ .enCours {
+//   width: auto;
+//   border-radius: 4px;
+//   background-color: #0095ff;
+//   padding: 0.3rem;
+//   margin: auto;
+//   text-align: center;
+//   color: #ffffff;
+//   font-weight: 600;
+// }
+
+// :host /deep/ .pcr {
+//   width: auto;
+//   border-radius: 4px;
+//   background-color: #eaff00;
+//   padding: 0.3rem;
+//   margin: auto;
+//   text-align: center;
+//   color: #ffffff;
+//   font-weight: 600;
+// }
+
+// :host /deep/ .ignored {
+//   width: auto;
+//   border-radius: 4px;
+//   background-color: #000000;
+//   padding: 0.3rem;
+//   margin: auto;
+//   text-align: center;
+//   color: #ffffff;
+//   font-weight: 600;
+// }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.justify-btn {
+  display: flex;
+  gap: 1rem;
+}
+
 :host /deep/ .finished {
   width: auto;
   border-radius: 4px;
@@ -89,14 +153,4 @@
   text-align: center;
   color: #ffffff;
   font-weight: 600;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.justify-btn {
-  display: flex;
-  gap: 1rem;
 }

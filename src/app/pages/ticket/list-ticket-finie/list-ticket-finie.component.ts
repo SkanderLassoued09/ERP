@@ -67,39 +67,46 @@ export class TicketComponentTraiter implements OnInit {
         title: "reparable",
         type: "string",
       },
-      finalStatusTicket: {
+      status: {
         title: "Status",
-        type: "string",
-        valuePrepareFunction: (val) => {
-          if (val === "IGNORED") {
-            return "Annulée";
+        type: "html",
+        valuePrepareFunction: (cell) => {
+          console.log(cell);
+          if (cell === "PENDING") {
+            return '<div class="pending">' + "En attente" + "</div>";
           }
-          if (val === "FINISHED") {
-            return "Terminée";
+          if (cell === "IN_PROGRESS") {
+            return '<div class="enCours">' + "En cours" + "</div>";
           }
-          if (val === "IN_PROGRESS") {
-            return "En cours";
+          if (cell === "FINISHED") {
+            return '<div class="finished">' + "Finie" + "</div>";
           }
-          if (val === "RETURN") {
-            return "Retour";
+          if (cell === "PCR") {
+            return '<div class="pcr">' + "PCR" + "</div>";
+          }
+          if (cell === "IGNORED") {
+            return '<div class="ignored">' + "Annulé" + "</div>";
+          }
+          if (cell === "RETURN") {
+            return '<div class="ignored">' + "Retour" + "</div>";
           }
         },
       },
       composants: {
         title: "Date Arrivage",
         type: "string",
-        // valuePrepareFunction: (val) => {
-        //   console.log(val, "val");
-        //   return val.map((el) => {
-        //     var raw = new Date(el.comingDate);
-        //     console.log(el, "el");
-        //     var formatted = this.datePipe.transform(
-        //       raw,
-        //       "dd MMM yyyy hh:mm:ss"
-        //     );
-        //     return formatted;
-        //   });
-        // },
+        valuePrepareFunction: (val) => {
+          console.log(val, "val");
+          return val.map((el) => {
+            var raw = new Date(el.comingDate);
+            console.log(el, "el");
+            var formatted = this.datePipe.transform(
+              raw,
+              "dd MMM yyyy hh:mm:ss"
+            );
+            return formatted;
+          });
+        },
       },
 
       createdAt: {

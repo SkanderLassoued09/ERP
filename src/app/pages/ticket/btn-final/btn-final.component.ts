@@ -40,13 +40,4 @@ export class BtnFinalComponent implements OnInit {
       this.isModalColsedFinished = false;
     }
   }
-
-  // initBtn() {
-  //   // to handle affect prix final finalStatusTicket
-  //   if (this.rowData.finalStatusTicket) {
-  //     this.isModalColsedFinished = true;
-  //   } else {
-  //     this.isModalColsedFinished = false;
-  //   }
-  // }
 }

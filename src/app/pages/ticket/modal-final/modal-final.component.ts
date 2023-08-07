@@ -59,7 +59,7 @@ export class ModalFinalComponent implements OnInit {
       .mutate<any>({
         mutation: this.ticketService.affectationFinalPrice(
           this.rowData._id,
-          this.managerForm.value.updatePrice
+          this.finalPrice
         ),
       })
       .subscribe(({ data }) => {
@@ -178,10 +178,11 @@ export class ModalFinalComponent implements OnInit {
   }
 
   submitManager() {
-    console.log(this.pdfStr, "pdf str");
-    console.log(this.facturePdf, "facture str");
-    console.log(this.devis, "devise str");
-    console.log(this.bl, "bl str");
+    // console.log(this.pdfStr, "pdf str");
+    // console.log(this.facturePdf, "facture str");
+    // console.log(this.devis, "devise str");
+    // console.log(this.bl, "bl str");
+    // console.log(this.managerForm, "heyyyy");
 
     this.apollo
       .mutate<any>({

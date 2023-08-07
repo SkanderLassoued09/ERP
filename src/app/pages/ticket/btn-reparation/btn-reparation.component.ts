@@ -34,12 +34,12 @@ export class BtnReparationComponent implements OnInit {
 
   handleBtn() {
     if (
-      this.rowData.isReparable === true &&
-      this.rowData.isReparationFinishedByTech === true
+      this.rowData.isReparationFinishedByTech === false &&
+      this.rowData.isReparable === true
     ) {
-      this.disableBtn = true;
-    } else {
       this.disableBtn = false;
+    } else {
+      this.disableBtn = true;
     }
   }
 }

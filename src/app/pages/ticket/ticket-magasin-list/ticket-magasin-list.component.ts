@@ -18,7 +18,7 @@ export class TicketMagasinListComponent implements OnInit {
     sellPrice: new FormControl(null, [Validators.required]),
     datePicker: new FormControl(null, [Validators.required]),
   });
-  optionMagasin = ["Interne", "Internet interne", "Externe"];
+  optionMagasin = ["Interne", "En stock", "Externe"];
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
