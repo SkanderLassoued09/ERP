@@ -6,6 +6,7 @@ import {
   NbCardModule,
   NbListModule,
   NbProgressBarModule,
+  NbTooltipModule,
 } from "@nebular/theme";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { NgxEchartsModule } from "ngx-echarts";
@@ -25,6 +26,7 @@ import { EchartsBarComponent } from "../charts/echarts/echarts-bar.component";
     NgxEchartsModule,
     NbProgressBarModule,
     NbListModule,
+    NbTooltipModule,
   ],
 })
 export class DashboardsModule {}

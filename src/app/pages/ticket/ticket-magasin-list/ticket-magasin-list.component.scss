@@ -18,3 +18,13 @@
 .inputs {
   margin-bottom: 1rem;
 }
+
+.items {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.items a {
+  text-decoration: none;
+  color: #000000;
+}

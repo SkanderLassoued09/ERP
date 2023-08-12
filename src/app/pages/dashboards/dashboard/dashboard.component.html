@@ -52,26 +52,41 @@
   </nb-card>
   <nb-card class="col-lg-4 fix-card-spacing">
     <section>
-      <div class="subtitle">$ Gain total</div>
-      <div class="h3">350 000</div>
+      <div class="subtitle">Gain total</div>
+      <div class="h3">
+        {{ totalPrice | currency : "TND" : "symbol" : "1.2-2" }}
+      </div>
 
-      <nb-progress-bar status="success" [value]="70"></nb-progress-bar>
+      <nb-progress-bar
+        status="success"
+        [value]="totalPrice / 100"
+      ></nb-progress-bar>
       <div class="caption description">Gain des demandes d'intervention</div>
     </section>
 
     <section>
       <div class="subtitle">Retour</div>
-      <div class="h3">160</div>
+      <div class="h3">
+        {{ totalPriceReturn | currency : "TND" : "symbol" : "1.2-2" }}
+      </div>
 
-      <nb-progress-bar status="warning" [value]="30"></nb-progress-bar>
+      <nb-progress-bar
+        status="warning"
+        [value]="totalPriceReturn / 100"
+      ></nb-progress-bar>
       <div class="caption description">Retour des demandes d'intervention</div>
     </section>
 
     <section>
-      <div class="subtitle">Perte</div>
-      <div class="h3">35</div>
+      <div class="subtitle">Total composants</div>
+      <div class="h3">
+        {{ totalcomposants | currency : "TND" : "symbol" : "1.2-2" }}
+      </div>
 
-      <nb-progress-bar status="danger" [value]="20"></nb-progress-bar>
+      <nb-progress-bar
+        status="danger"
+        [value]="totalcomposants / 100"
+      ></nb-progress-bar>
       <div class="caption description">Les demandes d'intervention annulés</div>
     </section>
   </nb-card>
@@ -79,22 +94,24 @@
   <nb-card class="col-lg-6 card-tech">
     <nb-card-header class="header-tech">
       <div><span>Techniciens</span></div>
-      <div class="container-items">
-        <span class="totalD"></span>
-        <span class="totalR"></span>
-        <span class="avergeD"></span>
-        <span class="averageR"></span>
-      </div>
     </nb-card-header>
     <nb-list>
       <nb-list-item class="list-tech" *ngFor="let tech of techs">
         <!-- tech - total ticket - total diag - total rep - moy dia - moy rep -->
 
         <span> {{ tech.techName }} </span>
-        <span class="totalDF"> {{ tech.totalDiag }} </span>
-        <span class="totalRF"> {{ tech.totalRep }} </span>
-        <span class="avergeDF"> {{ tech.moyDiag }} </span>
-        <span class="averageRF"> {{ tech.moyRep }} </span>
+        <span class="totalDF" nbTooltip="Temps total diagnostique">
+          {{ tech.totalDiag }}
+        </span>
+        <span class="totalRF" nbTooltip="Temps total Réparation">
+          {{ tech.totalRep }}
+        </span>
+        <span class="avergeDF" nbTooltip="Temps moyen diagnostique">
+          {{ tech.moyDiag }}
+        </span>
+        <span class="averageRF" nbTooltip="Temps moyen Réparation">
+          {{ tech.moyRep }}
+        </span>
         <!-- <span echarts [options]="issueChart" class="col-lg-2"></span> -->
       </nb-list-item>
     </nb-list>

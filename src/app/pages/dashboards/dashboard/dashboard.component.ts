@@ -96,6 +96,9 @@ export class DashboardComponent implements OnInit {
   enAttente: any;
   ticketRetour: any;
   ticketAnnuler: any;
+  totalPrice: number = 0.0;
+  totalPriceReturn: number = 0.0;
+  totalcomposants: number = 0.0;
 
   constructor(
     private apollo: Apollo,
@@ -110,6 +113,7 @@ export class DashboardComponent implements OnInit {
     this.cardTech();
     this.getAllTech();
     this.getIssuesChart();
+    this.price();
   }
 
   getTotality() {
@@ -123,17 +127,6 @@ export class DashboardComponent implements OnInit {
         [this.totalTicket] = data.totality.flatMap((el) => {
           return el.count;
         });
-
-        // this.totalityCard.map((el) => {
-        //   el.totality.map((item) => {
-        //     console.log(item, "item");
-        //     this.ticketFinie = item.name === "FINISHED" ? item.value : "";
-        //     this.enAttente = item.name === "PENDING" ? item.value : "";
-        //     this.ticketEnCours = item.name === "IN_PROGRESS" ? item.value : "";
-        //     this.ticketRetour = item.name === "RETURN" ? item.value : "";
-        //     this.ticketAnnuler = item.name === "IGNORED" ? item.value : "";
-        //   });
-        // });
 
         this.totalityCard.map((el) => {
           console.log(el.totality, "el");
@@ -323,6 +316,32 @@ export class DashboardComponent implements OnInit {
       .subscribe(({ data }) => {
         console.log(data, "card tech");
         this.techs = data.getTicketByProfile;
+      });
+  }
+
+  price() {
+    this.apollo
+      .query<any>({
+        query: this.dashboardService.prices(),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "prices");
+        data.getTicketForCoordinator.filter((el) => {
+          if (el) {
+            if (el.status === "FINISHED") {
+              this.totalPrice += parseFloat(el.finalPrice);
+              console.log(this.totalPrice, "total in");
+            }
+            if (el.status === "RETURN") {
+              this.totalPriceReturn += parseFloat(el.finalPrice);
+              console.log(this.totalPrice, "total in");
+            }
+            el.composants.map((el) => {
+              this.totalcomposants = el.sellPrice * el.quantity;
+              console.log("total composants === ", this.totalcomposants);
+            });
+          }
+        });
       });
   }
   // to calculate sum

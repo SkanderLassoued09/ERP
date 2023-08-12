@@ -111,10 +111,20 @@ export class TicketService {
             statusComposant
             comingDate
             isAffected
+            pdfComposant
+            package
           }
         }
       }
     `;
+  }
+
+  noPdrNoReparable(_id: string) {
+    return gql`
+    mutation {
+      noReparableNoPDR(_id: "${_id}")
+    }
+  `;
   }
 
   getTicketsForCoordinator() {
@@ -187,6 +197,8 @@ export class TicketService {
             sellPrice
             statusComposant
             comingDate
+            package
+            pdfComposant
           }
         }
       }
@@ -219,7 +231,7 @@ export class TicketService {
   updateTicketByTech(updateTicket) {
     const composantInputs = updateTicket.composant
       .map((el) => {
-        return `{nameComposant: "${el.nameComposant}", quantity: ${el.quantiteComposant} }`;
+        return `{nameComposant: "${el.nameComposant}", quantity: ${el.quantiteComposant}, pdfComposant: "${el.pdfComposant}" ,package: "${el.package}" }`;
       })
       .join(", ");
 

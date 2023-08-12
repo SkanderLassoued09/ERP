@@ -13,11 +13,20 @@
                 class="fix-list justify-inputs"
               >
                 <div class="row fix-items" *ngIf="!c.isAffected">
-                  <p>
-                    Nom de composant:
-                    <strong>{{ c.nameComposant }}</strong> Quantité:
-                    <strong>{{ c.quantity }}</strong>
-                  </p>
+                  <div class="items">
+                    <strong>📦:{{ c.package }}</strong>
+                    <strong>💡:{{ c.nameComposant }}</strong>
+                    <strong>
+                      <a
+                        [href]="'http://192.168.43.174:3000/' + c.pdfComposant"
+                        target="_blank"
+                      >
+                        : 📁Appuyer ici
+                      </a>
+                    </strong>
+                    <strong>#️⃣: {{ c.quantity }}</strong>
+                  </div>
+
                   <input
                     nbInput
                     type="text"

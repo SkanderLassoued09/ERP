@@ -36,7 +36,8 @@ export class ModalTicketComponent implements OnInit {
     pdr: new FormControl("non", [Validators.required]),
     remarqueTech: new FormControl("", [Validators.required]),
     emplacement: new FormControl("", [Validators.required]),
-    role: new FormControl("MAGASIN", [Validators.required]),
+    // pdfComposant: new FormControl("", [Validators.required]),
+    // package: new FormControl("", [Validators.required]),
   });
 
   pdrControl: FormControl;
@@ -61,6 +62,8 @@ export class ModalTicketComponent implements OnInit {
   rowData: any;
   title: any;
   allComposant: any;
+  pdfStr: string | ArrayBuffer;
+  url: string | ArrayBuffer;
 
   constructor(
     private dialogRef: NbDialogRef<ModalTicketComponent>,
@@ -81,6 +84,8 @@ export class ModalTicketComponent implements OnInit {
     this.myForm = new FormGroup({
       nomComposant: new FormControl(null),
       quantite: new FormControl(null),
+      pdfComposant: new FormControl(null),
+      package: new FormControl(null),
     });
   }
   myForm: FormGroup;
@@ -103,6 +108,8 @@ export class ModalTicketComponent implements OnInit {
       _id: "",
       nameComposant: "",
       quantiteComposant: 0,
+      package: "",
+      pdfComposant: "",
     };
 
     /**
@@ -112,9 +119,13 @@ export class ModalTicketComponent implements OnInit {
 
     const nomComposantValue = this.myForm.get("nomComposant").value;
     const quantiteValue = this.myForm.get("quantite").value;
+    const pdfComposant = this.pdfStr;
+    const packageName = this.myForm.get("package").value;
 
     objectComposant["nameComposant"] = nomComposantValue;
     objectComposant["quantiteComposant"] = +quantiteValue;
+    objectComposant["package"] = packageName;
+    objectComposant["pdfComposant"] = pdfComposant;
     this.trees.push(objectComposant);
     let quantity = parseInt(quantiteValue);
     console.log(this.trees, "ajout trees");
@@ -122,6 +133,24 @@ export class ModalTicketComponent implements OnInit {
 
   dateFormat(date: string) {
     return moment(date).format("HH:mm:ss");
+  }
+
+  onSelectFile(pdf: any) {
+    console.log(pdf, "bc");
+    const file = pdf.target.files && pdf.target.files[0];
+    console.log(file, "file");
+    if (file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (event) => {
+        console.log(event, "event onload");
+        this.pdfStr = reader.result;
+        this.url = (<FileReader>event.target).result;
+      };
+    }
+
+    console.log(this.pdfStr, "pdf str");
   }
 
   isOpenCheck() {
@@ -188,7 +217,7 @@ export class ModalTicketComponent implements OnInit {
     ) {
       this.apollo
         .mutate<any>({
-          mutation: this.ticketService.toAdminTech(dataToUpdate._id),
+          mutation: this.ticketService.noPdrNoReparable(dataToUpdate._id),
         })
         .subscribe(({ data }) => {
           console.log(data, "update toMagasin");

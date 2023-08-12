@@ -67,4 +67,34 @@ export class DashboardService {
       }
     `;
   }
+
+  /**
+   * finalPrice
+   * status
+   * 
+ composants {
+            nameComposant
+            quantity
+            purchasePrice
+            sellPrice
+            statusComposant
+            comingDate
+          }
+   */
+
+  prices() {
+    // for dashboard to get prices
+    return gql`
+      {
+        getTicketForCoordinator {
+          finalPrice
+          status
+          composants {
+            quantity
+            sellPrice
+          }
+        }
+      }
+    `;
+  }
 }
