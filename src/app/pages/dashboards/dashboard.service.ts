@@ -97,4 +97,15 @@ export class DashboardService {
       }
     `;
   }
+
+  calendarChart() {
+    return gql`
+      {
+        getClientLastMonth {
+          date
+          value
+        }
+      }
+    `;
+  }
 }

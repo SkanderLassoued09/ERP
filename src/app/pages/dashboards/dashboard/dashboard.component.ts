@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { DashboardService } from "../dashboard.service";
 import { TicketService } from "../../ticket/ticket/ticket.service";
+import * as echarts from "echarts";
 
 @Component({
   selector: "ngx-dashboard",
@@ -68,6 +69,9 @@ export class DashboardComponent implements OnInit {
     series: { data: number[]; type: string; color: string }[];
   };
   techs: any;
+  cellSize = [80, 80];
+  pieRadius = 30;
+
   issueChart: {
     backgroundColor: any;
     color: string[];
@@ -99,6 +103,93 @@ export class DashboardComponent implements OnInit {
   totalPrice: number = 0.0;
   totalPriceReturn: number = 0.0;
   totalcomposants: number = 0.0;
+  optionCal: {
+    tooltip: {};
+    legend: { data: string[]; bottom: number };
+    calendar: {
+      top: string;
+      left: string;
+      orient: string;
+      cellSize: number[];
+      yearLabel: { show: boolean; fontSize: number };
+      dayLabel: { margin: number; firstDay: number; nameMap: string[] };
+      monthLabel: { show: boolean };
+      range: string[];
+    };
+    series: {
+      id: string;
+      type: string;
+      coordinateSystem: string;
+      symbolSize: number;
+      label: {
+        show: boolean;
+        formatter: (params: any) => any;
+        offset: number[];
+        fontSize: number;
+      };
+      data: any;
+    }[];
+  };
+  calendarCharts: {
+    tooltip: {};
+    legend: { data: string[]; bottom: number };
+    calendar: {
+      top: string;
+      left: string;
+      orient: string;
+      cellSize: number[];
+      yearLabel: { show: boolean; fontSize: number };
+      dayLabel: { margin: number; firstDay: number; nameMap: string[] };
+      monthLabel: { show: boolean };
+      range: string[];
+    };
+    series: any[];
+  };
+  optionsss: {
+    tooltip: {};
+    legend: { data: string[]; bottom: number };
+    calendar: {
+      top: string;
+      left: string;
+      orient: string;
+      cellSize: number[];
+      yearLabel: { show: boolean; fontSize: number };
+      dayLabel: { margin: number; firstDay: number; nameMap: string[] };
+      monthLabel: { show: boolean };
+      range: string[];
+    };
+    series: (
+      | {
+          type: string;
+          id: string;
+          center: any;
+          radius: number;
+          coordinateSystem: string;
+          label: { formatter: string; position: string };
+          data: { name: any; value: any }[];
+        }
+      | {
+          id: string;
+          type: string;
+          coordinateSystem: string;
+          symbolSize: number;
+          label: {
+            show: boolean;
+          };
+          data: any[];
+        }
+    )[];
+  };
+  optClient: {
+    xAxis: { type: string; data: string[] };
+    yAxis: { type: string };
+    series: {
+      data: number[];
+      type: string;
+      showBackground: boolean;
+      backgroundStyle: { color: string };
+    }[];
+  };
 
   constructor(
     private apollo: Apollo,
@@ -114,6 +205,7 @@ export class DashboardComponent implements OnInit {
     this.getAllTech();
     this.getIssuesChart();
     this.price();
+    this.calendarChart();
   }
 
   getTotality() {
@@ -344,21 +436,53 @@ export class DashboardComponent implements OnInit {
         });
       });
   }
-  // to calculate sum
-  // sumTimes(times: string[]): string {
-  //   const totalMilliseconds = times.reduce((acc, time) => {
-  //     const [hours, minutes, seconds] = time.split(":").map(Number);
-  //     return acc + hours * 3600000 + minutes * 60000 + seconds * 1000;
-  //   }, 0);
 
-  //   const sumDate = new Date(totalMilliseconds);
-  //   const sumTimeString = `${String(sumDate.getUTCHours()).padStart(
-  //     2,
-  //     "0"
-  //   )}:${String(sumDate.getUTCMinutes()).padStart(2, "0")}:${String(
-  //     sumDate.getUTCSeconds()
-  //   ).padStart(2, "0")}`;
+  calendarChart() {
+    const cellSize = [80, 80];
+    const pieRadius = 30;
 
-  //   return sumTimeString;
-  // }
+    const transformedData = [];
+    this.apollo
+      .query<any>({
+        query: this.dashboardService.calendarChart(),
+      })
+      .subscribe(({ data }) => {
+        console.log(data.getClientLastMonth, "data");
+        this.optClient = {
+          xAxis: {
+            type: "category",
+            data: data.getClientLastMonth.map((el) => {
+              return el.date;
+            }),
+          },
+          yAxis: {
+            type: "value",
+          },
+          series: [
+            {
+              data: data.getClientLastMonth.map((el) => {
+                return el.value;
+              }),
+              type: "bar",
+              showBackground: true,
+              backgroundStyle: {
+                color: "rgba(180, 180, 180, 0.2)",
+              },
+            },
+          ],
+        };
+      });
+  }
+
+  /**
+   *
+   * @param arr contains date as string
+   */
+  arrhandler(arr: string[]) {
+    let arrr = [];
+    arr.map((el) => {
+      arrr.push([el, Math.floor(Math.random() * 10000)]);
+    });
+    return arrr;
+  }
 }

@@ -176,8 +176,20 @@ export class TicketComponent implements OnInit {
       })
       .subscribe(({ data }) => {
         console.log(data, "tickets");
-        this.listOfTicket = new LocalDataSource(data.getTicketByTech);
+        const filterArr = this.removeDuplicateObjects(data.getTicketByTech);
+        this.listOfTicket = new LocalDataSource(filterArr);
       });
+  }
+
+  removeDuplicateObjects(arr: any[]) {
+    const seenIds = new Set<number>();
+    return arr.filter((obj) => {
+      if (seenIds.has(obj._id)) {
+        return false; // Duplicate, filter it out
+      }
+      seenIds.add(obj._id);
+      return true;
+    });
   }
 
   // open modal add issue

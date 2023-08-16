@@ -2,51 +2,58 @@
   <nb-card-header
     ><div>
       <div>
-        <span class="label-ticket">Titre: </span><span>Hello World</span>
+        <span class="label-ticket">Titre: </span
+        ><span>Affectation des prix par les admins</span>
       </div>
     </div></nb-card-header
   >
   <nb-card-body>
     <div class="row header-cus">
       <div class="col-lg-6">
-        <div><span class="label-ticket">Téchnicien: </span>Alex</div>
         <div>
-          <span class="label-ticket">Temps de diagnostique: </span>00:00:00
+          <span class="label-ticket">Téchnicien: </span>{{ rowData.assignedTo }}
+        </div>
+        <div>
+          <span class="label-ticket">Temps de diagnostique: </span
+          >{{ rowData.diagnosticTimeByTech }}
         </div>
       </div>
       <div class="col-lg-6">
         <div>
-          <span class="label-ticket">Remarque de téchnicien: </span>Alex
+          <span class="label-ticket">Remarque du téchnicien: </span
+          >{{ rowData.remarqueTech }}
         </div>
         <div>
-          <span class="label-ticket">Remarque de l'administration: </span>XXX
+          <span class="label-ticket">Remarque de l'administration: </span
+          >{{ rowData.designiation }}
+        </div>
+        <div>
+          <span class="label-ticket">Client: </span>
         </div>
       </div>
     </div>
 
     <div class="row">
-      <nb-card accent="info" class="col-lg-4 crd" *ngFor="let item of arr">
+      <nb-card
+        accent="info"
+        class="col-lg-4 crd"
+        *ngFor="let item of rowData.composants"
+      >
         <nb-card-header class="header">
-          <div>
-            <span *ngIf="rowData.reparable === 'oui'">
-              <nb-icon icon="done-all-outline" class="green-icon"></nb-icon>
-            </span>
-            <span *ngIf="rowData.reparable !== 'oui'">
-              <nb-icon icon="alert-circle-outline" class="red-icon"></nb-icon>
-            </span>
-          </div>
-
-          <div>{{ rowData.createdAt | date : "dd/MM/yyyy" }}</div>
+          <div>composant:</div>
         </nb-card-header>
         <nb-card-body>
-          <div>Status :xx</div>
-          <div>Prix d'achat :xx</div>
-          <div>Prix de vente :xx</div>
-          <div>Date d'arrivage :xx</div>
+          <div>package :{{ item.package }}</div>
+          <div>nameComposant :{{ item.nameComposant }}</div>
+          <div>Prix de vente :{{ item.sellPrice }}</div>
+          <div>quantity :{{ item.quantity }}</div>
+          <div>statusComposant :{{ item.statusComposant }}</div>
+          <div>comingDate :{{ item.comingDate }}</div>
         </nb-card-body>
       </nb-card>
     </div>
   </nb-card-body>
+
   <nb-card-footer
     ><form [formGroup]="AdminTechForm" (ngSubmit)="submitTicket()">
       <div class="col-lg-12 final-price">
