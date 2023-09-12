@@ -2,8 +2,11 @@
   <nb-card-header></nb-card-header>
   <nb-card-body>
     <ng2-smart-table
+      class="order-table"
       [settings]="settings"
       [source]="profileList"
+      (deleteConfirm)="delete($event)"
+      (editConfirm)="edit($event)"
     ></ng2-smart-table>
   </nb-card-body>
 </nb-card>

@@ -41,6 +41,7 @@ export class ProfileService {
     return gql`
       {
         getAllProfiles {
+          _id
           username
           firstName
           lastName
@@ -50,6 +51,28 @@ export class ProfileService {
           createdAt
           updatedAt
         }
+      }
+    `;
+  }
+
+  updateProfile(_id: string, fName: string, lName: string, phone: string) {
+    return gql`
+      mutation {
+        updateProfile(
+          _id: "${_id}"
+          updateProfileInput: {
+            firstName: "${fName}"
+            lastName: "${lName}"
+            phone: "${phone}"
+          }
+        )
+      }
+    `;
+  }
+  deleteProfile(_id: string) {
+    return gql`
+      mutation {
+        deleteProfile(_id: "${_id}")
       }
     `;
   }

@@ -12,10 +12,7 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    username: new FormControl("", [
-      Validators.required,
-      Validators.minLength(6),
-    ]),
+    username: new FormControl("", [Validators.required, Validators.required]),
     password: new FormControl("", [Validators.required]),
   });
 

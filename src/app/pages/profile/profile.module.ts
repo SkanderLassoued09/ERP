@@ -10,6 +10,7 @@ import {
   NbInputModule,
   NbRadioModule,
   NbButtonModule,
+  NbIconModule,
 } from "@nebular/theme";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 
@@ -23,7 +24,7 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
 
     NbCardModule,
     NbInputModule,
-
+    NbIconModule,
     ReactiveFormsModule,
     NbRadioModule,
     NbButtonModule,

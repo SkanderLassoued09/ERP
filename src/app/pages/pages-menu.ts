@@ -24,7 +24,7 @@ export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
         link: "/pages/profile/add-profile",
       },
       {
-        title: "Liste des clients",
+        title: "Liste de STAFF",
         link: "/pages/profile/list-profile",
       },
     ],
@@ -253,7 +253,6 @@ export const MENU_ITEMS_TECH: NbMenuItem[] = [
         title: "List tickets",
         link: "/pages/ticket/ticket-list",
       },
-  
     ],
   },
 ];

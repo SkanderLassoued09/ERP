@@ -30,6 +30,19 @@
   }
 }
 
+:host ::ng-deep {
+  ng2-smart-table .ng2-smart-actions a.ng2-smart-action i.nb-checkmark {
+    position: absolute;
+    top: 25%;
+  }
+}
+:host ::ng-deep {
+  ng2-smart-table .ng2-smart-actions a.ng2-smart-action i.nb-close {
+    position: absolute;
+    top: 25%;
+  }
+}
+
 :host
   /deep/
   ng2-st-tbody-custom

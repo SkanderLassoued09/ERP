@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { LocalDataSource } from "ng2-smart-table";
 import { ProfileService } from "../profile.service";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: "ngx-profile",
@@ -12,12 +13,12 @@ export class ProfileComponent implements OnInit {
   settings = {
     actions: {
       add: false,
-      edit: false,
-      delete: false,
+      edit: true,
+      delete: true,
       custom: [
         {
           name: "passValue",
-          title: `<i class="nb-compose" title="Affecte des TPEs"></i>`,
+          title: `<i class="nb-compose" title="details"></i>`,
         },
       ],
     },
@@ -37,47 +38,68 @@ export class ProfileComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      _id: {
-        title: "ID",
-        type: "string",
-      },
       username: {
-        title: "Société",
+        title: "Nom d'utilisateur",
         type: "string",
+        editable: false,
       },
 
       firstName: {
-        title: "Lastname",
+        title: "Prénom",
         type: "string",
       },
       lastName: {
-        title: "Address",
+        title: "Nom",
         type: "string",
       },
       role: {
-        title: "Phone",
+        title: "Rôle",
         type: "string",
+        editable: false,
       },
       email: {
-        title: "Phone",
+        title: "E-mail",
+        type: "string",
+        editable: false,
+      },
+      phone: {
+        title: "Téléphone",
         type: "string",
       },
 
       createdAt: {
-        title: "Type",
+        title: "Créé le",
         type: "string",
+        valuePrepareFunction: (date) => {
+          var raw = new Date(date);
+
+          var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
+          return formatted;
+        },
+        editable: false,
       },
 
       updatedAt: {
-        title: "Type",
+        title: "Dérniere modification",
         type: "string",
+        valuePrepareFunction: (date) => {
+          var raw = new Date(date);
+
+          var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
+          return formatted;
+        },
+        editable: false,
       },
     },
   };
 
   profileList: LocalDataSource;
 
-  constructor(private profileService: ProfileService, private apollo: Apollo) {}
+  constructor(
+    private profileService: ProfileService,
+    private apollo: Apollo,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.listOfProfile();
@@ -92,6 +114,37 @@ export class ProfileComponent implements OnInit {
         console.log(data, "data");
 
         this.profileList = new LocalDataSource(data.getAllProfiles);
+      });
+  }
+  delete(event) {
+    console.log("hello", event.data._id);
+    this.apollo
+      .mutate<any>({
+        mutation: this.profileService.deleteProfile(event.data._id),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "delete");
+        if (data) {
+          event.confirm.resolve();
+        }
+      });
+  }
+  edit(event) {
+    console.log("hello", event);
+    this.apollo
+      .mutate<any>({
+        mutation: this.profileService.updateProfile(
+          event.newData._id,
+          event.newData.firstName,
+          event.newData.lastName,
+          event.newData.phone
+        ),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "updated");
+        if (data) {
+          event.confirm.resolve(event.newdata);
+        }
       });
   }
 }

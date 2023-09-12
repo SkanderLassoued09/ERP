@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ProfileService } from "../profile.service";
 import { Apollo } from "apollo-angular";
+import { NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-add-profile",
@@ -29,7 +30,11 @@ export class AddProfileComponent implements OnInit {
     "COORDINATOR",
   ];
 
-  constructor(private profileService: ProfileService, private apollo: Apollo) {}
+  constructor(
+    private profileService: ProfileService,
+    private apollo: Apollo,
+    private nbToastr: NbToastrService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -41,6 +46,10 @@ export class AddProfileComponent implements OnInit {
       })
       .subscribe(({ data }) => {
         console.log(data, "profile added");
+        if (data) {
+          this.nbToastr.success("", "Profile added");
+          this.addProfile.reset();
+        }
       });
   }
 }
