@@ -59,12 +59,12 @@ export class TicketComponentTraiter implements OnInit {
       },
 
       emplacement: {
-        title: "emplacement",
+        title: "Emplacement",
         type: "string",
       },
 
       reparable: {
-        title: "reparable",
+        title: "Reparable",
         type: "string",
       },
       status: {
@@ -110,7 +110,7 @@ export class TicketComponentTraiter implements OnInit {
       },
 
       createdAt: {
-        title: "createdAt",
+        title: "Créé le",
         type: "string",
         valuePrepareFunction: (date) => {
           var raw = new Date(date);
@@ -120,7 +120,7 @@ export class TicketComponentTraiter implements OnInit {
         },
       },
       updatedAt: {
-        title: "updatedAt",
+        title: "Dérniere modification",
         type: "string",
         valuePrepareFunction: (date) => {
           var raw = new Date(date);

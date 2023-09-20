@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { TicketService } from "../ticket/ticket.service";
-import { NbToastrService } from "@nebular/theme";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "ngx-toggle-activate",
@@ -10,28 +11,45 @@ import { NbToastrService } from "@nebular/theme";
 })
 export class ToggleActivateComponent implements OnInit {
   @Input() rowData;
+  status: any;
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
-    private toastr: NbToastrService
+    private toastr: NbToastrService,
+    private nbDialog: NbDialogService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.rowData, "ROWWWWWWWWWWW");
+    this.status = this.rowData.isOpenByTech;
+  }
 
   statusToggleActivate(toggle: boolean) {
-    console.log(toggle, "statusToggleActivate");
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.reopenDiag(this.rowData._id),
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: { data: "êtes-vous sûr de reouvrir cette ticket" },
       })
-      .subscribe(({ data }) => {
-        if (data) {
-          this.toastr.success(
-            "",
-            "La fenêtre modale a été ouverte avec succès",
-            { duration: 5 }
-          );
+      .onClose.subscribe((cl) => {
+        if (cl) {
+          console.log(toggle, "statusToggleActivate");
+          this.apollo
+            .mutate<any>({
+              mutation: this.ticketService.reopenDiag(this.rowData._id),
+            })
+            .subscribe(({ data }) => {
+              if (data) {
+                this.toastr.success(
+                  "",
+                  "La fenêtre modale a été ouverte avec succès",
+                  { duration: 5 }
+                );
+              }
+            });
+        } else {
+          this.toastr.danger("", "Annulé");
         }
+
+        this.status = cl;
       });
   }
 }

@@ -3,6 +3,9 @@ import { Apollo } from "apollo-angular";
 import { LocalDataSource } from "ng2-smart-table";
 import { ProfileService } from "../profile.service";
 import { DatePipe } from "@angular/common";
+import { NbTokenService } from "@nebular/auth";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "ngx-profile",
@@ -15,12 +18,12 @@ export class ProfileComponent implements OnInit {
       add: false,
       edit: true,
       delete: true,
-      custom: [
-        {
-          name: "passValue",
-          title: `<i class="nb-compose" title="details"></i>`,
-        },
-      ],
+      // custom: [
+      //   {
+      //     name: "passValue",
+      //     title: `<i class="nb-compose" title="details"></i>`,
+      //   },
+      // ],
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -98,7 +101,9 @@ export class ProfileComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private apollo: Apollo,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private nbToastr: NbToastrService,
+    private nbDialog: NbDialogService
   ) {}
 
   ngOnInit(): void {
@@ -117,34 +122,56 @@ export class ProfileComponent implements OnInit {
       });
   }
   delete(event) {
-    console.log("hello", event.data._id);
-    this.apollo
-      .mutate<any>({
-        mutation: this.profileService.deleteProfile(event.data._id),
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: { data: "Vous-êtes sûr de supprimer ?" },
       })
-      .subscribe(({ data }) => {
-        console.log(data, "delete");
-        if (data) {
-          event.confirm.resolve();
+      .onClose.subscribe((cl) => {
+        if (cl) {
+          console.log("hello", event.data._id);
+          this.apollo
+            .mutate<any>({
+              mutation: this.profileService.deleteProfile(event.data._id),
+            })
+            .subscribe(({ data }) => {
+              console.log(data, "delete");
+              if (data) {
+                this.nbToastr.danger("", "Profil supprimé");
+                event.confirm.resolve();
+              }
+            });
+        } else {
+          this.nbToastr.danger("", "Annulé");
         }
       });
   }
   edit(event) {
-    console.log("hello", event);
-    this.apollo
-      .mutate<any>({
-        mutation: this.profileService.updateProfile(
-          event.newData._id,
-          event.newData.firstName,
-          event.newData.lastName,
-          event.newData.phone
-        ),
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: { data: "êtes-vous sûr de modifier ?" },
       })
-      .subscribe(({ data }) => {
-        console.log(data, "updated");
-        if (data) {
-          event.confirm.resolve(event.newdata);
+      .onClose.subscribe((cl) => {
+        if (cl) {
+          this.apollo
+            .mutate<any>({
+              mutation: this.profileService.updateProfile(
+                event.newData._id,
+                event.newData.firstName,
+                event.newData.lastName,
+                event.newData.phone
+              ),
+            })
+            .subscribe(({ data }) => {
+              console.log(data, "updated");
+              if (data) {
+                this.nbToastr.info("", "Profil mis à jour");
+                event.confirm.resolve(event.newdata);
+              }
+            });
+        } else {
+          this.nbToastr.danger("", "Annulé");
         }
       });
+    console.log("hello", event);
   }
 }

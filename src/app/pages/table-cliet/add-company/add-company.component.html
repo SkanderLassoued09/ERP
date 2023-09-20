@@ -104,7 +104,12 @@
 
       <div class="row">
         <div class="justify-btn">
-          <button status="success" (click)="createCompany()" nbButton>
+          <button
+            status="success"
+            [disabled]="addCompany.invalid"
+            (click)="createCompany()"
+            nbButton
+          >
             Ajouter
           </button>
           <button status="danger" (click)="addCompany.reset()" nbButton>

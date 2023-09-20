@@ -104,7 +104,7 @@ export class TicketComponent implements OnInit {
       },
 
       createdAt: {
-        title: "createdAt",
+        title: "créé le",
         type: "string",
         valuePrepareFunction: (date) => {
           var raw = new Date(date);
@@ -114,7 +114,7 @@ export class TicketComponent implements OnInit {
         },
       },
       updatedAt: {
-        title: "updatedAt",
+        title: "Dérniere modification",
         type: "string",
         valuePrepareFunction: (date) => {
           var raw = new Date(date);

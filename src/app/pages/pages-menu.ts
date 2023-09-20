@@ -20,7 +20,7 @@ export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
     icon: "person-outline",
     children: [
       {
-        title: "Ajouter personel",
+        title: "Ajouter STAFF",
         link: "/pages/profile/add-profile",
       },
       {
@@ -209,10 +209,6 @@ export const MENU_ITEMS_MAGASIN: NbMenuItem[] = [
         title: "List tickets",
         link: "/pages/ticket/ticket-list",
       },
-      {
-        title: "Ticket coordinateur",
-        link: "/pages/ticket/coordinator",
-      },
     ],
   },
 ];
@@ -293,10 +289,10 @@ export const MENU_ITEMS_COORDINATOR: NbMenuItem[] = [
         title: "List tickets",
         link: "/pages/ticket/ticket-list",
       },
-      {
-        title: "Ticket consulté",
-        link: "/pages/ticket/ticket-list-traiter",
-      },
+      // {
+      //   title: "Ticket consulté",
+      //   link: "/pages/ticket/ticket-list-traiter",
+      // },
       {
         title: "Ticket coordinateur",
         link: "/pages/ticket/coordinator",

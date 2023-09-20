@@ -27,10 +27,12 @@ import { GraphQlModule } from "./graphql.modules";
 import { CommonModule } from "@angular/common";
 import { LoginComponent } from "./pages/login/login.component";
 import { URL } from "./URLs";
+import { ShareDataModule } from "./share-data/share-data.module";
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
   imports: [
+    ShareDataModule,
     GraphQlModule,
     FormsModule,
     NbInputModule,

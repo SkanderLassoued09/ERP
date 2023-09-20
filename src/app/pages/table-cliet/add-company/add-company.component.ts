@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Apollo } from "apollo-angular";
 import { TableClientService } from "../table-client.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { NbToastrService } from "@nebular/theme";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "ngx-add-company",
@@ -16,19 +17,19 @@ export class AddCompanyComponent implements OnInit {
     address: new FormControl("", [Validators.required]),
     phone: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required, Validators.email]),
-    region: new FormControl("", [Validators.required, Validators.email]),
-    codePostal: new FormControl("", [Validators.required, Validators.email]),
-    tva: new FormControl("", [Validators.required, Validators.email]),
-    localOrshore: new FormControl("", [Validators.required, Validators.email]),
-    etat: new FormControl("", [Validators.required, Validators.email]),
-    fax: new FormControl("", [Validators.required, Validators.email]),
-    website: new FormControl("", [Validators.required, Validators.email]),
-    conPayment: new FormControl("", [Validators.required, Validators.email]),
-    techContact: new FormControl("", [Validators.required, Validators.email]),
-    codeFiscal: new FormControl("", [Validators.required, Validators.email]),
-    nattestation: new FormControl("", [Validators.required, Validators.email]),
-    swiftBic: new FormControl("", [Validators.required, Validators.email]),
-    ibanRib: new FormControl("", [Validators.required, Validators.email]),
+    region: new FormControl("", [Validators.required]),
+    codePostal: new FormControl("", [Validators.required]),
+    tva: new FormControl("", [Validators.required]),
+    localOrshore: new FormControl("", [Validators.required]),
+    etat: new FormControl("", [Validators.required]),
+    fax: new FormControl("", [Validators.required]),
+    website: new FormControl("", [Validators.required]),
+    conPayment: new FormControl("", [Validators.required]),
+    techContact: new FormControl("", [Validators.required]),
+    codeFiscal: new FormControl("", [Validators.required]),
+    nattestation: new FormControl("", [Validators.required]),
+    swiftBic: new FormControl("", [Validators.required]),
+    ibanRib: new FormControl("", [Validators.required]),
     nRegisterCommerce: new FormControl("", [
       Validators.required,
       Validators.email,
@@ -66,7 +67,8 @@ export class AddCompanyComponent implements OnInit {
     private clientService: TableClientService,
     private route: ActivatedRoute,
     private toastr: NbToastrService,
-    private router: Router
+    private router: Router,
+    private nbDialog: NbDialogService
   ) {}
 
   ngOnInit(): void {
@@ -75,19 +77,29 @@ export class AddCompanyComponent implements OnInit {
   }
 
   createCompany() {
-    console.log(this.addCompany.value, "form data company");
-    this.apollo
-      .mutate<any>({
-        mutation: this.clientService.addClient(
-          this.addCompany.value,
-          this.typeUser
-        ),
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: { data: "êtes-vous sûr de ajouter cette société" },
       })
-      .subscribe(({ data }) => {
-        if (data) {
-          this.addCompany.reset();
-          this.toastr.success("", "Vous avez ajouter nouvelle société");
-          this.router.navigate(["pages/tableClient/table-company"]);
+      .onClose.subscribe((cl) => {
+        if (cl) {
+          console.log(this.addCompany.value, "form data company");
+          this.apollo
+            .mutate<any>({
+              mutation: this.clientService.addClient(
+                this.addCompany.value,
+                this.typeUser
+              ),
+            })
+            .subscribe(({ data }) => {
+              if (data) {
+                this.addCompany.reset();
+                this.toastr.success("", "Vous avez ajouter nouvelle société");
+                this.router.navigate(["pages/tableClient/table-company"]);
+              }
+            });
+        } else {
+          this.toastr.danger("", "Annulé");
         }
       });
   }

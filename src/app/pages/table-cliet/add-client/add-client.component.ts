@@ -3,7 +3,8 @@ import { Apollo } from "apollo-angular";
 import { TableClientService } from "../table-client.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { NbToastrService } from "@nebular/theme";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "ngx-add-client",
@@ -17,8 +18,8 @@ export class AddClientComponent implements OnInit {
     address: new FormControl("", [Validators.required]),
     phone: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required, Validators.email]),
-    region: new FormControl("", [Validators.required, Validators.email]),
-    codePostal: new FormControl("", [Validators.required, Validators.email]),
+    region: new FormControl("", [Validators.required]),
+    codePostal: new FormControl("", [Validators.required]),
   });
   typeUser: any;
 
@@ -54,7 +55,8 @@ export class AddClientComponent implements OnInit {
     private clientService: TableClientService,
     private route: ActivatedRoute,
     private toastr: NbToastrService,
-    private router: Router
+    private router: Router,
+    private nbDialog: NbDialogService
   ) {}
 
   ngOnInit(): void {
@@ -63,19 +65,29 @@ export class AddClientComponent implements OnInit {
   }
 
   createUser() {
-    console.log(this.addUser.value, "data");
-    this.apollo
-      .mutate<any>({
-        mutation: this.clientService.addClient(
-          this.addUser.value,
-          this.typeUser
-        ),
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: { data: "êtes-vous sûr de ajouter ce client" },
       })
-      .subscribe(({ data }) => {
-        if (data) {
-          this.addUser.reset();
-          this.toastr.success("", "Vous avez ajouter nouveau client");
-          this.router.navigate(["pages/tableClient/table-user"]);
+      .onClose.subscribe((cl) => {
+        if (cl) {
+          console.log(this.addUser.value, "data");
+          this.apollo
+            .mutate<any>({
+              mutation: this.clientService.addClient(
+                this.addUser.value,
+                this.typeUser
+              ),
+            })
+            .subscribe(({ data }) => {
+              if (data) {
+                this.addUser.reset();
+                this.toastr.success("", "Vous avez ajouter nouveau client");
+                this.router.navigate(["pages/tableClient/table-user"]);
+              }
+            });
+        } else {
+          this.toastr.warning("", "Annulé");
         }
       });
   }

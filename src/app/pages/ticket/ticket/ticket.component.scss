@@ -4,13 +4,13 @@
   }
 }
 
-:host /deep/ ng2-st-tbody-edit-delete {
+:host ::ng-deep ng2-st-tbody-edit-delete {
   display: flex !important;
   height: 0 !important;
 }
 
 :host
-  /deep/
+  ::ng-deep
   ng2-st-tbody-custom
   a.ng2-smart-action.ng2-smart-action-custom-custom {
   display: flex;
@@ -31,13 +31,13 @@
 }
 
 :host
-  /deep/
+  ::ng-deep
   ng2-st-tbody-custom
   a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
   color: #5dcfe3;
 }
 
-:host /deep/ .finished {
+:host ::ng-deep .finished {
   width: auto;
   border-radius: 4px;
   background-color: #da0a0a;
@@ -48,7 +48,7 @@
   font-weight: 600;
 }
 
-:host /deep/ .pending {
+:host ::ng-deep .pending {
   width: auto;
   border-radius: 4px;
   background-color: #d69900;
@@ -58,7 +58,7 @@
   color: #ffffff;
   font-weight: 600;
 }
-:host /deep/ .enCours {
+:host ::ng-deep .enCours {
   width: auto;
   border-radius: 4px;
   background-color: #0095ff;
@@ -69,7 +69,7 @@
   font-weight: 600;
 }
 
-:host /deep/ .pcr {
+:host ::ng-deep .pcr {
   width: auto;
   border-radius: 4px;
   background-color: #eaff00;
@@ -80,7 +80,7 @@
   font-weight: 600;
 }
 
-:host /deep/ .ignored {
+:host ::ng-deep .ignored {
   width: auto;
   border-radius: 4px;
   background-color: #000000;
