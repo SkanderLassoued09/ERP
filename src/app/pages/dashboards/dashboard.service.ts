@@ -49,6 +49,7 @@ export class DashboardService {
           totalRep
           moyDiag
           moyRep
+          techCost
         }
       }
     `;
@@ -104,6 +105,18 @@ export class DashboardService {
         getClientLastMonth {
           date
           value
+        }
+      }
+    `;
+  }
+
+  filterGain(filter) {
+    return gql`
+      mutation {
+        filterGain(filter: { start: "${filter.start}", end: "${
+      filter.end ? filter.end : null
+    }" }) {
+          createdAt
         }
       }
     `;

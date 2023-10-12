@@ -3,6 +3,7 @@ import { Apollo } from "apollo-angular";
 import { DashboardService } from "../dashboard.service";
 import { TicketService } from "../../ticket/ticket/ticket.service";
 import * as echarts from "echarts";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "ngx-dashboard",
@@ -191,6 +192,11 @@ export class DashboardComponent implements OnInit {
     }[];
   };
 
+  gainFrom = new FormGroup({
+    filterGain: new FormControl(null, [Validators.required]),
+  });
+  flipped: boolean;
+
   constructor(
     private apollo: Apollo,
     private dashboardService: DashboardService,
@@ -206,6 +212,10 @@ export class DashboardComponent implements OnInit {
     this.getIssuesChart();
     this.price();
     this.calendarChart();
+    this.filterGainByDate();
+  }
+  toggleView() {
+    this.flipped = !this.flipped;
   }
 
   getTotality() {
@@ -472,6 +482,32 @@ export class DashboardComponent implements OnInit {
           ],
         };
       });
+  }
+
+  // to filter gains in range of date
+  filterGainByDate() {
+    this.gainFrom.get("filterGain").valueChanges.subscribe((f) => {
+      const startDate = new Date(f.start);
+      const endDate = f.end ? new Date(f.end) : null;
+
+      console.log(startDate);
+      console.log(endDate);
+
+      const filter = {
+        start: startDate.toISOString(),
+        end: endDate !== null ? endDate.toISOString() : null,
+      };
+
+      console.log(filter, "date");
+
+      this.apollo
+        .mutate({
+          mutation: this.dashboardService.filterGain(filter),
+        })
+        .subscribe(({ data }) => {
+          console.log(data, "filter result");
+        });
+    });
   }
 
   /**

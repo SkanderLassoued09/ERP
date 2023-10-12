@@ -4,6 +4,9 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { DashboardsRoutingModule } from "./dashboards-routing.module";
 import {
   NbCardModule,
+  NbDatepickerModule,
+  NbIconModule,
+  NbInputModule,
   NbListModule,
   NbProgressBarModule,
   NbTooltipModule,
@@ -14,6 +17,7 @@ import { NgxEchartsDirective } from "ngx-echarts/lib/ngx-echarts.directive";
 import { ChartModule } from "angular2-chartjs";
 import { ChartsModule } from "../charts/charts.module";
 import { EchartsBarComponent } from "../charts/echarts/echarts-bar.component";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -27,6 +31,10 @@ import { EchartsBarComponent } from "../charts/echarts/echarts-bar.component";
     NbProgressBarModule,
     NbListModule,
     NbTooltipModule,
+    NbInputModule,
+    NbDatepickerModule,
+    ReactiveFormsModule,
+    NbIconModule,
   ],
 })
 export class DashboardsModule {}

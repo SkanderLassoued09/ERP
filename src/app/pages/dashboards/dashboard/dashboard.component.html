@@ -35,94 +35,151 @@
     <h6>{{ ticketAnnuler ? ticketAnnuler : "-" }}</h6></nb-card
   >
 </div>
+<nb-card class="row">
+  <table class="col-lg-12 equal-width-table">
+    <thead>
+      <tr class="header-tech">
+        <th>Techniciens</th>
+        <th nbTooltip="Temps total diagnostique">Total diagnostique</th>
+        <th nbTooltip="Temps total Réparation">Total réparation</th>
+        <th nbTooltip="Temps moyen diagnostique">Moyen diagnostique</th>
+        <th nbTooltip="Temps moyen Réparation">Moyen reparation</th>
+        <th nbTooltip="Prix de heure">Prix de heure</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tech of techs" class="list-tech">
+        <td class="scrollable-cell">{{ tech.techName }}</td>
+        <td nbTooltip="Temps total diagnostique">{{ tech.totalDiag }}</td>
+        <td nbTooltip="Temps total Réparation">{{ tech.totalRep }}</td>
+        <td nbTooltip="Temps moyen diagnostique">{{ tech.moyDiag }}</td>
+        <td nbTooltip="Temps moyen Réparation">{{ tech.moyRep }}</td>
+        <td nbTooltip="Prix de heure">
+          {{ tech.techCost | currency : "TND" : "symbol" : "1.2-2" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</nb-card>
 
-<div class="row container-middle-card">
+<div class="row">
   <nb-card class="col-lg-12">
     <nb-card-header>Client par region</nb-card-header>
     <nb-card-body>
       <div echarts [options]="option" class="echart"></div>
     </nb-card-body>
   </nb-card>
+</div>
 
-  <nb-card class="col-lg-8 card-gain">
+<div class="row">
+  <nb-card class="col-lg-8">
     <nb-card-header>Statistique des clients</nb-card-header>
     <nb-card-body>
       <div echarts [options]="options" class="demo-chart"></div>
     </nb-card-body>
   </nb-card>
-  <nb-card class="col-lg-4 fix-card-spacing">
-    <section>
-      <div class="subtitle">Gain total</div>
-      <div class="h3">
-        {{ totalPrice | currency : "TND" : "symbol" : "1.2-2" }}
-      </div>
 
-      <nb-progress-bar
-        status="success"
-        [value]="totalPrice / 100"
-      ></nb-progress-bar>
-      <div class="caption description">Gain des demandes d'intervention</div>
-    </section>
+  <nb-flip-card [showToggleButton]="false" [flipped]="flipped" class="col-lg-4">
+    <nb-card-front
+      ><nb-card [formGroup]="gainFrom">
+        <nb-card-header>
+          <div class="fix-header-flip">
+            <input
+              nbInput
+              placeholder="Pick Date Range"
+              [nbDatepicker]="formpicker"
+              fullWidth
+              formControlName="filterGain"
+            />
+            <nb-rangepicker #formpicker></nb-rangepicker>
+            <nb-icon
+              class="icon"
+              icon="flip-2-outline"
+              (click)="toggleView()"
+            ></nb-icon>
+          </div>
+        </nb-card-header>
 
-    <section>
-      <div class="subtitle">Retour</div>
-      <div class="h3">
-        {{ totalPriceReturn | currency : "TND" : "symbol" : "1.2-2" }}
-      </div>
+        <section>
+          <div class="subtitle">Gain total</div>
+          <div class="h3">
+            {{ totalPrice | currency : "TND" : "symbol" : "1.2-2" }}
+          </div>
 
-      <nb-progress-bar
-        status="warning"
-        [value]="totalPriceReturn / 100"
-      ></nb-progress-bar>
-      <div class="caption description">Retour des demandes d'intervention</div>
-    </section>
+          <nb-progress-bar
+            status="success"
+            [value]="totalPrice / 100"
+          ></nb-progress-bar>
+          <div class="caption description">
+            Gain des demandes d'intervention
+          </div>
+        </section>
 
-    <section>
-      <div class="subtitle">Total composants</div>
-      <div class="h3">
-        {{ totalcomposants | currency : "TND" : "symbol" : "1.2-2" }}
-      </div>
+        <section>
+          <div class="subtitle">Retour</div>
+          <div class="h3">
+            {{ totalPriceReturn | currency : "TND" : "symbol" : "1.2-2" }}
+          </div>
 
-      <nb-progress-bar
-        status="danger"
-        [value]="totalcomposants / 100"
-      ></nb-progress-bar>
-      <div class="caption description">Les demandes d'intervention annulés</div>
-    </section>
-  </nb-card>
+          <nb-progress-bar
+            status="warning"
+            [value]="totalPriceReturn / 100"
+          ></nb-progress-bar>
+          <div class="caption description">
+            Retour des demandes d'intervention
+          </div>
+        </section>
 
-  <nb-card class="col-lg-6 card-tech">
-    <nb-card-header class="header-tech">
-      <div><span>Techniciens</span></div>
-    </nb-card-header>
-    <nb-list>
-      <nb-list-item class="list-tech" *ngFor="let tech of techs">
-        <!-- tech - total ticket - total diag - total rep - moy dia - moy rep -->
+        <section>
+          <div class="subtitle">Total composants</div>
+          <div class="h3">
+            {{ totalcomposants | currency : "TND" : "symbol" : "1.2-2" }}
+          </div>
 
-        <span> {{ tech.techName }} </span>
-        <span class="totalDF" nbTooltip="Temps total diagnostique">
-          {{ tech.totalDiag }}
-        </span>
-        <span class="totalRF" nbTooltip="Temps total Réparation">
-          {{ tech.totalRep }}
-        </span>
-        <span class="avergeDF" nbTooltip="Temps moyen diagnostique">
-          {{ tech.moyDiag }}
-        </span>
-        <span class="averageRF" nbTooltip="Temps moyen Réparation">
-          {{ tech.moyRep }}
-        </span>
-        <!-- <span echarts [options]="issueChart" class="col-lg-2"></span> -->
-      </nb-list-item>
-    </nb-list>
-  </nb-card>
+          <nb-progress-bar
+            status="danger"
+            [value]="totalcomposants / 100"
+          ></nb-progress-bar>
+          <div class="caption description">
+            Les demandes d'intervention annulés
+          </div>
+        </section>
+      </nb-card></nb-card-front
+    >
+    <nb-card-back>
+      <nb-card>
+        <nb-card-header>
+          <div class="fix-header-flip">
+            <input
+              nbInput
+              placeholder="Pick Date Range"
+              [nbDatepicker]="formpicker"
+              fullWidth
+              formControlName="filterGain"
+            />
+            <nb-rangepicker #formpicker></nb-rangepicker>
+            <nb-icon
+              class="icon"
+              icon="flip-2-outline"
+              (click)="toggleView()"
+            ></nb-icon>
+          </div>
+        </nb-card-header>
+
+        Hello
+      </nb-card>
+    </nb-card-back>
+  </nb-flip-card>
+</div>
+
+<div class="row">
   <nb-card class="col-lg-6">
     <nb-card-header>Panne</nb-card-header>
     <nb-card-body
       ><div echarts [options]="issueChart" class="demo-chart"></div
     ></nb-card-body>
   </nb-card>
-  <nb-card class="col-lg-12">
+  <nb-card class="col-lg-6">
     <nb-card-header>Nombre de client par mois</nb-card-header>
     <nb-card-body
       ><div echarts [options]="optClient" class="demo-chart"></div
