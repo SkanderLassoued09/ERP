@@ -463,10 +463,10 @@ export class TicketService {
     `;
   }
 
-  setTicketReparable(_id) {
+  setTicketReparable(_id: string, techname: string) {
     return gql`
     mutation {
-      setIsReparable(_id: "${_id}")
+      setIsReparable(_id: "${_id}", techname:"${techname}")
     }
   `;
   }

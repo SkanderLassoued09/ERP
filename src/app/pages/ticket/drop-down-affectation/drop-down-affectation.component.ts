@@ -9,10 +9,11 @@ import {
 } from "@angular/core";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
-import { NbToastrService } from "@nebular/theme";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
 import { ShareDataService } from "../../../share-data.service";
 import { ShareService } from "../../../share-data/share.service";
 import { Router } from "@angular/router";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "ngx-drop-down-affectation",
@@ -41,7 +42,8 @@ export class DropDownAffectationComponent implements OnInit {
     private shareData: ShareDataService,
     private cdr: ChangeDetectorRef,
     private sharedService: ShareService,
-    private router: Router
+    private router: Router,
+    private nbDialog: NbDialogService
   ) {}
 
   ngOnInit(): void {
@@ -62,19 +64,29 @@ export class DropDownAffectationComponent implements OnInit {
   }
 
   affectTicketToTech(techSelected) {
-    this.tech = techSelected;
-    let payload = {
-      _id: this.rowData._id,
-      sentTo: techSelected,
-    };
-    this.ticketService.coordinatorSendTicketToTech(payload);
+    if (techSelected) {
+      this.nbDialog
+        .open(ConfirmationModalComponent)
+        .onClose.subscribe((data) => {
+          if (data) {
+            this.tech = techSelected;
+            let payload = {
+              _id: this.rowData._id,
+              sentTo: techSelected,
+            };
+            this.ticketService.coordinatorSendTicketToTech(payload);
 
-    this.isDisable = true;
-    this.router
-      .navigateByUrl("/test", { skipLocationChange: false })
-      .then(() => {
-        this.router.navigate(["pages/ticket/coordinator"]);
-      });
+            this.isDisable = true;
+            this.router
+              .navigateByUrl("/test", { skipLocationChange: false })
+              .then(() => {
+                this.router.navigate(["pages/ticket/coordinator"]);
+              });
+          } else {
+            this.toastr.info("", "Vous avez ignoré le processus");
+          }
+        });
+    }
   }
 
   toHandleSelect() {

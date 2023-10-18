@@ -49,7 +49,8 @@ export class DashboardService {
           totalRep
           moyDiag
           moyRep
-          techCost
+          techCostRep
+          techCostDiag
         }
       }
     `;
