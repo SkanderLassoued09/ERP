@@ -22,8 +22,22 @@
   justify-content: space-between;
 }
 
-@media print {
-  button {
-    display: none !important;
-  }
+// @media print {
+//   button {
+//     display: none !important;
+//   }
+// }
+
+.equal-width-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.equal-width-table th,
+.equal-width-table td {
+  width: calc(100% / 4); /* 100% / 7 columns */
+  text-align: center; /* Optional: Center-align text within cells */
+  padding: 8px; /* Optional: Add padding for better appearance */
+  border: 1px solid #edf1f7;
+  border-radius: 0.25rem;
 }

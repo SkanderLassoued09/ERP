@@ -14,3 +14,22 @@ p {
   display: flex;
   gap: 1rem;
 }
+
+.input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input input {
+  width: 100%;
+}
+.divider {
+  border: 2px solid #ccc;
+  border-radius: 1rem;
+}
+
+.btns {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}

@@ -1,18 +1,52 @@
-<div class="modal-container">
+<div class="modal-container" #content>
   <nb-card class="custom-card">
     <nb-card-header>Titre: {{ allData.designiation }}</nb-card-header>
 
     <nb-card-body>
       <nb-card status="success">
         <nb-card-header>Les Remarques</nb-card-header>
-        <nb-card-body>
+        <!-- <nb-card-body>
           <p>Remarque Admnistration: {{ allData.remarqueManager }}</p>
           <p>Remarque Tech: {{ allData.remarqueTech }}</p>
         </nb-card-body>
         <nb-card-footer class="footer-Style">
           <p>Tech: {{ allData.assignedTo }}</p>
           <p>Admnistrateur: {{ allData.createdBy }}</p>
-        </nb-card-footer>
+        </nb-card-footer> -->
+        <!-- <table>
+          <tr>
+            <th>Admin</th>
+            <th>Tech</th>
+            <th>Remarque Admin</th>
+            <th>Remarque Tech</th>
+          </tr>
+          <tr>
+            <td>Admin Value</td>
+            <td>Tech Value</td>
+            <td>Remarque Admin Value</td>
+            <td>Remarque Tech Value</td>
+          </tr> -->
+        <!-- Add more rows as needed -->
+        <!-- </table> -->
+
+        <table class="col-lg-12 equal-width-table">
+          <thead>
+            <tr class="header-tech">
+              <th>Admin</th>
+              <th>Tech</th>
+              <th>Remarque Admin</th>
+              <th>Remarque Tech</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="list-tech">
+              <td>Admin Value</td>
+              <td>Tech Value</td>
+              <td>Remarque Admin Value</td>
+              <td>Remarque Tech Value</td>
+            </tr>
+          </tbody>
+        </table>
       </nb-card>
 
       <nb-card status="success">

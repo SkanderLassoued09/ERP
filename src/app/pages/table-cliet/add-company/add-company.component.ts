@@ -30,10 +30,25 @@ export class AddCompanyComponent implements OnInit {
     nattestation: new FormControl("", [Validators.required]),
     swiftBic: new FormControl("", [Validators.required]),
     ibanRib: new FormControl("", [Validators.required]),
-    nRegisterCommerce: new FormControl("", [
-      Validators.required,
-      Validators.email,
-    ]),
+    achat: new FormGroup({
+      // Nested FormGroup
+      fullName: new FormControl(""),
+      email: new FormControl(""),
+      phone: new FormControl(""),
+    }),
+    financier: new FormGroup({
+      // Nested FormGroup
+      fullName: new FormControl(""),
+      email: new FormControl(""),
+      phone: new FormControl(""),
+    }),
+    technique: new FormGroup({
+      // Nested FormGroup
+      fullName: new FormControl(""),
+      email: new FormControl(""),
+      phone: new FormControl(""),
+    }),
+    nRegisterCommerce: new FormControl("", [Validators.required]),
   });
   typeUser: string;
   regions = [
@@ -62,6 +77,10 @@ export class AddCompanyComponent implements OnInit {
     "Tunis",
     "Zaghouan",
   ];
+
+  toHideAchat: boolean = false;
+  toHideFinancier: boolean = false;
+  toHideTechnique: boolean = false;
   constructor(
     private apollo: Apollo,
     private clientService: TableClientService,
@@ -77,30 +96,41 @@ export class AddCompanyComponent implements OnInit {
   }
 
   createCompany() {
-    this.nbDialog
-      .open(ConfirmationModalComponent, {
-        context: { data: "êtes-vous sûr de ajouter cette société" },
-      })
-      .onClose.subscribe((cl) => {
-        if (cl) {
-          console.log(this.addCompany.value, "form data company");
-          this.apollo
-            .mutate<any>({
-              mutation: this.clientService.addClient(
-                this.addCompany.value,
-                this.typeUser
-              ),
-            })
-            .subscribe(({ data }) => {
-              if (data) {
-                this.addCompany.reset();
-                this.toastr.success("", "Vous avez ajouter nouvelle société");
-                this.router.navigate(["pages/tableClient/table-company"]);
-              }
-            });
-        } else {
-          this.toastr.danger("", "Annulé");
-        }
-      });
+    console.log(this.addCompany.value, "add");
+    // this.nbDialog
+    //   .open(ConfirmationModalComponent, {
+    //     context: { data: "êtes-vous sûr de ajouter cette société" },
+    //   })
+    //   .onClose.subscribe((cl) => {
+    //     if (cl) {
+    //       console.log(this.addCompany.value, "form data company");
+    //       this.apollo
+    //         .mutate<any>({
+    //           mutation: this.clientService.addClient(
+    //             this.addCompany.value,
+    //             this.typeUser
+    //           ),
+    //         })
+    //         .subscribe(({ data }) => {
+    //           if (data) {
+    //             this.addCompany.reset();
+    //             this.toastr.success("", "Vous avez ajouter nouvelle société");
+    //             this.router.navigate(["pages/tableClient/table-company"]);
+    //           }
+    //         });
+    //     } else {
+    //       this.toastr.danger("", "Annulé");
+    //     }
+    //   });
+  }
+
+  hideShowFormAchat() {
+    this.toHideAchat = !this.toHideAchat;
+  }
+  hideShowFormFinancier() {
+    this.toHideFinancier = !this.toHideFinancier;
+  }
+  hideShowFormTechnique() {
+    this.toHideTechnique = !this.toHideTechnique;
   }
 }

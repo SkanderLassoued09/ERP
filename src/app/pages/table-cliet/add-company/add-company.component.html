@@ -103,6 +103,71 @@
       </div>
 
       <div class="row">
+        <div class="col-lg-12">
+          <div class="achat" *ngIf="toHideAchat" formGroupName="achat">
+            <label for="" class="label"> Service Achat</label>
+            <div class="input">
+              <input formControlName="fullName" nbInput type="text" />
+              <input formControlName="email" nbInput type="text" />
+              <input formControlName="phone" nbInput type="text" />
+            </div>
+          </div>
+
+          <div
+            class="financier"
+            *ngIf="toHideFinancier"
+            formGroupName="financier"
+          >
+            <label for="" class="label">Service Financier</label>
+            <div class="input">
+              <input formControlName="fullName" nbInput type="text" />
+              <input formControlName="email" nbInput type="text" />
+              <input formControlName="phone" nbInput type="text" />
+            </div>
+          </div>
+
+          <div
+            class="technique"
+            *ngIf="toHideTechnique"
+            formGroupName="technique"
+          >
+            <label for="" class="label">Service Technique</label>
+            <div class="input">
+              <input formControlName="fullName" nbInput type="text" />
+              <input formControlName="email" nbInput type="text" />
+              <input formControlName="phone" nbInput type="text" />
+            </div>
+          </div>
+          <div class="btns">
+            <button
+              size="small"
+              (click)="hideShowFormAchat()"
+              [status]="toHideAchat ? 'success' : 'basic'"
+              nbButton
+            >
+              Achat</button
+            ><button
+              size="small"
+              nbButton
+              [status]="toHideFinancier ? 'success' : 'basic'"
+              (click)="hideShowFormFinancier()"
+            >
+              Financier</button
+            ><button
+              size="small"
+              nbButton
+              [status]="toHideTechnique ? 'success' : 'basic'"
+              (click)="hideShowFormTechnique()"
+            >
+              Technicien
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="row">
         <div class="justify-btn">
           <button
             status="success"

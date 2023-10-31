@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  HostListener,
   Input,
   OnChanges,
   OnInit,
@@ -17,6 +18,7 @@ import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
 import * as moment from "moment";
 import { ShareService } from "../../../share-data/share.service";
+import { LocationStrategy } from "@angular/common";
 
 @Component({
   selector: "ngx-modal-ticket",
@@ -71,8 +73,13 @@ export class ModalTicketComponent implements OnInit {
     private apollo: Apollo,
     private share: ShareService,
     private cdr: ChangeDetectorRef,
-    private toastr: NbToastrService
-  ) {}
+    private toastr: NbToastrService,
+    private location: LocationStrategy
+  ) {
+    location.onPopState(() => {
+      history.pushState(null, null, "/pages/ticket/ticket-list");
+    });
+  }
 
   ngOnInit(): void {
     this.title = this.rowData.title;
@@ -100,6 +107,23 @@ export class ModalTicketComponent implements OnInit {
   updateReparableValue(data) {
     this.isReparable = data;
     this.cdr.detectChanges();
+  }
+
+  @HostListener("window:beforeunload", ["$event"])
+  beforeUnloadHandler(event) {
+    console.log("beforeunload", event);
+    event.returnValue = true;
+    // ...
+  }
+
+  @HostListener("window:unload", ["$event"])
+  unloadHandler(event) {
+    console.log("unload", event);
+    event.returnValue = true;
+    event.currentTarget.canGoForward = false;
+    event.currentTarget.canGoBack = false;
+
+    // ...
   }
 
   ajouterComposant() {
