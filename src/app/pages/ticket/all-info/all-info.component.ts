@@ -1,6 +1,16 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { ActivatedRoute } from "@angular/router";
+import { TicketService } from "../ticket/ticket.service";
+import { Apollo } from "apollo-angular";
+import { NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-all-info",
@@ -8,62 +18,94 @@ import html2canvas from "html2canvas";
   styleUrls: ["./all-info.component.scss"],
 })
 export class AllInfoComponent implements OnInit {
-  @ViewChild("content") content: ElementRef;
+  @ViewChild("printPDF", { read: ElementRef }) printPDF: ElementRef;
   allData;
-  totalPrix: number;
-  constructor() {}
+  ticketId: string;
+  ticket: any;
+  // totalPrix: number;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private ticketService: TicketService,
+    private apollo: Apollo,
+    private toastr: NbToastrService
+  ) {}
 
   ngOnInit(): void {
-    console.log("all data", this.allData);
-    this.calculateTotalPrixTotale();
+    // console.log("all data", this.allData);
+    // this.calculateTotalPrixTotale();
+
+    this.ticketId = this.activatedRoute.snapshot.paramMap.get("idTicket");
+
+    console.log(this.ticketId, "id");
+
+    this.getTicketById();
+    this.toastr.info(
+      "Pour télécharger cette page en pdf appuyer sur la lettre [p]",
+      "Telecharger PDF",
+      { duration: 0 }
+    );
   }
 
-  calculateTotalPrixTotale() {
-    let totalPrixTotale = 0;
-    for (let c of this.allData.composants) {
-      totalPrixTotale += c.quantity * c.sellPrice;
-    }
-    this.totalPrix = totalPrixTotale;
+  getTicketById() {
+    this.apollo
+      .mutate<any>({
+        mutation: this.ticketService.getTicketById(this.ticketId),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "data");
+        if (data) {
+          this.ticket = data.getTicketById;
+        }
+      });
+  }
+  // calculateTotalPrixTotale() {
+  //   let totalPrixTotale = 0;
+  //   for (let c of this.allData.composants) {
+  //     totalPrixTotale += c.quantity * c.sellPrice;
+  //   }
+  //   this.totalPrix = totalPrixTotale;
+  // }
+
+  @HostListener("document:keydown.p", ["$event"]) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    this.print();
   }
 
   print() {
-    const pdf = new jsPDF();
-
-    // Get the native element of the content
-    const content = this.content.nativeElement;
-
-    html2canvas(content).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-
-      // Calculate PDF page height and width based on the content's dimensions
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-      // Add the captured image to the PDF
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-
-      // Save or display the PDF
-      pdf.save("page.pdf");
+    const el = this.printPDF.nativeElement;
+    console.log(el, "el");
+    const doc = new jsPDF("p", "pt");
+    doc.setProperties({ title: "Ticket" });
+    doc.html(el, {
+      html2canvas: {
+        scale: 0.5,
+        x: 7,
+      },
+      callback: (pdf) => {
+        pdf.output("dataurlnewwindow");
+        pdf.save("ticket");
+      },
     });
   }
+
+  // calculateTotalTemps() {
+  //   let tempsTotal;
+  //   console.log(
+  //     typeof this.allData.reparationTimeByTech,
+  //     "this.allData.reparationTimeByTech"
+  //   );
+
+  //   let diagTime = moment(this.allData.diagnosticTimeByTech).format("HH:mm:ss");
+  //   let repairTime = moment(this.allData.reparationTimeByTech).format(
+  //     "HH:mm:ss"
+  //   );
+  //   let x = new Date(diagTime);
+  //   console.log("value of x ", x);
+  //   console.log(repairTime, "repairTime");
+  //   console.log(typeof diagTime, "diagTime");
+
+  //   tempsTotal = repairTime + diagTime;
+
+  //   return tempsTotal;
 }
-// calculateTotalTemps() {
-//   let tempsTotal;
-//   console.log(
-//     typeof this.allData.reparationTimeByTech,
-//     "this.allData.reparationTimeByTech"
-//   );
-
-//   let diagTime = moment(this.allData.diagnosticTimeByTech).format("HH:mm:ss");
-//   let repairTime = moment(this.allData.reparationTimeByTech).format(
-//     "HH:mm:ss"
-//   );
-//   let x = new Date(diagTime);
-//   console.log("value of x ", x);
-//   console.log(repairTime, "repairTime");
-//   console.log(typeof diagTime, "diagTime");
-
-//   tempsTotal = repairTime + diagTime;
-
-//   return tempsTotal;
-// }

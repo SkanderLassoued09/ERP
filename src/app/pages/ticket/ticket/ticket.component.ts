@@ -15,6 +15,7 @@ import { ROLE } from "../../../roles";
 import { BtnAdminsComponent } from "../btn-admins/btn-admins.component";
 import { ToggleActivateComponent } from "../toggle-activate/toggle-activate.component";
 import { AllInfoComponent } from "../all-info/all-info.component";
+import { Route, Router } from "@angular/router";
 @Component({
   selector: "ngx-ticket",
   templateUrl: "./ticket.component.html",
@@ -159,7 +160,8 @@ export class TicketComponent implements OnInit {
     private apollo: Apollo,
     private ticketService: TicketService,
     private datePipe: DatePipe,
-    private nbDialog: NbDialogService
+    private nbDialog: NbDialogService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -249,11 +251,7 @@ export class TicketComponent implements OnInit {
     }
   }
   seeData(seeData) {
-    let modal = this.nbDialog.open(AllInfoComponent, {
-      closeOnBackdropClick: true,
-      closeOnEsc: true,
-    });
-    modal.componentRef.instance.allData = seeData.data;
-    console.log("this is where my data come", seeData);
+    const ticketId = seeData.data._id;
+    this.route.navigate(["pages/ticket/details-ticket", ticketId]);
   }
 }

@@ -75,11 +75,7 @@ export class ModalTicketComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private toastr: NbToastrService,
     private location: LocationStrategy
-  ) {
-    location.onPopState(() => {
-      history.pushState(null, null, "/pages/ticket/ticket-list");
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.title = this.rowData.title;
@@ -93,6 +89,7 @@ export class ModalTicketComponent implements OnInit {
       quantite: new FormControl(null),
       pdfComposant: new FormControl(null),
       package: new FormControl(null),
+      linkProvider: new FormControl(null),
     });
   }
   myForm: FormGroup;
@@ -111,17 +108,21 @@ export class ModalTicketComponent implements OnInit {
 
   @HostListener("window:beforeunload", ["$event"])
   beforeUnloadHandler(event) {
+    let modalOpened = true;
     console.log("beforeunload", event);
-    event.returnValue = true;
+    if (modalOpened) {
+      event.returnValue = true;
+    }
     // ...
   }
 
   @HostListener("window:unload", ["$event"])
   unloadHandler(event) {
-    console.log("unload", event);
-    event.returnValue = true;
-    event.currentTarget.canGoForward = false;
-    event.currentTarget.canGoBack = false;
+    let modalOpened = true;
+    console.log("beforeunload", event);
+    if (modalOpened) {
+      event.returnValue = true;
+    }
 
     // ...
   }
@@ -134,6 +135,7 @@ export class ModalTicketComponent implements OnInit {
       quantiteComposant: 0,
       package: "",
       pdfComposant: "",
+      linkProvider: "",
     };
 
     /**
@@ -145,11 +147,13 @@ export class ModalTicketComponent implements OnInit {
     const quantiteValue = this.myForm.get("quantite").value;
     const pdfComposant = this.pdfStr;
     const packageName = this.myForm.get("package").value;
+    const linkProvider = this.myForm.get("linkProvider").value;
 
     objectComposant["nameComposant"] = nomComposantValue;
     objectComposant["quantiteComposant"] = +quantiteValue;
     objectComposant["package"] = packageName;
     objectComposant["pdfComposant"] = pdfComposant;
+    objectComposant["linkProvider"] = linkProvider;
     this.trees.push(objectComposant);
     let quantity = parseInt(quantiteValue);
     console.log(this.trees, "ajout trees");

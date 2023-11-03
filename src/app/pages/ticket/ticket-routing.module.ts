@@ -4,6 +4,7 @@ import { TicketComponent } from "./ticket/ticket.component";
 import { AddTicketComponent } from "./add-ticket/add-ticket.component";
 import { TicketComponentTraiter } from "./list-ticket-finie/list-ticket-finie.component";
 import { CoordinatorAffectationComponent } from "./coordinator-affectation/coordinator-affectation.component";
+import { AllInfoComponent } from "./all-info/all-info.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: "coordinator",
     component: CoordinatorAffectationComponent,
+  },
+  {
+    path: "details-ticket/:idTicket",
+    component: AllInfoComponent,
   },
 ];
 

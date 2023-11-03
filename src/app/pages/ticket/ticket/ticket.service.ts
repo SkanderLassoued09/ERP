@@ -231,7 +231,7 @@ export class TicketService {
   updateTicketByTech(updateTicket) {
     const composantInputs = updateTicket.composant
       .map((el) => {
-        return `{nameComposant: "${el.nameComposant}", quantity: ${el.quantiteComposant}, pdfComposant: "${el.pdfComposant}" ,package: "${el.package}" }`;
+        return `{nameComposant: "${el.nameComposant}", quantity: ${el.quantiteComposant}, pdfComposant: "${el.pdfComposant}" ,package: "${el.package}",linkProvider:"${el.linkProvider}" }`;
       })
       .join(", ");
 
@@ -586,6 +586,56 @@ export class TicketService {
     return gql`
       mutation {
         setFinalPriceAvaiblableToAdminTech(_id: "${_id}")
+      }
+    `;
+  }
+
+  getTicketById(id: string) {
+    return gql`
+      mutation {
+        getTicketById(id: "${id}") {
+          _id
+          title
+          designiation
+          emplacement
+          numero
+          remarqueManager
+          remarqueTech
+          reparable
+          issue
+          pdr
+          techNameSug
+          statusFinal
+          price
+          typeClient
+          isReadyForDiag
+          isReparationFinishedByTech
+          createdBy
+          assignedTo
+          assignedToRep
+          createdAt
+          updatedAt
+          isOpenByTech
+          status
+          coordinatorToAdmin
+          diagnosticTimeByTech
+          reparationTimeByTech
+          priority
+          toMagasin
+          toCoordinator
+          finalPriceToAdminTech
+          finalPriceToAdminManager
+          titre
+          composants {
+            nameComposant
+            quantity
+            sellPrice
+            purchasePrice
+            comingDate
+            package
+          }
+          finalPrice
+        }
       }
     `;
   }

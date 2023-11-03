@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  Input,
+  OnInit,
+} from "@angular/core";
 import { ModalTicketComponent } from "../modal-ticket/modal-ticket.component";
 import { NbDialogService } from "@nebular/theme";
 
@@ -41,5 +47,11 @@ export class BtnOpenTicketModalComponent implements OnInit {
       this.cdRef.detectChanges();
     });
     modal.componentRef.instance.rowData = this.rowData;
+  }
+
+  @HostListener("window:beforeunload", ["$event"])
+  beforeUnloadHandler(event) {
+    event.returnValue =
+      "You have unsaved changes. Are you sure you want to leave?";
   }
 }
