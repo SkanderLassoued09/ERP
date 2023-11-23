@@ -83,97 +83,64 @@
     </nb-card-body>
   </nb-card>
 
-  <nb-flip-card [showToggleButton]="false" [flipped]="flipped" class="col-lg-4">
-    <nb-card-front
-      ><nb-card [formGroup]="gainFrom">
-        <nb-card-header>
-          <div class="fix-header-flip">
-            <input
-              nbInput
-              placeholder="Pick Date Range"
-              [nbDatepicker]="formpicker"
-              fullWidth
-              formControlName="filterGain"
-            />
-            <nb-rangepicker #formpicker></nb-rangepicker>
-            <nb-icon
-              class="icon"
-              icon="flip-2-outline"
-              (click)="toggleView()"
-            ></nb-icon>
-          </div>
-        </nb-card-header>
+  <nb-card [formGroup]="gainFrom" class="col-lg-4">
+    <nb-card-header>
+      <div class="fix-header-flip">
+        <input
+          nbInput
+          placeholder="Pick Date Range"
+          [nbDatepicker]="formpicker"
+          fullWidth
+          formControlName="filterGain"
+        />
+        <nb-rangepicker #formpicker></nb-rangepicker>
+        <nb-icon
+          class="icon"
+          icon="flip-2-outline"
+          (click)="toggleView()"
+        ></nb-icon>
+      </div>
+    </nb-card-header>
 
-        <section>
-          <div class="subtitle">Gain total</div>
-          <div class="h3">
-            {{ totalPrice | currency : "TND" : "symbol" : "1.2-2" }}
-          </div>
+    <section>
+      <div class="subtitle">Gain total</div>
+      <div class="h3">
+        {{ totalPrice | currency : "TND" : "symbol" : "1.2-2" }}
+      </div>
 
-          <nb-progress-bar
-            status="success"
-            [value]="totalPrice / 100"
-          ></nb-progress-bar>
-          <div class="caption description">
-            Gain des demandes d'intervention
-          </div>
-        </section>
+      <nb-progress-bar
+        status="success"
+        [value]="totalPrice / 100"
+      ></nb-progress-bar>
+      <div class="caption description">Gain des demandes d'intervention</div>
+    </section>
 
-        <section>
-          <div class="subtitle">Retour</div>
-          <div class="h3">
-            {{ totalPriceReturn | currency : "TND" : "symbol" : "1.2-2" }}
-          </div>
+    <section>
+      <div class="subtitle">Retour</div>
+      <div class="h3">
+        {{ totalPriceReturn | currency : "TND" : "symbol" : "1.2-2" }}
+      </div>
 
-          <nb-progress-bar
-            status="warning"
-            [value]="totalPriceReturn / 100"
-          ></nb-progress-bar>
-          <div class="caption description">
-            Retour des demandes d'intervention
-          </div>
-        </section>
+      <nb-progress-bar
+        status="warning"
+        [value]="totalPriceReturn / 100"
+      ></nb-progress-bar>
+      <div class="caption description">Retour des demandes d'intervention</div>
+    </section>
 
-        <section>
-          <div class="subtitle">Total composants</div>
-          <div class="h3">
-            {{ totalcomposants | currency : "TND" : "symbol" : "1.2-2" }}
-          </div>
+    <section>
+      <div class="subtitle">Total composants</div>
+      <div class="h3">
+        {{ totalcomposants | currency : "TND" : "symbol" : "1.2-2" }}
+      </div>
 
-          <nb-progress-bar
-            status="danger"
-            [value]="totalcomposants / 100"
-          ></nb-progress-bar>
-          <div class="caption description">
-            Les demandes d'intervention annulés
-          </div>
-        </section>
-      </nb-card></nb-card-front
-    >
-    <nb-card-back>
-      <nb-card>
-        <nb-card-header>
-          <div class="fix-header-flip">
-            <input
-              nbInput
-              placeholder="Pick Date Range"
-              [nbDatepicker]="formpicker"
-              fullWidth
-              formControlName="filterGain"
-            />
-            <nb-rangepicker #formpicker></nb-rangepicker>
-            <nb-icon
-              class="icon"
-              icon="flip-2-outline"
-              (click)="toggleView()"
-            ></nb-icon>
-          </div>
-        </nb-card-header>
-
-        Hello
-      </nb-card>
-    </nb-card-back>
-  </nb-flip-card>
+      <nb-progress-bar
+        status="danger"
+        [value]="totalcomposants / 100"
+      ></nb-progress-bar>
+      <div class="caption description">Les demandes d'intervention annulés</div>
+    </section>
+  </nb-card>
 </div>
 
 <div class="row">

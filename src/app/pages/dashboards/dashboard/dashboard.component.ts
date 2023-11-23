@@ -486,8 +486,9 @@ export class DashboardComponent implements OnInit {
 
   // to filter gains in range of date
   filterGainByDate() {
+    console.log("HELOOOOOOOOOOOOO WORLD");
     this.gainFrom.get("filterGain").valueChanges.subscribe((f) => {
-      const startDate = new Date(f.start);
+      const startDate = f.start ? new Date(f.start) : null;
       const endDate = f.end ? new Date(f.end) : null;
 
       console.log(startDate);
@@ -498,7 +499,7 @@ export class DashboardComponent implements OnInit {
         end: endDate !== null ? endDate.toISOString() : null,
       };
 
-      console.log(filter, "date");
+      console.log(filter, "date SKANDER");
 
       this.apollo
         .mutate({

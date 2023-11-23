@@ -97,31 +97,31 @@ export class AddCompanyComponent implements OnInit {
 
   createCompany() {
     console.log(this.addCompany.value, "add");
-    // this.nbDialog
-    //   .open(ConfirmationModalComponent, {
-    //     context: { data: "êtes-vous sûr de ajouter cette société" },
-    //   })
-    //   .onClose.subscribe((cl) => {
-    //     if (cl) {
-    //       console.log(this.addCompany.value, "form data company");
-    //       this.apollo
-    //         .mutate<any>({
-    //           mutation: this.clientService.addClient(
-    //             this.addCompany.value,
-    //             this.typeUser
-    //           ),
-    //         })
-    //         .subscribe(({ data }) => {
-    //           if (data) {
-    //             this.addCompany.reset();
-    //             this.toastr.success("", "Vous avez ajouter nouvelle société");
-    //             this.router.navigate(["pages/tableClient/table-company"]);
-    //           }
-    //         });
-    //     } else {
-    //       this.toastr.danger("", "Annulé");
-    //     }
-    //   });
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: { data: "êtes-vous sûr de ajouter cette société" },
+      })
+      .onClose.subscribe((cl) => {
+        if (cl) {
+          console.log(this.addCompany.value, "form data company");
+          this.apollo
+            .mutate<any>({
+              mutation: this.clientService.addClient(
+                this.addCompany.value,
+                this.typeUser
+              ),
+            })
+            .subscribe(({ data }) => {
+              if (data) {
+                this.addCompany.reset();
+                this.toastr.success("", "Vous avez ajouter nouvelle société");
+                this.router.navigate(["pages/tableClient/table-company"]);
+              }
+            });
+        } else {
+          this.toastr.danger("", "Annulé");
+        }
+      });
   }
 
   hideShowFormAchat() {
