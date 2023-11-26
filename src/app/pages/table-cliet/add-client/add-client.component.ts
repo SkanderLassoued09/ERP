@@ -14,12 +14,11 @@ import { ConfirmationModalComponent } from "../../../share-data/confirmation-mod
 export class AddClientComponent implements OnInit {
   addUser = new FormGroup({
     firstName: new FormControl("", [Validators.required]),
-    lastName: new FormControl("", [Validators.required]),
-    address: new FormControl("", [Validators.required]),
-    phone: new FormControl("", [Validators.required]),
-    email: new FormControl("", [Validators.required, Validators.email]),
-    region: new FormControl("", [Validators.required]),
-    codePostal: new FormControl("", [Validators.required]),
+    lastName: new FormControl(""),
+    address: new FormControl(""),
+    phone: new FormControl(""),
+    email: new FormControl(""),
+    region: new FormControl(""),
   });
   typeUser: any;
 

@@ -14,41 +14,32 @@ import { ConfirmationModalComponent } from "../../../share-data/confirmation-mod
 export class AddCompanyComponent implements OnInit {
   addCompany = new FormGroup({
     companyName: new FormControl("", [Validators.required]),
-    address: new FormControl("", [Validators.required]),
-    phone: new FormControl("", [Validators.required]),
-    email: new FormControl("", [Validators.required, Validators.email]),
-    region: new FormControl("", [Validators.required]),
-    codePostal: new FormControl("", [Validators.required]),
-    tva: new FormControl("", [Validators.required]),
-    localOrshore: new FormControl("", [Validators.required]),
-    etat: new FormControl("", [Validators.required]),
-    fax: new FormControl("", [Validators.required]),
-    website: new FormControl("", [Validators.required]),
-    conPayment: new FormControl("", [Validators.required]),
-    techContact: new FormControl("", [Validators.required]),
-    codeFiscal: new FormControl("", [Validators.required]),
-    nattestation: new FormControl("", [Validators.required]),
-    swiftBic: new FormControl("", [Validators.required]),
-    ibanRib: new FormControl("", [Validators.required]),
+    address: new FormControl(""),
+    phone: new FormControl(""),
+    email: new FormControl(""),
+    region: new FormControl(""),
+    fax: new FormControl(""),
+    activitePrincipale: new FormControl(""),
+    activiteSecondaire: new FormControl(""),
+    Exoneration: new FormControl(""),
+    raisonSociale: new FormControl(""),
+    website: new FormControl(""),
     achat: new FormGroup({
-      // Nested FormGroup
       fullName: new FormControl(""),
       email: new FormControl(""),
       phone: new FormControl(""),
     }),
     financier: new FormGroup({
-      // Nested FormGroup
       fullName: new FormControl(""),
       email: new FormControl(""),
       phone: new FormControl(""),
     }),
     technique: new FormGroup({
-      // Nested FormGroup
       fullName: new FormControl(""),
       email: new FormControl(""),
       phone: new FormControl(""),
     }),
-    nRegisterCommerce: new FormControl("", [Validators.required]),
+    nRegisterCommerce: new FormControl(""),
   });
   typeUser: string;
   regions = [
