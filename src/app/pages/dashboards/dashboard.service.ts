@@ -117,7 +117,7 @@ export class DashboardService {
         filterGain(filter: { start: "${filter.start}", end: "${
       filter.end ? filter.end : null
     }" }) {
-          createdAt
+          finalPrice
         }
       }
     `;

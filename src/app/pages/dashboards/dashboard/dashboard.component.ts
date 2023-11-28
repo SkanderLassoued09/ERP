@@ -11,6 +11,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit {
+  final_price: number = 0;
   options = {
     backgroundColor: echarts.bg,
     color: [
@@ -224,18 +225,18 @@ export class DashboardComponent implements OnInit {
         query: this.dashboardService.getTotality(),
       })
       .subscribe(({ data }) => {
-        console.log(data, "tot");
+        // //console.log(data, "tot");
         this.totalityCard = data.totality;
         [this.totalTicket] = data.totality.flatMap((el) => {
           return el.count;
         });
 
         this.totalityCard.map((el) => {
-          console.log(el.totality, "el");
+          //console.log(el.totality, "el");
           el.totality.map((item) => {
             if (item.name === "FINISHED") {
               this.ticketFinie = item.value;
-              console.log(item.value, "test");
+              //console.log(item.value, "test");
             }
             if (item.name === "PENDING") {
               this.enAttente = +item.value;
@@ -318,7 +319,7 @@ export class DashboardComponent implements OnInit {
         query: this.ticketService.getAllTech(),
       })
       .subscribe(({ data }) => {
-        console.log(data);
+        //console.log(data);
         // this.techs = data.getAllTech;
       });
   }
@@ -329,7 +330,7 @@ export class DashboardComponent implements OnInit {
         query: this.dashboardService.getClientByRegion(),
       })
       .subscribe(({ data }) => {
-        console.log(data, "data chart");
+        //console.log(data, "data chart");
         let names = (this.option = {
           xAxis: {
             type: "category",
@@ -359,7 +360,7 @@ export class DashboardComponent implements OnInit {
         query: this.dashboardService.getIssuesChart(),
       })
       .subscribe(({ data }) => {
-        console.log(data, "data chart");
+        //console.log(data, "data chart");
         this.issueChart = {
           backgroundColor: echarts.bg,
           color: [
@@ -416,8 +417,8 @@ export class DashboardComponent implements OnInit {
         query: this.dashboardService.cardTech(),
       })
       .subscribe(({ data }) => {
-        console.log(data, "card tech");
-        this.techs = data.getTicketByProfile;
+        //console.log(data, "card tech");
+        // this.techs = data.getTicketByProfile;
       });
   }
 
@@ -427,20 +428,20 @@ export class DashboardComponent implements OnInit {
         query: this.dashboardService.prices(),
       })
       .subscribe(({ data }) => {
-        console.log(data, "prices");
+        //console.log(data, "prices");
         data.getTicketForCoordinator.filter((el) => {
           if (el) {
             if (el.status === "FINISHED") {
               this.totalPrice += parseFloat(el.finalPrice);
-              console.log(this.totalPrice, "total in");
+              //console.log(this.totalPrice, "total in");
             }
             if (el.status === "RETURN") {
               this.totalPriceReturn += parseFloat(el.finalPrice);
-              console.log(this.totalPrice, "total in");
+              //console.log(this.totalPrice, "total in");
             }
             el.composants.map((el) => {
               this.totalcomposants = el.sellPrice * el.quantity;
-              console.log("total composants === ", this.totalcomposants);
+              //console.log("total composants === ", this.totalcomposants);
             });
           }
         });
@@ -457,7 +458,7 @@ export class DashboardComponent implements OnInit {
         query: this.dashboardService.calendarChart(),
       })
       .subscribe(({ data }) => {
-        console.log(data.getClientLastMonth, "data");
+        //console.log(data.getClientLastMonth, "data");
         this.optClient = {
           xAxis: {
             type: "category",
@@ -484,31 +485,93 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  /**
+   *  in ngOnInit form is null I need to get all data
+   * onChange i need to get data
+   * => two steps are separate
+   */
+
   // to filter gains in range of date
   filterGainByDate() {
-    console.log("HELOOOOOOOOOOOOO WORLD");
-    this.gainFrom.get("filterGain").valueChanges.subscribe((f) => {
-      const startDate = f.start ? new Date(f.start) : null;
-      const endDate = f.end ? new Date(f.end) : null;
+    let date_today = new Date().toISOString();
+    let start_year = "2023-01-01T00:00:00.000Z";
+    let date_to_send = {};
+    let fixed_date = { start: start_year, end: date_today };
+    let form_value = this.gainFrom.value;
+    // console.warn(fixed_date, "fixed_date");
 
-      console.log(startDate);
-      console.log(endDate);
+    if (form_value.filterGain === null) {
+      console.log(form_value, "this is form value runs onInit");
+      console.log(true);
+      date_to_send = { start: start_year, end: date_today };
+      console.warn(date_to_send, "dta");
+      this.apollo
+        .mutate<any>({
+          mutation: this.dashboardService.filterGain(fixed_date),
+        })
+        .subscribe(({ data }) => {
+          console.log(data.filterGain, "filter result");
+          const sum: number = data.filterGain.reduce((acc, ticket) => {
+            if (ticket.finalPrice !== null) {
+              return acc + parseFloat(ticket.finalPrice);
+            }
+            return acc;
+          }, 0);
+
+          console.log("Sum of final prices:", sum);
+          this.final_price = sum;
+        });
+    }
+
+    this.gainFrom.get("filterGain").valueChanges.subscribe((date) => {
+      console.log("from change");
+      const startDate = date.start ? new Date(date.start) : null;
+      const endDate = date.end ? new Date(date.end) : null;
 
       const filter = {
         start: startDate.toISOString(),
         end: endDate !== null ? endDate.toISOString() : null,
       };
 
-      console.log(filter, "date SKANDER");
-
       this.apollo
-        .mutate({
+        .mutate<any>({
           mutation: this.dashboardService.filterGain(filter),
         })
         .subscribe(({ data }) => {
-          console.log(data, "filter result");
+          console.log(data.filterGain, "filter result");
+          const sum: number = data.filterGain.reduce((acc, ticket) => {
+            if (ticket.finalPrice !== null) {
+              return acc + parseFloat(ticket.finalPrice);
+            }
+            return acc;
+          }, 0);
+
+          console.log("Sum of final prices:", sum);
+          this.final_price = sum;
         });
     });
+
+    // ////console.warn("HELOOOOOOOOOOOOO WORLD");
+    // //console.warn("HELOOOOOOOOOOOOO WORLD");
+    // //console.warn("HELOOOOOOOOOOOOO WORLD");
+    // this.gainFrom.get("filterGain").valueChanges.subscribe((f) => {
+    //   const startDate = f.start ? new Date(f.start) : null;
+    //   const endDate = f.end ? new Date(f.end) : null;
+    //   //console.warn(startDate, "startDate");
+    //   //console.warn(endDate, "endDate");
+    //   const filter = {
+    //     start: startDate.toISOString(),
+    //     end: endDate !== null ? endDate.toISOString() : null,
+    //   };
+    //   //console.warn(filter, "FILTER DATA");
+    //   this.apollo
+    //     .mutate({
+    //       mutation: this.dashboardService.filterGain(filter),
+    //     })
+    //     .subscribe(({ data }) => {
+    //       //console.log(data, "filter result");
+    //     });
+    // });
   }
 
   /**
