@@ -1,5 +1,10 @@
 <nb-card>
-  <nb-card-header>Creation de societe</nb-card-header>
+  <nb-card-header>
+    <div>Creation de societe</div>
+    <nb-toggle class="toggle-CS" (change)="onToggleSwitcheToClient($event)"
+      >Client</nb-toggle
+    >
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="addCompany">
       <div class="row">
@@ -12,7 +17,13 @@
           <input nbInput type="text" fullWidth formControlName="website" />
         </div>
         <div class="col-lg-6">
-          <label class="label" for="">Activite Principale</label>
+          <label
+            class="label"
+            fformControlName="activiteSecondaire"
+            ormControlName="website"
+            for=""
+            >Activite Principale
+          </label>
           <input
             nbInput
             type="text"
@@ -21,7 +32,9 @@
           />
         </div>
         <div class="col-lg-6">
-          <label class="label" for="">Activite Secondaire</label>
+          <label class="label" formControlName="activiteSecondaire" for=""
+            >Activite Secondaire</label
+          >
           <input
             nbInput
             type="text"
@@ -62,7 +75,7 @@
           <input nbInput type="text" fullWidth formControlName="phone" />
         </div>
         <div class="col-lg-6">
-          <label class="label" for="">Numero de fax</label>
+          <label class="label" for="">Numero de fix</label>
           <input nbInput type="text" fullWidth formControlName="fax" />
         </div>
         <div class="col-lg-6">

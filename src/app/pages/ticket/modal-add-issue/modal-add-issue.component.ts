@@ -12,13 +12,10 @@ export class ModalAddIssueComponent implements OnInit {
   isToEdit: boolean = false;
   panneInput: string;
   updatedIssue;
-  issues = [
-    { _id: 0, issue: "Moteur" },
-    { _id: 1, issue: "Condo" },
-    { _id: 2, issue: "Bobine" },
-    { _id: 3, issue: "Résistance" },
-    { _id: 4, issue: "Termostat" },
-  ];
+  issues = [{ _id: 0, issue: "issue" }];
+
+  // listofIssue : LocalDataSource;
+
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
@@ -28,6 +25,14 @@ export class ModalAddIssueComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.updatedIssue, "updatedIssue");
   }
+
+  // getIssue(){
+  //   this.apollo.query<any>({
+  //     query: this.ticketService.getAllIssues()
+  //   }).subscribe(({data}))=>{
+  //     this.listofIssue = new LocalDataSource(data.getAllIssues)
+  //   }
+  // }
 
   updateIssue(_id) {
     console.log(_id, "gonna be updated");

@@ -1,11 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
 import { log } from "console";
 import { TableClientService } from "../../table-cliet/table-client.service";
 import { LocalDataSource } from "ng2-smart-table";
 import { NbToastrService } from "@nebular/theme";
+import { isRequiredInputField } from "graphql";
 
 @Component({
   selector: "ngx-add-ticket",
@@ -22,7 +23,7 @@ export class AddTicketComponent implements OnInit {
     affectedToCompany: new FormControl("empty", []),
     affectedToClient: new FormControl("empty", []),
     remarqueManager: new FormControl("", []),
-    title: new FormControl("", []),
+    title: new FormControl("", [Validators.required]),
     image: new FormControl("", []),
   });
 

@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ProfileComponent } from "./profile/profile.component";
-import { AddProfileComponent } from "./add-profile/add-profile.component";
+import { ProfileComponent } from "./profile.component";
+import { AddProfileComponent } from "../add-profile/add-profile.component";
 import { ProfileRoutingModule } from "./profile.routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import {
@@ -21,7 +21,6 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
     ProfileRoutingModule,
     NbSelectModule,
     CommonModule,
-
     NbCardModule,
     NbInputModule,
     NbIconModule,
