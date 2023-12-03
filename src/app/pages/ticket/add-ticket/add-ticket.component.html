@@ -2,6 +2,10 @@
   <nb-card-header>Création d'une demande d'intervention</nb-card-header>
   <nb-card-body>
     <form [formGroup]="addTicket">
+      <div class="col-lg-12">
+        <label class="label" for="">Titre</label>
+        <input nbInput type="text" fullWidth formControlName="title" />
+      </div>
       <div class="row">
         <div class="col-lg-6">
           <label for="" class="label">Type</label>
@@ -14,7 +18,7 @@
             <nb-radio value="Client">Client</nb-radio>
           </nb-radio-group>
           <div class="col-lg-6" *ngIf="checkedTypeClient === 'Client'">
-            <label class="label" for="">Choisr le client</label>
+            <label class="label" for="">Choisir le client</label>
             <nb-select fullWidth formControlName="affectedToClient">
               <nb-option *ngFor="let c of listOfClient" [value]="c.firstName">
                 {{ c.firstName }}
@@ -23,7 +27,7 @@
           </div>
 
           <div class="col-lg-6" *ngIf="checkedTypeClient === 'Société'">
-            <label class="label" for="">Choisr la société</label>
+            <label class="label" for="">Choisir la société</label>
             <nb-select fullWidth formControlName="affectedToCompany">
               <nb-option
                 *ngFor="let c of listOfCompany"
@@ -35,25 +39,7 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-lg-5">
-            <label class="label" for="">N° série</label>
-            <input nbInput type="text" fullWidth formControlName="numSerie" />
-          </div>
-          <div class="col-lg-5">
-            <label class="label" for="">Emplacement</label>
-            <nb-select fullWidth formControlName="emplacement">
-              <nb-option *ngFor="let e of emplacement" [value]="e.locationName">
-                {{ e.locationName }}
-              </nb-option>
-            </nb-select>
-          </div>
-        </div>
-        <div class="col-lg-7">
-          <label class="label" for="">Titre</label>
-          <input nbInput type="text" fullWidth formControlName="title" />
-        </div>
-        <div class="col-lg-7">
+        <div class="col-lg-12">
           <label class="label" for="">Description</label>
           <textarea
             nbInput
@@ -65,7 +51,7 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-6">
+        <!-- <div class="col-lg-6">
           <label for="" class="label">Remarque</label>
           <textarea
             nbInput
@@ -73,17 +59,36 @@
             placeholder="Ajouter une remarque si necessaire pour le Technicien"
             formControlName="remarqueManager"
           ></textarea>
-        </div>
-        <div class="col-lg-12">
-          <label for="" class="label">Ajouter une image</label>
-          <input
-            nbInput
-            fullWidth
-            placeholder="Textarea"
-            formControlName="image"
-            type="file"
-            (change)="onSelectFile($event)"
-          />
+        </div> -->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4">
+              <label for="" class="label">Ajouter une image</label>
+              <input
+                nbInput
+                fullWidth
+                placeholder="Textarea"
+                formControlName="image"
+                type="file"
+                (change)="onSelectFile($event)"
+              />
+            </div>
+            <div class="col-lg-4">
+              <label class="label" for="">N° série</label>
+              <input nbInput type="text" fullWidth formControlName="numSerie" />
+            </div>
+            <div class="col-lg-4">
+              <label class="label" for="">Emplacement</label>
+              <nb-select fullWidth formControlName="emplacement">
+                <nb-option
+                  *ngFor="let e of emplacement"
+                  [value]="e.locationName"
+                >
+                  {{ e.locationName }}
+                </nb-option>
+              </nb-select>
+            </div>
+          </div>
         </div>
       </div>
 
