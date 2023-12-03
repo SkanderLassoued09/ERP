@@ -3,7 +3,11 @@ import { Apollo } from "apollo-angular";
 import { TableClientService } from "../table-client.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { NbDialogService, NbToastrService } from "@nebular/theme";
+import {
+  NbDialogService,
+  NbToastrService,
+  NbToggleModule,
+} from "@nebular/theme";
 import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
@@ -62,11 +66,16 @@ export class AddClientComponent implements OnInit {
     this.typeUser = this.route.snapshot.params.type;
     console.log(this.typeUser, "data");
   }
-
+  onToggleSwitche() {
+    console.log("test Toggle button");
+    setTimeout(() => {
+      this.router.navigate(["/pages/tableClient/add-company/COMPANY"]);
+    }, 300);
+  }
   createUser() {
     this.nbDialog
       .open(ConfirmationModalComponent, {
-        context: { data: "êtes-vous sûr de ajouter ce client" },
+        context: { data: "êtes-vous sûr d'ajouter ce client" },
       })
       .onClose.subscribe((cl) => {
         if (cl) {

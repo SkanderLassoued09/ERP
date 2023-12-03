@@ -1,5 +1,10 @@
 <nb-card *ngIf="typeUser === 'CLIENT'">
-  <nb-card-header>Creation de client</nb-card-header>
+  <nb-card-header>
+    <div>Creation d'un client</div>
+    <nb-toggle class="toggle-CS" (change)="onToggleSwitche($event)"
+      >Societe</nb-toggle
+    >
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="addUser">
       <div class="row">
@@ -13,7 +18,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
           <label class="label" for="">E-mail</label>
           <input nbInput type="text" fullWidth formControlName="email" />
         </div>

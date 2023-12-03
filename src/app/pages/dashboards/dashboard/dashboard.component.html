@@ -1,3 +1,7 @@
+<p style="font-size: 24px; text-align: center; margin-top: 50px">
+  Dashboard en cours de maintenance
+</p>
+
 <!-- <div class="row">
   <div class="col-lg-12">
     <nb-card>
@@ -8,7 +12,7 @@
     </nb-card>
   </div>
 </div> -->
-
+<!--
 <div class="row">
   <nb-card class="col-lg-2 card-size custom-border-total">
     <h6>Total ticket</h6>
@@ -92,26 +96,18 @@
           [nbDatepicker]="formpicker"
           fullWidth
           formControlName="filterGain"
+          (change)="filterGainByDate()"
         />
         <nb-rangepicker #formpicker></nb-rangepicker>
-        <nb-icon
-          class="icon"
-          icon="flip-2-outline"
-          (click)="toggleView()"
-        ></nb-icon>
       </div>
     </nb-card-header>
 
     <section>
       <div class="subtitle">Gain total</div>
       <div class="h3">
-        {{ totalPrice | currency : "TND" : "symbol" : "1.2-2" }}
+        {{ final_price | currency : "TND" : "symbol" : "1.2-2" }}
       </div>
-
-      <nb-progress-bar
-        status="success"
-        [value]="totalPrice / 100"
-      ></nb-progress-bar>
+     
       <div class="caption description">Gain des demandes d'intervention</div>
     </section>
 
@@ -121,10 +117,6 @@
         {{ totalPriceReturn | currency : "TND" : "symbol" : "1.2-2" }}
       </div>
 
-      <nb-progress-bar
-        status="warning"
-        [value]="totalPriceReturn / 100"
-      ></nb-progress-bar>
       <div class="caption description">Retour des demandes d'intervention</div>
     </section>
 
@@ -134,10 +126,7 @@
         {{ totalcomposants | currency : "TND" : "symbol" : "1.2-2" }}
       </div>
 
-      <nb-progress-bar
-        status="danger"
-        [value]="totalcomposants / 100"
-      ></nb-progress-bar>
+   
       <div class="caption description">Les demandes d'intervention annulés</div>
     </section>
   </nb-card>
@@ -157,3 +146,4 @@
     ></nb-card-body>
   </nb-card>
 </div>
+-->

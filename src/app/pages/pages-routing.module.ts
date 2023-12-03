@@ -54,7 +54,9 @@ const routes: Routes = [
       {
         path: "profile",
         loadChildren: () =>
-          import("./profile/profile.module").then((m) => m.ProfileModule),
+          import("./profile/profile/profile.module").then(
+            (m) => m.ProfileModule
+          ),
       },
       {
         path: "ticket",

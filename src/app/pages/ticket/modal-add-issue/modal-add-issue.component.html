@@ -4,26 +4,15 @@
     <form class="row">
       <div class="col-lg-12">
         <nb-card>
-          <nb-list>
-            <nb-list-item class="list-items" *ngFor="let issue of issues">
+          <nb-list class="scrollable-list">
+            <nb-list-item class="list-items" *ngFor="let issue of listofIssue">
               <span *ngIf="!isToEdit">
-                <strong>{{ issue.issue }}</strong>
+                <strong>{{ issue.issueName }}</strong>
               </span>
               <span *ngIf="isToEdit">
                 <input type="text" nbInput />
               </span>
-              <span class="btn"
-                ><div>
-                  <button
-                    status="warning"
-                    size="small"
-                    nbButton
-                    (click)="updateIssue(issue._id)"
-                  >
-                    <nb-icon icon="edit-outline"></nb-icon>
-                  </button>
-                </div>
-                <div></div>
+              <span class="btn">
                 <button
                   status="danger"
                   size="small"

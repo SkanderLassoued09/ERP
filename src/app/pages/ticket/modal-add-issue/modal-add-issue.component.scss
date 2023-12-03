@@ -7,3 +7,7 @@
   display: flex;
   gap: 0.1rem;
 }
+.scrollable-list {
+  max-height: 200px;
+  overflow-y: auto;
+}

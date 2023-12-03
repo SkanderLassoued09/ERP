@@ -10,24 +10,22 @@ export class TableClientService {
 
   addClient(userData: Client, type: string) {
     return gql`
-    
-     mutation {
+       mutation {
         createClient(compClient:"${type}",
         createClientInput:{
           firstName:"${userData.firstName}" 
           lastName:"${userData.lastName}" 
           email:"${userData.email}" 
           phone:"${userData.phone}" 
-          address:"test" 
+          address:"${userData.address}"  
           companyName:"${userData.companyName}" 
           region:"${userData.region}" 
           fax:"${userData.fax}" 
+          website:"${userData.website}" 
           activitePrincipale:"${userData.activitePrincipale}"
           activiteSecondaire:"${userData.activiteSecondaire}"
           raisonSociale:"${userData.raisonSociale}"
           Exoneration:"${userData.Exoneration}"
-          website:"${userData.website}" 
-      
       }) 
        {firstName}}
     `;
@@ -64,8 +62,65 @@ export class TableClientService {
           type
           companyName
           region
+          Exoneration
+          raisonSociale
+          activiteSecondaire
+          activitePrincipale
+          website
+          fax
         }
       }
     `;
+  }
+
+  deleteClient(_id: string) {
+    return gql`
+      mutation {
+          deleteClient(_id: "${_id}")
+      }
+    `;
+  }
+
+  updateClient(
+    _id: string,
+    address: string,
+    region: string,
+    email: string,
+    phone: string,
+    firstName: string,
+    lastName: string,
+    companyName: string,
+    fax: string,
+    website: string,
+    activitePrincipale: string,
+    activiteSecondaire: string,
+    raisonSociale: string,
+    Exoneration: string
+  ) {
+    console.log("my value _id", _id);
+    console.log("my value lastName", lastName);
+    console.log("my value firstName", firstName);
+    return gql`
+    mutation {
+      updateClient(
+        _id: "${_id}"
+        updateClientInput: {
+          address: "${address}"
+          region: "${region}"
+          email: "${email}"
+          phone: "${phone}"
+          firstName: "${firstName}"
+          lastName: "${lastName}"
+          companyName: "${companyName}"
+          fax: "${fax}"
+          website: "${website}"
+          activitePrincipale: "${activitePrincipale}"
+          activiteSecondaire: "${activiteSecondaire}"
+          raisonSociale: "${raisonSociale}"
+          Exoneration: "${Exoneration}"
+        }
+      )
+    }
+  `;
   }
 }

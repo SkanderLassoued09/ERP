@@ -1,15 +1,14 @@
 import { NbMenuItem } from "@nebular/theme";
 
 export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
-  {
-    title: "Accueil",
-    icon: "pie-chart-outline",
-    link: "/pages/dashboardGlobal/dashboardGlobal",
-    home: true,
-  },
+  // {
+  //   title: "Accueil",
+  //   icon: "pie-chart-outline",
+  //   link: "/pages/dashboardGlobal/dashboardGlobal",
+  // },
 
   {
-    title: "Features",
+    title: "Responsable Admnistration",
     group: true,
   },
 
@@ -18,14 +17,17 @@ export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
   {
     title: "STAFF",
     icon: "person-outline",
+
     children: [
       {
-        title: "Ajouter STAFF",
+        title: "Ajouter Employer",
         link: "/pages/profile/add-profile",
+        icon: "person-add-outline",
       },
       {
-        title: "Liste de STAFF",
+        title: "Liste des Employers",
         link: "/pages/profile/list-profile",
+        icon: "people-outline",
       },
     ],
   },
@@ -36,48 +38,55 @@ export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
       {
         title: "Ajouter client / société",
         link: "/pages/tableClient/choices",
+        icon: "person-add-outline",
       },
       {
         title: "Liste des clients",
         link: "/pages/tableClient/table-user",
+        icon: "people-outline",
       },
       {
-        title: "List des société",
+        title: "Liste des sociétées",
         link: "/pages/tableClient/table-company",
+        icon: "briefcase-outline",
+        home: true,
       },
     ],
   },
 
   {
-    title: "Ticket",
+    title: "Demande d'intervention",
     icon: "file-text-outline",
     children: [
       {
-        title: "Add ticket",
+        title: "Creation des DI",
         link: "/pages/ticket/add-ticket",
+        icon: "file-add-outline",
       },
       {
-        title: "List tickets",
+        title: "Listes des DI",
         link: "/pages/ticket/ticket-list",
+        icon: "folder-outline",
       },
       {
-        title: "Ticket consulté",
+        title: "DI consulté cordinateur",
         link: "/pages/ticket/ticket-list-traiter",
+        icon: "clipboard-outline",
       },
     ],
   },
 ];
 
 export const MENU_ITEMS_ADMIN_TECH: NbMenuItem[] = [
-  {
-    title: "Accueil",
-    icon: "pie-chart-outline",
-    link: "/pages/dashboardGlobal/dashboardGlobal",
-    home: true,
-  },
+  // {
+  //   title: "Accueil",
+  //   icon: "pie-chart-outline",
+  //   link: "/pages/dashboardGlobal/dashboardGlobal",
+  //   home: true,
+  // },
 
   {
-    title: "Features",
+    title: "Responsable Technique",
     group: true,
   },
   {
@@ -87,6 +96,7 @@ export const MENU_ITEMS_ADMIN_TECH: NbMenuItem[] = [
       {
         title: "Liste des clients",
         link: "/pages/profile/list-profile",
+        icon: "people-outline",
       },
     ],
   },
@@ -97,10 +107,12 @@ export const MENU_ITEMS_ADMIN_TECH: NbMenuItem[] = [
       {
         title: "Liste des clients",
         link: "/pages/tableClient/table-user",
+        icon: "people-outline",
       },
       {
-        title: "List des société",
+        title: "Liste des sociétées",
         link: "/pages/tableClient/table-company",
+        icon: "briefcase-outline",
       },
     ],
   },
@@ -110,27 +122,30 @@ export const MENU_ITEMS_ADMIN_TECH: NbMenuItem[] = [
     icon: "file-text-outline",
     children: [
       {
-        title: "List tickets",
+        title: "Listes des DI",
         link: "/pages/ticket/ticket-list",
+        icon: "folder-outline",
+        home: true,
       },
       {
-        title: "Ticket consulté",
+        title: "DI consulté cordinateur",
         link: "/pages/ticket/ticket-list-traiter",
+        icon: "clipboard-outline",
       },
     ],
   },
 ];
 
 export const MENU_ITEMS_MANAGER: NbMenuItem[] = [
-  {
-    title: "Accueil",
-    icon: "pie-chart-outline",
-    link: "/pages/dashboardGlobal/dashboardGlobal",
-    home: true,
-  },
+  // {
+  //   title: "Accueil",
+  //   icon: "pie-chart-outline",
+  //   link: "/pages/dashboardGlobal/dashboardGlobal",
+  //   home: true,
+  // },
 
   {
-    title: "Features",
+    title: "Admnistration",
     group: true,
   },
 
@@ -141,48 +156,55 @@ export const MENU_ITEMS_MANAGER: NbMenuItem[] = [
       {
         title: "Ajouter client / société",
         link: "/pages/tableClient/choices",
+        icon: "person-add-outline",
       },
       {
         title: "Liste des clients",
         link: "/pages/tableClient/table-user",
+        icon: "people-outline",
+        home: true,
       },
       {
-        title: "List des société",
+        title: "Liste des sociétées",
         link: "/pages/tableClient/table-company",
+        icon: "briefcase-outline",
       },
     ],
   },
 
   {
-    title: "Ticket",
+    title: "Demande d'intervention",
     icon: "file-text-outline",
     children: [
       {
-        title: "Add ticket",
+        title: "Creation des DI",
         link: "/pages/ticket/add-ticket",
+        icon: "file-add-outline",
       },
       {
-        title: "List tickets",
+        title: "Listes des DI",
         link: "/pages/ticket/ticket-list",
+        icon: "folder-outline",
       },
       {
-        title: "Ticket consulté",
+        title: "DI consulté cordinateur",
         link: "/pages/ticket/ticket-list-traiter",
+        icon: "clipboard-outline",
       },
     ],
   },
 ];
 
 export const MENU_ITEMS_MAGASIN: NbMenuItem[] = [
-  {
-    title: "Accueil",
-    icon: "pie-chart-outline",
-    link: "/pages/dashboardGlobal/dashboardGlobal",
-    home: true,
-  },
+  // {
+  //   title: "Accueil",
+  //   icon: "pie-chart-outline",
+  //   link: "/pages/dashboardGlobal/dashboardGlobal",
+  //   home: true,
+  // },
 
   {
-    title: "Features",
+    title: "Responsable Magasin",
     group: true,
   },
 
@@ -193,10 +215,12 @@ export const MENU_ITEMS_MAGASIN: NbMenuItem[] = [
       {
         title: "Liste des clients",
         link: "/pages/tableClient/table-user",
+        icon: "people-outline",
       },
       {
-        title: "List des société",
+        title: "Liste des sociétées",
         link: "/pages/tableClient/table-company",
+        icon: "briefcase-outline",
       },
     ],
   },
@@ -208,21 +232,22 @@ export const MENU_ITEMS_MAGASIN: NbMenuItem[] = [
       {
         title: "List tickets",
         link: "/pages/ticket/ticket-list",
+        home: true,
       },
     ],
   },
 ];
 
 export const MENU_ITEMS_TECH: NbMenuItem[] = [
-  {
-    title: "Accueil",
-    icon: "pie-chart-outline",
-    link: "/pages/dashboardGlobal/dashboardGlobal",
-    home: true,
-  },
+  // {
+  //   title: "Accueil",
+  //   icon: "pie-chart-outline",
+  //   link: "/pages/dashboardGlobal/dashboardGlobal",
+  //
+  // },
 
   {
-    title: "Features",
+    title: "Technicien",
     group: true,
   },
 
@@ -233,10 +258,12 @@ export const MENU_ITEMS_TECH: NbMenuItem[] = [
       {
         title: "Liste des clients",
         link: "/pages/tableClient/table-user",
+        icon: "people-outline",
       },
       {
-        title: "List des société",
+        title: "Liste des sociétées",
         link: "/pages/tableClient/table-company",
+        icon: "briefcase-outline",
       },
     ],
   },
@@ -246,23 +273,25 @@ export const MENU_ITEMS_TECH: NbMenuItem[] = [
     icon: "file-text-outline",
     children: [
       {
-        title: "List tickets",
+        title: "Listes des DI",
         link: "/pages/ticket/ticket-list",
+        icon: "folder-outline",
+        home: true,
       },
     ],
   },
 ];
 
 export const MENU_ITEMS_COORDINATOR: NbMenuItem[] = [
-  {
-    title: "Accueil",
-    icon: "pie-chart-outline",
-    link: "/pages/dashboardGlobal/dashboardGlobal",
-    home: true,
-  },
+  // {
+  //   title: "Accueil",
+  //   icon: "pie-chart-outline",
+  //   link: "/pages/dashboardGlobal/dashboardGlobal",
+  //   home: true,
+  // },
 
   {
-    title: "Features",
+    title: "Coordinatrice",
     group: true,
   },
 
@@ -273,29 +302,29 @@ export const MENU_ITEMS_COORDINATOR: NbMenuItem[] = [
       {
         title: "Liste des clients",
         link: "/pages/tableClient/table-user",
+        icon: "people-outline",
       },
       {
-        title: "List des société",
+        title: "Liste des sociétées",
         link: "/pages/tableClient/table-company",
+        icon: "briefcase-outline",
       },
     ],
   },
 
   {
-    title: "Ticket",
+    title: "Demande d'intervention",
     icon: "file-text-outline",
     children: [
       {
-        title: "List tickets",
+        title: "Listes des DI",
         link: "/pages/ticket/ticket-list",
+        icon: "folder-outline",
       },
-      // {
-      //   title: "Ticket consulté",
-      //   link: "/pages/ticket/ticket-list-traiter",
-      // },
       {
-        title: "Ticket coordinateur",
+        title: "DI consulté cordinateur",
         link: "/pages/ticket/coordinator",
+        icon: "clipboard-outline",
       },
     ],
   },

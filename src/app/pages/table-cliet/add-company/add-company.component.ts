@@ -19,11 +19,11 @@ export class AddCompanyComponent implements OnInit {
     email: new FormControl(""),
     region: new FormControl(""),
     fax: new FormControl(""),
+    website: new FormControl(""),
+    raisonSociale: new FormControl(""),
     activitePrincipale: new FormControl(""),
     activiteSecondaire: new FormControl(""),
     Exoneration: new FormControl(""),
-    raisonSociale: new FormControl(""),
-    website: new FormControl(""),
     achat: new FormGroup({
       fullName: new FormControl(""),
       email: new FormControl(""),
@@ -39,7 +39,6 @@ export class AddCompanyComponent implements OnInit {
       email: new FormControl(""),
       phone: new FormControl(""),
     }),
-    nRegisterCommerce: new FormControl(""),
   });
   typeUser: string;
   regions = [
@@ -87,10 +86,10 @@ export class AddCompanyComponent implements OnInit {
   }
 
   createCompany() {
-    console.log(this.addCompany.value, "add");
+    console.log(this.addCompany.value, "Company have been added");
     this.nbDialog
       .open(ConfirmationModalComponent, {
-        context: { data: "êtes-vous sûr de ajouter cette société" },
+        context: { data: "êtes-vous sûr de vouloir ajouter cette société" },
       })
       .onClose.subscribe((cl) => {
         if (cl) {
@@ -123,5 +122,11 @@ export class AddCompanyComponent implements OnInit {
   }
   hideShowFormTechnique() {
     this.toHideTechnique = !this.toHideTechnique;
+  }
+  onToggleSwitcheToClient(event: any) {
+    console.log("test Toggle button");
+    setTimeout(() => {
+      this.router.navigate(["/pages/tableClient/add-client/CLIENT"]);
+    }, 300);
   }
 }

@@ -3,11 +3,57 @@
   <nb-card-body>
     <form [formGroup]="addTicket">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
+          <label for="" class="label">Type</label>
+          <nb-radio-group
+            class="align-radio"
+            formControlName="typeClient"
+            (ngModelChange)="getSelectedTypeClient($event)"
+          >
+            <nb-radio value="Société">Société</nb-radio>
+            <nb-radio value="Client">Client</nb-radio>
+          </nb-radio-group>
+          <div class="col-lg-6" *ngIf="checkedTypeClient === 'Client'">
+            <label class="label" for="">Choisr le client</label>
+            <nb-select fullWidth formControlName="affectedToClient">
+              <nb-option *ngFor="let c of listOfClient" [value]="c.firstName">
+                {{ c.firstName }}
+              </nb-option>
+            </nb-select>
+          </div>
+
+          <div class="col-lg-6" *ngIf="checkedTypeClient === 'Société'">
+            <label class="label" for="">Choisr la société</label>
+            <nb-select fullWidth formControlName="affectedToCompany">
+              <nb-option
+                *ngFor="let c of listOfCompany"
+                [value]="c.companyName"
+              >
+                {{ c.companyName }}
+              </nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-5">
+            <label class="label" for="">N° série</label>
+            <input nbInput type="text" fullWidth formControlName="numSerie" />
+          </div>
+          <div class="col-lg-5">
+            <label class="label" for="">Emplacement</label>
+            <nb-select fullWidth formControlName="emplacement">
+              <nb-option *ngFor="let e of emplacement" [value]="e.locationName">
+                {{ e.locationName }}
+              </nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-lg-7">
           <label class="label" for="">Titre</label>
           <input nbInput type="text" fullWidth formControlName="title" />
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-7">
           <label class="label" for="">Description</label>
           <textarea
             nbInput
@@ -17,60 +63,14 @@
           ></textarea>
         </div>
       </div>
-      <div class="col-lg-6">
-        <label for="" class="label">Type</label>
-        <nb-radio-group
-          class="align-radio"
-          formControlName="typeClient"
-          (ngModelChange)="getSelectedTypeClient($event)"
-        >
-          <nb-radio value="Société">Société</nb-radio>
-          <nb-radio value="Client">Client</nb-radio>
-        </nb-radio-group>
-      </div>
-      <div class="col-lg-6" *ngIf="checkedTypeClient === 'Client'">
-        <label class="label" for="">Choisr le client</label>
-        <nb-select fullWidth formControlName="affectedToClient">
-          <nb-option *ngFor="let c of listOfClient" [value]="c.firstName">
-            {{ c.firstName }}
-          </nb-option>
-        </nb-select>
-      </div>
-
-      <div class="col-lg-6" *ngIf="checkedTypeClient === 'Société'">
-        <label class="label" for="">Choisr la société</label>
-        <nb-select fullWidth formControlName="affectedToCompany">
-          <nb-option *ngFor="let c of listOfCompany" [value]="c.companyName">
-            {{ c.companyName }}
-          </nb-option>
-        </nb-select>
-      </div>
-      <div class="row">
-        <div class="col-lg-4">
-          <label class="label" for="">N° série</label>
-          <input nbInput type="text" fullWidth formControlName="numSerie" />
-        </div>
-        <div class="col-lg-4">
-          <label class="label" for="">Emplacement</label>
-          <nb-select fullWidth formControlName="emplacement">
-            <nb-option *ngFor="let e of emplacement" [value]="e.locationName">
-              {{ e.locationName }}
-            </nb-option>
-          </nb-select>
-        </div>
-        <div class="col-lg-4">
-          <label class="label" for="">N° DI</label>
-          <input nbInput type="text" fullWidth formControlName="numero" />
-        </div>
-      </div>
 
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
           <label for="" class="label">Remarque</label>
           <textarea
             nbInput
             fullWidth
-            placeholder="Textarea"
+            placeholder="Ajouter une remarque si necessaire pour le Technicien"
             formControlName="remarqueManager"
           ></textarea>
         </div>
@@ -89,7 +89,13 @@
 
       <div class="row">
         <div class="col-lg-12 justify-btn">
-          <button nbButton status="success" fullWidth (click)="sendTicket()">
+          <button
+            nbButton
+            status="success"
+            [disabled]="addTicket.invalid"
+            fullWidth
+            (click)="sendTicket()"
+          >
             Ajouter
           </button>
 

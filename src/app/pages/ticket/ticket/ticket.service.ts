@@ -298,6 +298,14 @@ export class TicketService {
     `;
   }
 
+  deletIssue(_id: string) {
+    return gql`
+      mutation {
+        removeIssue(_id:"${_id}")
+      }
+    `;
+  }
+
   getLocation() {
     return gql`
       {
@@ -326,6 +334,13 @@ export class TicketService {
     `;
   }
 
+  removeLocation(_id: string) {
+    return gql`
+      mutation {
+        removeLocation(_id: "${_id}")
+      }
+    `;
+  }
   addComposant(nameComposant: string, quantity: number) {
     console.log(nameComposant, "in service add composant");
     return gql`

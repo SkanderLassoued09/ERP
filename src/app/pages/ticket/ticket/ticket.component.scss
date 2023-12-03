@@ -40,7 +40,7 @@
 :host ::ng-deep .finished {
   width: auto;
   border-radius: 4px;
-  background-color: #da0a0a;
+  background-color: #6dee1a;
   padding: 0.3rem;
   margin: auto;
   text-align: center;
@@ -51,7 +51,7 @@
 :host ::ng-deep .pending {
   width: auto;
   border-radius: 4px;
-  background-color: #d69900;
+  background-color: #fabf2c;
   padding: 0.3rem;
   margin: auto;
   text-align: center;
@@ -61,7 +61,7 @@
 :host ::ng-deep .enCours {
   width: auto;
   border-radius: 4px;
-  background-color: #0095ff;
+  background-color: #08c1ffe0;
   padding: 0.3rem;
   margin: auto;
   text-align: center;

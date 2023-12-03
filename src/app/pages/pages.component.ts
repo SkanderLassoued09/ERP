@@ -14,7 +14,7 @@ import {
   MENU_ITEMS_TECH,
 } from "./pages-menu";
 import { TicketService } from "./ticket/ticket/ticket.service";
-import { NbToastrService } from "@nebular/theme";
+import { NbToastrService, NbToggleComponent } from "@nebular/theme";
 
 @Component({
   selector: "ngx-pages",

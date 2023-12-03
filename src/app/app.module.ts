@@ -21,6 +21,7 @@ import {
   NbSidebarModule,
   NbToastrModule,
   NbWindowModule,
+  NbToggleModule,
 } from "@nebular/theme";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { GraphQlModule } from "./graphql.modules";

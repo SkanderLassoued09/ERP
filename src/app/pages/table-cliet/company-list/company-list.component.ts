@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
 import { TableClientService } from "../table-client.service";
 import { Apollo } from "apollo-angular";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-company-list",
@@ -12,14 +14,9 @@ export class CompanyListComponent implements OnInit {
   settings = {
     actions: {
       add: false,
-      edit: false,
-      delete: false,
-      custom: [
-        {
-          name: "passValue",
-          title: `<i class="nb-compose" title="Affecte des TPEs"></i>`,
-        },
-      ],
+      edit: true,
+      delete: true,
+      custom: [],
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -40,14 +37,14 @@ export class CompanyListComponent implements OnInit {
       _id: {
         title: "ID",
         type: "string",
+        editable: false,
       },
       companyName: {
         title: "Société",
         type: "string",
       },
-
       email: {
-        title: "Lastname",
+        title: "E-mail",
         type: "string",
       },
       address: {
@@ -55,12 +52,31 @@ export class CompanyListComponent implements OnInit {
         type: "string",
       },
       phone: {
-        title: "Phone",
+        title: "Télephone",
         type: "string",
       },
-
-      type: {
-        title: "Type",
+      fix: {
+        title: "Fax",
+        type: "string",
+      },
+      website: {
+        title: "Website",
+        type: "string",
+      },
+      activitePrincipale: {
+        title: "Activite Principale",
+        type: "string",
+      },
+      activiteSecondaire: {
+        title: "Activite Secondaire",
+        type: "string",
+      },
+      raisonSociale: {
+        title: "Raison Sociale",
+        type: "string",
+      },
+      Exoneration: {
+        title: "Exoneration",
         type: "string",
       },
     },
@@ -69,7 +85,9 @@ export class CompanyListComponent implements OnInit {
 
   constructor(
     private clientService: TableClientService,
-    private apollo: Apollo
+    private apollo: Apollo,
+    private nbToastr: NbToastrService,
+    private nbDialog: NbDialogService
   ) {}
 
   ngOnInit(): void {
@@ -85,5 +103,72 @@ export class CompanyListComponent implements OnInit {
         console.log(data);
         this.listOfCompany = new LocalDataSource(data.getAllCompany);
       });
+  }
+
+  delete(event) {
+    console.log("test delet company", event.data._id);
+    this.apollo;
+
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: { data: "Vous-êtes sûr de supprimer ?" },
+      })
+      .onClose.subscribe((cl) => {
+        if (cl) {
+          console.log("test delet company", event.data._id);
+          this.apollo
+            .mutate<any>({
+              mutation: this.clientService.deleteClient(event.data._id),
+            })
+            .subscribe(({ data }) => {
+              console.log(data, "delete");
+              if (data) {
+                this.nbToastr.danger("", "Profil supprimé");
+                event.confirm.resolve();
+              }
+            });
+        } else {
+          this.nbToastr.danger("", "Annulé");
+        }
+      });
+  }
+  editCompany(event) {
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: { data: "êtes-vous sûr de modifier ?" },
+      })
+      .onClose.subscribe((cl) => {
+        if (cl) {
+          this.apollo
+            .mutate<any>({
+              mutation: this.clientService.updateClient(
+                event.newData._id,
+                event.newData.address,
+                event.newData.region,
+                event.newData.email,
+                event.newData.phone,
+                event.newData.firstName,
+                event.newData.lastName,
+                event.newData.companyName,
+                event.newData.fax,
+                event.newData.website,
+                event.newData.activitePrincipale,
+                event.newData.activiteSecondaire,
+                event.newData.raisonSociale,
+                event.newData.Exoneration
+              ),
+            })
+            .subscribe(({ data }) => {
+              console.log(data, "client data");
+              if (data) {
+                this.nbToastr.info("", "  Client est mis à jour");
+                event.confirm.resolve(event.newdata);
+              }
+            });
+        } else {
+          this.nbToastr.danger("", "Annulé");
+        }
+      });
+    console.log("hello", event);
   }
 }

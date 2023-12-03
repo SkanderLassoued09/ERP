@@ -1,11 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
-import { log } from "console";
 import { TableClientService } from "../../table-cliet/table-client.service";
-import { LocalDataSource } from "ng2-smart-table";
-import { NbToastrService } from "@nebular/theme";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "ngx-add-ticket",
@@ -22,7 +21,7 @@ export class AddTicketComponent implements OnInit {
     affectedToCompany: new FormControl("empty", []),
     affectedToClient: new FormControl("empty", []),
     remarqueManager: new FormControl("", []),
-    title: new FormControl("", []),
+    title: new FormControl("", [Validators.required]),
     image: new FormControl("", []),
   });
 
@@ -46,7 +45,8 @@ export class AddTicketComponent implements OnInit {
     private clientService: TableClientService,
     private apollo: Apollo,
     private cdr: ChangeDetectorRef,
-    private nbToastr: NbToastrService
+    private nbToastr: NbToastrService,
+    private nbDialog: NbDialogService
   ) {}
 
   ngOnInit(): void {
@@ -72,14 +72,30 @@ export class AddTicketComponent implements OnInit {
   }
 
   sendTicket() {
-    console.log("1");
-    this.addTicket.value.createdBy = localStorage.getItem("username");
-    this.addTicket.value.image = this.imageStr;
-    console.log("2");
-    this.ticketService.addTicket(this.addTicket.value);
-    console.log("3");
-    this.nbToastr.success("Ticket a été ajouté avec succès", "Ticket ajouté");
-    this.addTicket.reset();
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: {
+          data: "êtes-vous sûr d'ajouter cette demande d'intervention",
+        },
+      })
+      .onClose.subscribe((result) => {
+        if (result) {
+          console.log("1");
+          this.addTicket.value.createdBy = localStorage.getItem("username");
+          this.addTicket.value.image = this.imageStr;
+          console.log("2");
+
+          // Assuming addTicket returns void
+          this.ticketService.addTicket(this.addTicket.value);
+
+          console.log("3");
+          this.nbToastr.success(
+            "Ticket a été ajouté avec succès",
+            "Ticket ajouté"
+          );
+          this.addTicket.reset();
+        }
+      });
   }
 
   getSelectedTypeClient(data) {

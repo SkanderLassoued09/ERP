@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { TicketService } from "../ticket/ticket.service";
 import { NbDialogRef } from "@nebular/theme";
+import { LocalDataSource } from "ng2-smart-table";
 
 @Component({
   selector: "ngx-modal-add-issue",
@@ -9,16 +10,9 @@ import { NbDialogRef } from "@nebular/theme";
   styleUrls: ["./modal-add-issue.component.scss"],
 })
 export class ModalAddIssueComponent implements OnInit {
-  isToEdit: boolean = false;
   panneInput: string;
-  updatedIssue;
-  issues = [
-    { _id: 0, issue: "Moteur" },
-    { _id: 1, issue: "Condo" },
-    { _id: 2, issue: "Bobine" },
-    { _id: 3, issue: "Résistance" },
-    { _id: 4, issue: "Termostat" },
-  ];
+  listofIssue: LocalDataSource;
+
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
@@ -26,17 +20,32 @@ export class ModalAddIssueComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.updatedIssue, "updatedIssue");
+    this.getIssue();
   }
 
-  updateIssue(_id) {
-    console.log(_id, "gonna be updated");
-    this.isToEdit = !status;
-  }
-  deleteIssue(_id) {
-    console.log(_id, "gonna be deleted");
+  getIssue() {
+    this.apollo
+      .query<any>({
+        query: this.ticketService.getAllIssues(),
+      })
+      .subscribe(({ data }) => {
+        this.listofIssue = data.getAllIssue;
+        console.log("issue =>", data.getAllIssue);
+      });
   }
 
+  deleteIssue(issueId: string) {
+    this.apollo
+      .mutate<boolean>({
+        mutation: this.ticketService.deletIssue(issueId),
+      })
+      .subscribe(({ data }) => {
+        if (data) {
+          console.log(data, "issue deleted ");
+          this.dialogRef.close();
+        }
+      });
+  }
   addIssue() {
     this.apollo
       .mutate<any>({
@@ -45,7 +54,6 @@ export class ModalAddIssueComponent implements OnInit {
       .subscribe(({ data }) => {
         if (data) {
           console.log(data, "issue added ");
-
           this.dialogRef.close();
         }
       });

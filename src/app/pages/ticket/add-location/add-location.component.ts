@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { TicketService } from "../ticket/ticket.service";
+import { NbDialogRef } from "@nebular/theme";
+import { LocalDataSource } from "ng2-smart-table";
 
 @Component({
   selector: "ngx-add-location",
@@ -8,11 +10,28 @@ import { TicketService } from "../ticket/ticket.service";
   styleUrls: ["./add-location.component.scss"],
 })
 export class AddLocationComponent implements OnInit {
-  locationInput;
-  constructor(private apollo: Apollo, private ticketService: TicketService) {}
+  locationInput: string;
+  listofLocation: LocalDataSource;
+
+  constructor(
+    private apollo: Apollo,
+    private ticketService: TicketService,
+    private dialogReflocation: NbDialogRef<AddLocationComponent>
+  ) {}
 
   ngOnInit(): void {
-    console.log("Location");
+    this.getLocation();
+  }
+
+  getLocation() {
+    this.apollo
+      .query<any>({
+        query: this.ticketService.getLocation(),
+      })
+      .subscribe(({ data }) => {
+        this.listofLocation = data.getAllLocations;
+        console.log("loc =>", data.getAllLocations);
+      });
   }
 
   addLocation() {
@@ -22,6 +41,20 @@ export class AddLocationComponent implements OnInit {
       })
       .subscribe(({ data }) => {
         console.log(data, "added");
+        this.dialogReflocation.close();
+        console.log("working");
+      });
+  }
+  removelocation(_id: string) {
+    this.apollo
+      .mutate<boolean>({
+        mutation: this.ticketService.removeLocation(_id),
+      })
+      .subscribe(({ data }) => {
+        if (data) {
+          console.log(data, "location deleted ");
+          this.dialogReflocation.close();
+        }
       });
   }
 }

@@ -2,15 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { LocalDataSource } from "ng2-smart-table";
 import { TicketService } from "../ticket/ticket.service";
-import { BtnOpenTicketModalComponent } from "../btn-open-ticket-modal/btn-open-ticket-modal.component";
 import { DatePipe } from "@angular/common";
-import { BtnReparationComponent } from "../btn-reparation/btn-reparation.component";
 import { NbDialogService } from "@nebular/theme";
-import { ModalAddIssueComponent } from "../modal-add-issue/modal-add-issue.component";
-import { AddLocationComponent } from "../add-location/add-location.component";
-import { BtnOpenModalMagasinComponent } from "../btn-open-modal-magasin/btn-open-modal-magasin.component";
-import { ROLE } from "../../../roles";
-import { BtnAdminsComponent } from "../btn-admins/btn-admins.component";
 import { BtnFinalComponent } from "../btn-final/btn-final.component";
 import { ToggleIgnoreComponent } from "../toggle-ignore/toggle-ignore.component";
 import { AllInfoComponent } from "../all-info/all-info.component";
@@ -92,42 +85,42 @@ export class TicketComponentTraiter implements OnInit {
           }
         },
       },
-      composants: {
-        title: "Date Arrivage",
-        type: "string",
-        valuePrepareFunction: (val) => {
-          console.log(val, "val");
-          return val.map((el) => {
-            var raw = new Date(el.comingDate);
-            console.log(el, "el");
-            var formatted = this.datePipe.transform(
-              raw,
-              "dd MMM yyyy hh:mm:ss"
-            );
-            return formatted;
-          });
-        },
-      },
+      // composants: {
+      //   title: "Date Arrivage",
+      //   type: "string",
+      //   valuePrepareFunction: (val) => {
+      //     console.log(val, "val");
+      //     return val.map((el) => {
+      //       var raw = new Date(el.comingDate);
+      //       console.log(el, "el");
+      //       var formatted = this.datePipe.transform(
+      //         raw,
+      //         "dd MMM yyyy hh:mm:ss"
+      //       );
+      //       return formatted;
+      //     });
+      //   },
+      // },
 
-      createdAt: {
-        title: "Créé le",
-        type: "string",
-        valuePrepareFunction: (date) => {
-          var raw = new Date(date);
+      // createdAt: {
+      //   title: "Créé le",
+      //   type: "string",
+      //   valuePrepareFunction: (date) => {
+      //     var raw = new Date(date);
 
-          var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
-          return formatted;
-        },
-      },
-      updatedAt: {
-        title: "Dérniere modification",
-        type: "string",
-        valuePrepareFunction: (date) => {
-          var raw = new Date(date);
-          var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
-          return formatted;
-        },
-      },
+      //     var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
+      //     return formatted;
+      //   },
+      // },
+      // updatedAt: {
+      //   title: "Dérniere modification",
+      //   type: "string",
+      //   valuePrepareFunction: (date) => {
+      //     var raw = new Date(date);
+      //     var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
+      //     return formatted;
+      //   },
+      // },
       openModalAffectation: {
         title: "Diagnostique",
         type: "custom",
