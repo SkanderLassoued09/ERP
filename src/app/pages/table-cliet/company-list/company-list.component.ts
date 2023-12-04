@@ -4,6 +4,8 @@ import { TableClientService } from "../table-client.service";
 import { Apollo } from "apollo-angular";
 import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 import { NbDialogService, NbToastrService } from "@nebular/theme";
+import { FieldDetailsComponent } from "../field-details/field-details.component";
+import { DetailsTableComponent } from "../details-table/details-table.component";
 
 @Component({
   selector: "ngx-company-list",
@@ -16,7 +18,12 @@ export class CompanyListComponent implements OnInit {
       add: false,
       edit: true,
       delete: true,
-      custom: [],
+      custom: [
+        {
+          name: "seeData",
+          title: `<i class="nb-compose" title="Voir toutes les informations"></i>`,
+        },
+      ],
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -170,5 +177,10 @@ export class CompanyListComponent implements OnInit {
         }
       });
     console.log("hello", event);
+  }
+
+  seeData(data) {
+    const modal = this.nbDialog.open(DetailsTableComponent);
+    modal.componentRef.instance.detailsCompany = data.data;
   }
 }
