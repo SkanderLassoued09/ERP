@@ -13,12 +13,13 @@ import {
   NbToast,
   NbToggleModule,
 } from "@nebular/theme";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { ChoicesComponent } from "./choices/choices.component";
 import { AddCompanyComponent } from "./add-company/add-company.component";
 import { CompanyListComponent } from "./company-list/company-list.component";
-import { FieldDetailsComponent } from './field-details/field-details.component';
+import { FieldDetailsComponent } from "./field-details/field-details.component";
+import { DetailsTableComponent } from "./details-table/details-table.component";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FieldDetailsComponent } from './field-details/field-details.component';
     AddCompanyComponent,
     CompanyListComponent,
     FieldDetailsComponent,
+    DetailsTableComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ import { FieldDetailsComponent } from './field-details/field-details.component';
     NbIconModule,
     NbSelectModule,
     NbToggleModule,
+    FormsModule,
   ],
 })
 export class TableClietModule {}

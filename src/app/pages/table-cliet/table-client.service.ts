@@ -8,6 +8,14 @@ import { Client } from "./client.interface";
 export class TableClientService {
   constructor() {}
 
+  updateField(_id: string, fieldName: string, value: string) {
+    return gql`
+      mutation {
+        updateField(_id: "${_id}", fieldName: "${fieldName}", value: "${value}")
+      }
+    `;
+  }
+
   addClient(userData: Client, type: string) {
     return gql`
        mutation {
@@ -26,6 +34,7 @@ export class TableClientService {
           activiteSecondaire:"${userData.activiteSecondaire}"
           raisonSociale:"${userData.raisonSociale}"
           Exoneration:"${userData.Exoneration}"
+          technique:{fullName:"${userData.technique.fullName}" email:"${userData.technique.email}" phone:"${userData.technique.phone}"} achat:{fullName:"${userData.achat.fullName}" email:"${userData.achat.email}" phone:"${userData.achat.phone}"} financier:{fullName:"${userData.financier.fullName}" email:"${userData.financier.email}" phone:"${userData.financier.phone}"}
       }) 
        {firstName}}
     `;
@@ -68,6 +77,21 @@ export class TableClientService {
           activitePrincipale
           website
           fax
+          technique {
+            fullName
+            email
+            phone
+          }
+          financier {
+            fullName
+            email
+            phone
+          }
+          achat {
+            fullName
+            email
+            phone
+          }
         }
       }
     `;
