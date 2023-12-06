@@ -96,7 +96,7 @@ export class AddCompanyComponent implements OnInit {
           console.log(this.addCompany.value, "form data company");
           this.apollo
             .mutate<any>({
-              mutation: this.clientService.addClient(
+              mutation: this.clientService.addComapny(
                 this.addCompany.value,
                 this.typeUser
               ),

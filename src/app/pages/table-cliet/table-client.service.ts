@@ -32,6 +32,46 @@ export class TableClientService {
     `;
   }
 
+  addComapny(userData: Client, type: string) {
+    console.log(` companyName:"${userData.companyName}"
+          email:"${userData.email}" 
+          phone:"${userData.phone}" 
+          address:"${userData.address}"     
+          region:"${userData.region}" 
+          Exoneration:"${userData.Exoneration}"
+          raisonSociale:"${userData.raisonSociale}"
+          activitePrincipale:"${userData.activitePrincipale}"
+          activiteSecondaire:"${userData.activiteSecondaire}"
+          website:"${userData.website}"
+          fax:"${userData.fax}"
+          technique:{fullName:"${userData.technique.fullName}" email:"${userData.technique.email}" phone:"${userData.technique.phone}"}
+          financier:{fullName:"${userData.financier.fullName}" email:"${userData.financier.email}" phone:"${userData.financier.phone}"}
+          achat:{fullName:"${userData.achat.fullName}" email:"${userData.achat.email}" phone:"${userData.achat.phone}"}`);
+    return gql`
+             mutation {
+        createClient(compClient:"${type}",
+        createClientInput:{
+          companyName:"${userData.companyName}"
+          email:"${userData.email}" 
+          phone:"${userData.phone}" 
+          address:"${userData.address}"     
+          region:"${userData.region}" 
+          Exoneration:"${userData.Exoneration}"
+          raisonSociale:"${userData.raisonSociale}"
+          activitePrincipale:"${userData.activitePrincipale}"
+          activiteSecondaire:"${userData.activiteSecondaire}"
+          website:"${userData.website}"
+          fax:"${userData.fax}"
+          technique:{fullName:"${userData.technique.fullName}" email:"${userData.technique.email}" phone:"${userData.technique.phone}"}
+          financier:{fullName:"${userData.financier.fullName}" email:"${userData.financier.email}" phone:"${userData.financier.phone}"}
+          achat:{fullName:"${userData.achat.fullName}" email:"${userData.achat.email}" phone:"${userData.achat.phone}"}
+          
+      }) 
+       {_id}}
+    
+    `;
+  }
+
   getClient() {
     return gql`
       {
