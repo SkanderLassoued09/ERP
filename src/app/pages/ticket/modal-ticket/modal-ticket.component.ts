@@ -19,6 +19,7 @@ import { Apollo } from "apollo-angular";
 import * as moment from "moment";
 import { ShareService } from "../../../share-data/share.service";
 import { LocationStrategy } from "@angular/common";
+import { URL } from "../../../URLs";
 
 @Component({
   selector: "ngx-modal-ticket",
@@ -66,6 +67,7 @@ export class ModalTicketComponent implements OnInit {
   allComposant: any;
   pdfStr: string | ArrayBuffer;
   url: string | ArrayBuffer;
+  urlHost: string;
 
   constructor(
     private dialogRef: NbDialogRef<ModalTicketComponent>,
@@ -91,6 +93,7 @@ export class ModalTicketComponent implements OnInit {
       package: new FormControl(null),
       linkProvider: new FormControl(null),
     });
+    this.urlHost = URL.URL;
   }
   myForm: FormGroup;
 
@@ -235,7 +238,7 @@ export class ModalTicketComponent implements OnInit {
         .subscribe(({ data }) => {
           console.log(data);
           this.isModalOpened = data;
-          this.ticketService.sendToMagasin(dataToUpdate);
+          // this.ticketService.sendToMagasin(dataToUpdate);
         });
     }
 

@@ -17,10 +17,7 @@
                     <strong>📦:{{ c.package }}</strong>
                     <strong>💡:{{ c.nameComposant }}</strong>
                     <strong>
-                      <a
-                        [href]="'http://192.168.1.36:3000/' + c.pdfComposant"
-                        target="_blank"
-                      >
+                      <a [href]="urlHost + c.pdfComposant" target="_blank">
                         : 📁Appuyer ici
                       </a>
                     </strong>

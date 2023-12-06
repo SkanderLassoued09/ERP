@@ -38,9 +38,7 @@ export class BtnOpenModalMagasinComponent implements OnInit {
 
   isDisableAffectationBtn() {
     let arrComposant = this.rowData.composants;
-    this.disableAffectationBtn = arrComposant.every(
-      (el) => el.isAffected === true
-    );
+    this.disableAffectationBtn = arrComposant.every((el) => el.isAffected);
     console.log(this.disableAffectationBtn, "after checking all array");
   }
 }

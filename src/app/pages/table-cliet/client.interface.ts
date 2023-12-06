@@ -15,12 +15,12 @@ export interface Client {
   activiteSecondaire: string;
   raisonSociale: string;
   Exoneration: string;
-  achat: {
+  achat?: {
     fullName: string;
     email: string;
     phone: string;
   };
-  financier: {
+  financier?: {
     fullName: string;
     email: string;
     phone: string;

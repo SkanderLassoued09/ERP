@@ -13,16 +13,14 @@ import { ConfirmationModalComponent } from "../../../share-data/confirmation-mod
 })
 export class AddTicketComponent implements OnInit {
   addTicket = new FormGroup({
-    designiation: new FormControl("", []),
-    typeClient: new FormControl("", []),
-    numSerie: new FormControl("", []),
-    emplacement: new FormControl("", []),
-    numero: new FormControl("", []),
+    designiation: new FormControl(""),
+    typeClient: new FormControl("", [Validators.required]),
+    numSerie: new FormControl(""),
+    emplacement: new FormControl(""),
     affectedToCompany: new FormControl("empty", []),
     affectedToClient: new FormControl("empty", []),
-    remarqueManager: new FormControl("", []),
     title: new FormControl("", [Validators.required]),
-    image: new FormControl("", []),
+    image: new FormControl(""),
   });
 
   emplacement;
@@ -64,11 +62,14 @@ export class AddTicketComponent implements OnInit {
 
       reader.onload = (event) => {
         console.log(event, "event onload");
-        this.imageStr = reader.result;
+        if (reader.result) {
+          this.imageStr = reader.result;
+          console.log(this.imageStr, "pdf str");
+        } else {
+          this.imageStr = "";
+        }
       };
     }
-
-    console.log(this.imageStr, "pdf str");
   }
 
   sendTicket() {
@@ -80,19 +81,21 @@ export class AddTicketComponent implements OnInit {
       })
       .onClose.subscribe((result) => {
         if (result) {
-          console.log("1");
           this.addTicket.value.createdBy = localStorage.getItem("username");
           this.addTicket.value.image = this.imageStr;
-          console.log("2");
 
-          // Assuming addTicket returns void
-          this.ticketService.addTicket(this.addTicket.value);
+          this.apollo
+            .mutate<any>({
+              mutation: this.ticketService.addTicket(this.addTicket.value),
+            })
+            .subscribe(({ data }) => {
+              console.log(data);
+              this.nbToastr.success(
+                "Ticket a été ajouté avec succès",
+                "Ticket ajouté"
+              );
+            });
 
-          console.log("3");
-          this.nbToastr.success(
-            "Ticket a été ajouté avec succès",
-            "Ticket ajouté"
-          );
           this.addTicket.reset();
         }
       });

@@ -25,19 +25,8 @@ export class TableClientService {
           lastName:"${userData.lastName}" 
           email:"${userData.email}" 
           phone:"${userData.phone}" 
-          address:"${userData.address}"  
-          companyName:"${userData.companyName}" 
+          address:"${userData.address}"     
           region:"${userData.region}" 
-          fax:"${userData.fax}" 
-          website:"${userData.website}" 
-          activitePrincipale:"${userData.activitePrincipale}"
-          activiteSecondaire:"${userData.activiteSecondaire}"
-          raisonSociale:"${userData.raisonSociale}"
-          Exoneration:"${userData.Exoneration}"
-<<<<<<< HEAD
-=======
-          technique:{fullName:"${userData.technique.fullName}" email:"${userData.technique.email}" phone:"${userData.technique.phone}"} achat:{fullName:"${userData.achat.fullName}" email:"${userData.achat.email}" phone:"${userData.achat.phone}"} financier:{fullName:"${userData.financier.fullName}" email:"${userData.financier.email}" phone:"${userData.financier.phone}"}
->>>>>>> new-updates
       }) 
        {firstName}}
     `;

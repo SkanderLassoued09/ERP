@@ -127,11 +127,11 @@ export const MENU_ITEMS_ADMIN_TECH: NbMenuItem[] = [
         icon: "folder-outline",
         home: true,
       },
-      {
-        title: "DI consulté cordinateur",
-        link: "/pages/ticket/ticket-list-traiter",
-        icon: "clipboard-outline",
-      },
+      // {
+      //   title: "DI consulté cordinateur",
+      //   link: "/pages/ticket/ticket-list-traiter",
+      //   icon: "clipboard-outline",
+      // },
     ],
   },
 ];

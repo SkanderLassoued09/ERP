@@ -44,20 +44,20 @@ export class PagesComponent implements OnInit {
     }
   }
 
-  notification() {
-    this.ticketService
-      .getNotifcationForTechFroCoordinator()
-      .subscribe((data) => {
-        console.log(data, "from coo");
-        this.toastr.success(
-          ``,
-          "Nouveau Ticket diagnostiqué coo from pages.comp",
-          {
-            duration: 0,
-          }
-        );
-      });
-  }
+  // notification() {
+  //   this.ticketService
+  //     .getNotifcationForTechFroCoordinator()
+  //     .subscribe((data) => {
+  //       console.log(data, "from coo");
+  //       this.toastr.success(
+  //         ``,
+  //         "Nouveau Ticket diagnostiqué coo from pages.comp",
+  //         {
+  //           duration: 0,
+  //         }
+  //       );
+  //     });
+  // }
 
   public async getUser() {
     let profile = await this.apollo

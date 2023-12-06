@@ -28,9 +28,30 @@ export class TicketService {
    *
    */
   addTicket(ticket: Ticket) {
-    console.log("hello");
-    console.log("from service", ticket);
-    this.socket.emit("send-ticket", ticket);
+    if (ticket.image === undefined || typeof ticket.image === undefined) {
+      ticket.image = "";
+      console.log(ticket.image, "image");
+    }
+
+    console.warn(ticket);
+    return gql`
+    mutation {
+      createTicket(
+        createTicketInput: {
+          title: "${ticket.titre}"
+          designiation: "${ticket.designiation}"
+          typeClient: "${ticket.typeClient}"
+          affectedToCompany: "${ticket.affectedToCompany}"
+          affectedToClient: "${ticket.affectedToClient}"
+          emplacement: "${ticket.emplacement}"
+          numero: "${ticket.numero}"
+          image: "${ticket.image}"
+        }
+      ) {
+        _id
+      }
+    }
+  `;
   }
 
   sendToMagasin(ticket: Ticket) {

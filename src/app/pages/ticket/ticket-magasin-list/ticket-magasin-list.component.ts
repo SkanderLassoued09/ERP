@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
 import { NbDialogRef, NbToastrService } from "@nebular/theme";
+import { URL } from "../../../URLs";
 
 @Component({
   selector: "ngx-ticket-magasin-list",
@@ -19,6 +20,7 @@ export class TicketMagasinListComponent implements OnInit {
     datePicker: new FormControl(null, [Validators.required]),
   });
   optionMagasin = ["Interne", "En stock", "Externe"];
+  urlHost: any;
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
@@ -29,6 +31,7 @@ export class TicketMagasinListComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.dataTicketSelected, "row selected");
     this.getListOfComposant();
+    this.urlHost = URL.URL;
   }
   /**
    *

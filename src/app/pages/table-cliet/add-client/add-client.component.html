@@ -22,6 +22,14 @@
           <label class="label" for="">E-mail</label>
           <input nbInput type="text" fullWidth formControlName="email" />
         </div>
+        <div class="col-lg-6">
+          <label class="label" for="">Région</label>
+          <nb-select formControlName="region" fullWidth>
+            <nb-option *ngFor="let r of regions" [value]="r">
+              {{ r }}
+            </nb-option>
+          </nb-select>
+        </div>
       </div>
       <div class="row">
         <div class="col-lg-6">
@@ -31,16 +39,6 @@
         <div class="col-lg-6">
           <label class="label" for="">Adresse</label>
           <input nbInput type="text" fullWidth formControlName="address" />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <label class="label" for="">Région</label>
-          <nb-select formControlName="region" fullWidth>
-            <nb-option *ngFor="let r of regions" [value]="r">
-              {{ r }}
-            </nb-option>
-          </nb-select>
         </div>
       </div>
 
