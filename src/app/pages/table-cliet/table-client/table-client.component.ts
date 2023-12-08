@@ -29,19 +29,30 @@ export class TableClientComponent implements OnInit {
       edit: true,
       delete: true,
     },
+
+    /**
+     * 
+     * {
+        editButtonContent: `<span ><img src="assets/images/edit.png" alt=""/></span>`,
+        saveButtonContent: `<span ><img src="assets/images/check.png" alt=""/></span>`,
+        cancelButtonContent: `<span ><img src="assets/images/cross.png" alt=""/></span>`,
+      }
+     * 
+     * 
+     */
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
       cancelButtonContent: '<i class="nb-close"></i>',
     },
     edit: {
-      editButtonContent: '<i class="nb-edit"  title="Modifier" ></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
+      editButtonContent: `<span ><img src="assets/images/edit.png" alt=""/></span>`,
+      saveButtonContent: `<span ><img src="assets/images/check.png" alt=""/></span>`,
+      cancelButtonContent: `<span ><img src="assets/images/cross.png" alt=""/></span>`,
       confirmSave: true,
     },
     delete: {
-      deleteButtonContent: '<i class="nb-trash"  title="Desactiver"></i>',
+      deleteButtonContent: `<span ><img src="assets/images/trash.png" alt=""/></span>`,
       confirmDelete: true,
     },
 

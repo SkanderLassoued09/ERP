@@ -4,6 +4,7 @@ import { DashboardService } from "../dashboard.service";
 import { TicketService } from "../../ticket/ticket/ticket.service";
 import * as echarts from "echarts";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-dashboard",
@@ -201,7 +202,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private dashboardService: DashboardService,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private toastr: NbToastrService
   ) {}
 
   ngOnInit(): void {
@@ -214,6 +216,10 @@ export class DashboardComponent implements OnInit {
     this.price();
     this.calendarChart();
     this.filterGainByDate();
+    // this.toastr.success("", `Bienvenue ${localStorage.getItem("username")}`, {
+    //   duration: 3000,
+    //   // todo later
+    // });
   }
   toggleView() {
     this.flipped = !this.flipped;

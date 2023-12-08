@@ -37,30 +37,26 @@ export class LoginComponent implements OnInit {
           this.loginForm.value.username,
           this.loginForm.value.password
         ),
+        errorPolicy: "all",
       })
       .subscribe(({ data, errors, loading }) => {
         if (data) {
           console.log(data);
-          this.toastr.success(
-            `Bienvenue ${data.login.user.nameUser}`,
-            "login success"
-          );
+
           this.router.navigate(["/pages/dashboardGlobal/dashboardGlobal"]);
           console.log("Im data", data);
           localStorage.setItem("token", data.login.access_token);
           localStorage.setItem("email", data.login.user.email);
           localStorage.setItem("role", data.login.user.role);
           localStorage.setItem("username", data.login.user.username);
-        }
-        if (errors) {
+        } else if (errors) {
           console.log("Im error", errors);
           const errorMessage = errors[0].message;
           const titleError = errors[0].extensions.code;
           const responseError = errors[0].extensions.exception; // Todo
           console.log(errorMessage, titleError);
-          this.toastr.danger(errorMessage, titleError);
-        }
-        if (loading) {
+          this.toastr.danger("", errorMessage);
+        } else if (loading) {
           console.log(loading);
         }
       });

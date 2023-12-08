@@ -9,6 +9,10 @@
   height: 0 !important;
 }
 
+:host ::ng-deep ng2-st-tbody-edit-delete {
+  margin-left: -17%;
+}
+
 :host
   ::ng-deep
   ng2-st-tbody-custom
@@ -31,17 +35,17 @@
 }
 
 :host ::ng-deep {
-  ng2-smart-table .ng2-smart-actions a.ng2-smart-action i.nb-checkmark {
+  ng2-smart-table .ng2-smart-actions a.ng2-smart-action span img {
     position: absolute;
     top: 25%;
   }
 }
-:host ::ng-deep {
-  ng2-smart-table .ng2-smart-actions a.ng2-smart-action i.nb-close {
-    position: absolute;
-    top: 25%;
-  }
-}
+// :host ::ng-deep {
+//   ng2-smart-table .ng2-smart-actions a.ng2-smart-action span img {
+//     position: absolute;
+//     top: 25%;
+//   }
+// }
 
 :host
   ::ng-deep

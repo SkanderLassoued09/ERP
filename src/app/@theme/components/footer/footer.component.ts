@@ -8,16 +8,12 @@ import { Component } from "@angular/core";
       Fixtronix systeme de gestion des intervention créer par Skander & Nezih
     </span>
     <div class="socials">
-      <a
-        href="https://fixtronix.tn/"
-        target="_blank"
-        class="ion ion-social-github"
-      ></a>
-      <a
-        href="https://www.facebook.com/FixtronixTunisia/"
-        target="_blank"
-        class="ion ion-social-facebook"
-      ></a>
+      <a href="https://fixtronix.tn/" target="_blank">
+        <img src="assets/images/microsoft-edge.png" alt=""
+      /></a>
+      <a href="https://www.facebook.com/FixtronixTunisia/" target="_blank">
+        <img src="assets/images/facebook.png" alt=""
+      /></a>
       <!-- <a href="#" target="_blank" class="ion ion-social-linkedin"></a> -->
     </div>
   `,

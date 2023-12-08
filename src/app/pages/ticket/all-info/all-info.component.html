@@ -106,130 +106,129 @@
     </nb-card-footer>
   </nb-card>
 </div> -->
+
 <div #printPDF>
   <nb-card status="success">
-    <nb-card-header>Hello</nb-card-header>
+    <nb-card-header>Information essentiel</nb-card-header>
     <nb-card-body>
       <div class="row">
         <table class="col-lg-12 equal-width-table">
           <thead>
             <tr class="header-tech">
               <th>Identifiant ticket</th>
-              <th>Title</th>
+              <th>Designation</th>
+              <th>Type de probleme</th>
+              <th>emplacement</th>
+              <th>{{ ticket.typeClient }}</th>
               <th>Créé le</th>
-              <th>Mise à jour à</th>
             </tr>
           </thead>
           <tbody>
             <tr class="list-tech">
               <td>{{ ticket?._id }}</td>
               <td>{{ ticket?.title }}</td>
-              <td>{{ ticket?.createdAt | date : "dd/MM/yyyy" }}</td>
-              <td>{{ ticket?.updatedAt | date : "dd/MM/yyyy" }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <table class="col-lg-12 equal-width-table">
-          <thead>
-            <tr class="header-tech">
-              <th>Identifiant ticket</th>
-              <th>Title</th>
-              <th>Créé le</th>
-              <th>Mise à jour à</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="list-tech">
-              <td>{{ ticket?._id }}</td>
-              <td>{{ ticket?.title }}</td>
-              <td>{{ ticket?.createdAt | date : "dd/MM/yyyy" }}</td>
-              <td>{{ ticket?.updatedAt | date : "dd/MM/yyyy" }}</td>
+              <td>{{ ticket?.issue }}</td>
+              <td>{{ ticket?.emplacement }}</td>
+              <td>
+                {{ ticket?.affectedToCompany || ticket?.affectedToClient }}
+              </td>
+              <td>{{ ticket?.createdAt | date : "dd/MM/yyyy HH:mm" }}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </nb-card-body>
   </nb-card>
-  <nb-card status="success">
-    <nb-card-header>Hello</nb-card-header>
+
+  <nb-card status="danger">
+    <nb-card-header>Information Technique</nb-card-header>
     <nb-card-body>
       <div class="row">
         <table class="col-lg-12 equal-width-table">
           <thead>
             <tr class="header-tech">
-              <th>Identifiant ticket</th>
-              <th>Title</th>
-              <th>Créé le</th>
-              <th>Mise à jour à</th>
+              <th>Technicien en charge Diagnostique</th>
+              <th>Technicien en charge Reparation</th>
+              <th>Temps Diagnostique</th>
+              <th>Temps Reparation</th>
             </tr>
           </thead>
           <tbody>
             <tr class="list-tech">
-              <td>{{ ticket?._id }}</td>
-              <td>{{ ticket?.title }}</td>
-              <td>{{ ticket?.createdAt | date : "dd/MM/yyyy" }}</td>
-              <td>{{ ticket?.updatedAt | date : "dd/MM/yyyy" }}</td>
+              <td>{{ ticket?.assignedTo }}</td>
+              <td>{{ ticket?.assignedToRep }}</td>
+              <td>{{ ticket?.diagnosticTimeByTech }}</td>
+              <td>{{ ticket?.assignedToRep }}</td>
             </tr>
           </tbody>
         </table>
         <table class="col-lg-12 equal-width-table">
           <thead>
             <tr class="header-tech">
-              <th>Identifiant ticket</th>
-              <th>Title</th>
-              <th>Créé le</th>
-              <th>Mise à jour à</th>
+              <th>Remarque Technicien</th>
+              <th>Remarque Admnistration</th>
             </tr>
           </thead>
           <tbody>
             <tr class="list-tech">
-              <td>{{ ticket?._id }}</td>
-              <td>{{ ticket?.title }}</td>
-              <td>{{ ticket?.createdAt | date : "dd/MM/yyyy" }}</td>
-              <td>{{ ticket?.updatedAt | date : "dd/MM/yyyy" }}</td>
+              <td>{{ ticket?.remarqueTech }}</td>
+              <td>{{ ticket?.designiation }}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </nb-card-body>
   </nb-card>
-  <nb-card status="success">
-    <nb-card-header>Hello</nb-card-header>
+
+  <nb-card status="info">
+    <nb-card-header>Information Supplementaire</nb-card-header>
     <nb-card-body>
       <div class="row">
         <table class="col-lg-12 equal-width-table">
           <thead>
             <tr class="header-tech">
-              <th>Identifiant ticket</th>
-              <th>Title</th>
-              <th>Créé le</th>
-              <th>Mise à jour à</th>
+              <th>Prix initial</th>
+              <th>Prix aprés remise</th>
+              <th>Dernier modification</th>
             </tr>
           </thead>
           <tbody>
             <tr class="list-tech">
-              <td>{{ ticket?._id }}</td>
-              <td>{{ ticket?.title }}</td>
-              <td>{{ ticket?.createdAt | date : "dd/MM/yyyy" }}</td>
-              <td>{{ ticket?.updatedAt | date : "dd/MM/yyyy" }}</td>
+              <td>{{ ticket?.price }}</td>
+              <td>{{ ticket?.finalPrice }}</td>
+              <td>{{ ticket?.updatedAt | date : "dd/MM/yyyy HH:mm" }}</td>
             </tr>
           </tbody>
         </table>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card status="primary">
+    <nb-card-header>Listes des composants</nb-card-header>
+    <nb-card-body>
+      <div class="row">
         <table class="col-lg-12 equal-width-table">
           <thead>
             <tr class="header-tech">
-              <th>Identifiant ticket</th>
-              <th>Title</th>
-              <th>Créé le</th>
-              <th>Mise à jour à</th>
+              <th>Packages des composants</th>
+              <th>Listes Noms des composants</th>
+              <th>Quantites pour chaque composants</th>
+              <th>Prix d'achats des composants</th>
+              <th>Prix de ventes des composants</th>
+              <th>Status des composants</th>
+              <th>Date d'arrivage</th>
             </tr>
           </thead>
           <tbody>
             <tr class="list-tech">
-              <td>{{ ticket?._id }}</td>
-              <td>{{ ticket?.title }}</td>
-              <td>{{ ticket?.createdAt | date : "dd/MM/yyyy" }}</td>
-              <td>{{ ticket?.updatedAt | date : "dd/MM/yyyy" }}</td>
+              <td>{{ ticket?.composants.package }}</td>
+              <td>{{ ticket?.composants.nameComposant }}</td>
+              <td>{{ ticket?.composants.quantity }}</td>
+              <td>{{ ticket?.composants.purchasePrice }}</td>
+              <td>{{ ticket?.composants.sellPrice }}</td>
+              <td>{{ ticket?.composants.statusComposant }}</td>
+              <td>{{ ticket?.composants.comingDate }}</td>
             </tr>
           </tbody>
         </table>

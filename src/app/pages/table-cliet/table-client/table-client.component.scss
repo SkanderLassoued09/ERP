@@ -7,6 +7,7 @@
 :host ::ng-deep ng2-st-tbody-edit-delete {
   display: flex !important;
   height: 0 !important;
+  margin-left: -17%;
 }
 
 :host
@@ -35,4 +36,11 @@
   ng2-st-tbody-custom
   a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
   color: #5dcfe3;
+}
+
+:host ::ng-deep {
+  ng2-smart-table .ng2-smart-actions a.ng2-smart-action span img {
+    position: absolute;
+    top: 25%;
+  }
 }

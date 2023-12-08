@@ -250,6 +250,7 @@ export class TicketService {
   }
 
   updateTicketByTech(updateTicket) {
+    console.log(updateTicket, "service");
     const composantInputs = updateTicket.composant
       .map((el) => {
         return `{nameComposant: "${el.nameComposant}", quantity: ${el.quantiteComposant}, pdfComposant: "${el.pdfComposant}" ,package: "${el.package}",linkProvider:"${el.linkProvider}" }`;

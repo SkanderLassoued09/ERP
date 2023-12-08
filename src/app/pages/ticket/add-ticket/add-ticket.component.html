@@ -4,11 +4,11 @@
     <form [formGroup]="addTicket">
       <div class="row">
         <div class="col-lg-12">
-          <label class="label" for="">Titre</label>
+          <label class="label" for="">Designation</label>
           <input nbInput type="text" fullWidth formControlName="title" />
         </div>
         <div class="col-lg-12">
-          <label class="label" for="">Description</label>
+          <label class="label" for="">Probléme</label>
           <textarea
             nbInput
             type="text"
@@ -31,7 +31,7 @@
           <label class="label" for="">Choisir le client</label>
           <nb-select fullWidth formControlName="affectedToClient">
             <nb-option *ngFor="let c of listOfClient" [value]="c.firstName">
-              {{ c.firstName }}
+              {{ c.firstName }} {{ c.lastName }}
             </nb-option>
           </nb-select>
         </div>

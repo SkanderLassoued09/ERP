@@ -22,7 +22,7 @@ export class TicketComponentTraiter implements OnInit {
       custom: [
         {
           name: "seeData",
-          title: `<i class="nb-compose" title="Voir toutes les informations"></i>`,
+          title: `<span ><img src="assets/images/document.png" alt=""/></span>`,
         },
       ],
     },

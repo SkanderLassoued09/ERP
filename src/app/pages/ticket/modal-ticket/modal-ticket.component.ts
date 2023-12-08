@@ -89,7 +89,7 @@ export class ModalTicketComponent implements OnInit {
     this.myForm = new FormGroup({
       nomComposant: new FormControl(null),
       quantite: new FormControl(null),
-      pdfComposant: new FormControl(null),
+      pdfComposant: new FormControl(null, [Validators.required]),
       package: new FormControl(null),
       linkProvider: new FormControl(null),
     });
@@ -178,6 +178,11 @@ export class ModalTicketComponent implements OnInit {
         console.log(event, "event onload");
         this.pdfStr = reader.result;
         this.url = (<FileReader>event.target).result;
+        if (this.pdfStr) {
+          this.pdfStr = reader.result;
+        } else {
+          this.pdfStr = "";
+        }
       };
     }
 

@@ -1,6 +1,6 @@
 <div class="justify-logo"><img src="assets/images/logo.png" alt="" /></div>
 <!-- <h1 id="title" class="title">Connexion</h1> -->
-<p class="sub-title">Salut! Connectez-vous avec votre username.</p>
+<p class="sub-title">Salut! Connectez-vous avec votre nom d'utilisateur.</p>
 
 <form (ngSubmit)="login()" [formGroup]="loginForm">
   <div class="form-control-group">
@@ -11,7 +11,7 @@
       formControlName="username"
       name="username"
       id="input-username"
-      placeholder="username"
+      placeholder="Nom d'utilisateur"
       fieldSize="large"
       [status]="
         loginForm.get('username').dirty
@@ -35,7 +35,7 @@
         class="caption status-danger"
         *ngIf="loginForm.get('username').errors?.required"
       >
-        username is required!
+        Nom d'utilisateur est requis !
       </p>
       <p
         class="caption status-danger"
@@ -60,7 +60,7 @@
       name="password"
       type="password"
       id="input-password"
-      placeholder="Password"
+      placeholder="Mot de passe"
       fieldSize="large"
       [status]="
         loginForm.get('password').dirty
@@ -84,7 +84,7 @@
         class="caption status-danger"
         *ngIf="loginForm.get('password').errors?.required"
       >
-        Password is required!
+        Mot de passe est requis !
       </p>
       <p
         class="caption status-danger"
@@ -105,6 +105,6 @@
     size="large"
     [disabled]="loginForm.invalid"
   >
-    Log In
+    Se connecter
   </button>
 </form>
