@@ -30,16 +30,6 @@ export class TableClientComponent implements OnInit {
       delete: true,
     },
 
-    /**
-     * 
-     * {
-        editButtonContent: `<span ><img src="assets/images/edit.png" alt=""/></span>`,
-        saveButtonContent: `<span ><img src="assets/images/check.png" alt=""/></span>`,
-        cancelButtonContent: `<span ><img src="assets/images/cross.png" alt=""/></span>`,
-      }
-     * 
-     * 
-     */
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
@@ -79,11 +69,11 @@ export class TableClientComponent implements OnInit {
         type: "string",
       },
       firstName: {
-        title: "firstName",
+        title: "Prénom",
         type: "string",
       },
       lastName: {
-        title: "lastName",
+        title: "Nom",
         type: "string",
       },
     },

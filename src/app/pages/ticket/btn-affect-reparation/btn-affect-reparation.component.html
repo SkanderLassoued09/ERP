@@ -5,14 +5,11 @@
     [disabled]="isDisable"
     fullWidth
   >
-    <!--  -->
     <nb-option
       *ngFor="let tech of listOfTech"
       [value]="tech.username"
       [disabled]="tech.ticketCount >= 3"
     >
-      <!--   -->
-      <!-- [disabled]="tech.ticketCount >= 3" -->
       <div class="option">
         <span>{{ tech.username }}</span
         ><span

@@ -2,8 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
-import { NbDialogRef, NbToastrService } from "@nebular/theme";
+import { NbDialogRef, NbDialogService, NbToastrService } from "@nebular/theme";
 import { URL } from "../../../URLs";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "ngx-ticket-magasin-list",
@@ -21,17 +22,23 @@ export class TicketMagasinListComponent implements OnInit {
   });
   optionMagasin = ["Interne", "En stock", "Externe"];
   urlHost: any;
+  checkedStatus: any;
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
     private toastr: NbToastrService,
-    private dialogRef: NbDialogRef<TicketMagasinListComponent>
+    private dialogRef: NbDialogRef<TicketMagasinListComponent>,
+    private nbDilog: NbDialogService
   ) {}
 
   ngOnInit(): void {
     console.log(this.dataTicketSelected, "row selected");
     this.getListOfComposant();
     this.urlHost = URL.URL;
+    this.magasinField.get("etat").valueChanges.subscribe((e) => {
+      this.checkedStatus = e;
+      console.log(this.checkedStatus, "sttuzsssssssssssss");
+    });
   }
   /**
    *
@@ -44,36 +51,45 @@ export class TicketMagasinListComponent implements OnInit {
 
   updateMagasin(nameComposant: string) {
     let toDisableBtn: boolean;
+    this.magasinField.get("etat").valueChanges.subscribe((e) => {
+      this.checkedStatus = e;
+    });
     console.log(this.magasinField.value, "date check");
     console.log(nameComposant, "name composant");
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.updateMagasin(
-          this.dataTicketSelected._id,
-          nameComposant,
-          this.magasinField.value.sellPrice,
-          this.magasinField.value.purchasePrice,
-          this.magasinField.value.etat,
-          this.magasinField.value.datePicker
-        ),
-      })
-      .subscribe(({ data }) => {
-        console.log(data, "updated");
-        console.log(this.composant, "compsant");
-        if (data) {
-          const updatedComposants = this.composant.findIndex(
-            (composant) => composant.nameComposant !== nameComposant
-          );
-          this.composant.splice(updatedComposants - 1, 1);
+    this.nbDilog
+      .open(ConfirmationModalComponent, { context: "Voulez-vous confirmer ?" })
+      .onClose.subscribe((resultat) => {
+        if (resultat) {
+          this.apollo
+            .mutate<any>({
+              mutation: this.ticketService.updateMagasin(
+                this.dataTicketSelected._id,
+                nameComposant,
+                this.magasinField.value.sellPrice,
+                this.magasinField.value.purchasePrice,
+                this.magasinField.value.etat,
+                this.magasinField.value.datePicker
+              ),
+            })
+            .subscribe(({ data }) => {
+              console.log(data, "updated");
+              console.log(this.composant, "compsant");
+              if (data) {
+                const updatedComposants = this.composant.findIndex(
+                  (composant) => composant.nameComposant !== nameComposant
+                );
+                this.composant.splice(updatedComposants - 1, 1);
 
-          console.log(updatedComposants, "index");
-          this.toastr.success("", "Composant affecté");
-          this.magasinField.reset();
-          console.warn(this.composant.length, "length array composant");
-          if (this.composant.length === 0) {
-            toDisableBtn = true;
-            this.dialogRef.close(toDisableBtn);
-          }
+                console.log(updatedComposants, "index");
+                this.toastr.success("", "Composant affecté");
+                this.magasinField.reset();
+                console.warn(this.composant.length, "length array composant");
+                if (this.composant.length === 0) {
+                  toDisableBtn = true;
+                  this.dialogRef.close(toDisableBtn);
+                }
+              }
+            });
         }
       });
   }

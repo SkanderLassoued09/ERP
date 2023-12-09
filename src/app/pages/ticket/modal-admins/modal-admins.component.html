@@ -1,78 +1,98 @@
 <nb-card class="fix">
-  <nb-card-header
-    ><div>
-      <div>
-        <span class="label-ticket">Titre: </span
-        ><span>Affectation des prix par les admins</span>
-      </div>
-    </div></nb-card-header
-  >
-  <nb-card-body>
-    <div class="row header-cus">
-      <div class="col-lg-6">
-        <div>
-          <span class="label-ticket">Téchnicien: </span>{{ rowData.assignedTo }}
-        </div>
-        <div>
-          <span class="label-ticket">Temps de diagnostique: </span
-          >{{ rowData.diagnosticTimeByTech }}
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div>
-          <span class="label-ticket">Remarque du téchnicien: </span
-          >{{ rowData.remarqueTech }}
-        </div>
-        <div>
-          <span class="label-ticket">Remarque de l'administration: </span
-          >{{ rowData.designiation }}
-        </div>
-        <div>
-          <span class="label-ticket">Client: </span>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-lg-12 spacing">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">Technician</th>
+            <th rowspan="2">Temps de diagnostique</th>
+            <th colspan="2">Remarque</th>
+          </tr>
+          <tr>
+            <th>Remarque de l'administration:</th>
+            <th>Remarque du téchnicien:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="scrollable-cell">{{ rowData.assignedTo }}</td>
+            <td>{{ rowData.diagnosticTimeByTech }}</td>
+            <td>{{ rowData.remarqueTech }}</td>
+            <td>Remarque de l'administration data</td>
+          </tr>
+          <!-- Add more rows as sneeded -->
+        </tbody>
+      </table>
     </div>
+  </div>
 
-    <div class="row">
-      <nb-card
-        accent="info"
-        class="col-lg-4 crd"
-        *ngFor="let item of rowData.composants"
-      >
-        <nb-card-header class="header">
-          <div>composant:</div>
-        </nb-card-header>
-        <nb-card-body>
-          <div>package :{{ item.package }}</div>
-          <div>nameComposant :{{ item.nameComposant }}</div>
-          <div>Prix de vente :{{ item.sellPrice }}</div>
-          <div>quantity :{{ item.quantity }}</div>
-          <div>statusComposant :{{ item.statusComposant }}</div>
-          <div>comingDate :{{ item.comingDate }}</div>
-        </nb-card-body>
-      </nb-card>
+  <br />
+  <br />
+
+  <div class="row">
+    <div class="col-lg-12 spacing">
+      <table>
+        <thead>
+          <tr class="header-tech">
+            <th>Package</th>
+            <th>Nom du composant</th>
+            <th>Prix de vente</th>
+            <th>quantity</th>
+            <th>statusComposant</th>
+            <th>comingDate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of rowData.composants">
+            <td>{{ item.package }}</td>
+            <td>
+              {{ item.nameComposant }}
+            </td>
+            <td>
+              {{ item.sellPrice }}
+            </td>
+            <td>
+              {{ item.quantity }}
+            </td>
+            <td>
+              {{ item.statusComposant }}
+            </td>
+            <td>
+              {{ item.comingDate | date : "dd/MM/yyyy" }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </nb-card-body>
+  </div>
 
-  <nb-card-footer
-    ><form [formGroup]="AdminTechForm" (ngSubmit)="submitTicket()">
-      <div class="col-lg-12 final-price">
-        <p>Prix total des composants:</p>
-        <p>
-          {{
-            calculateTotalPrixTotale() | currency : "TND" : "symbol" : "1.2-2"
-          }}
-        </p>
-      </div>
+  <br />
+  <br />
 
-      <div class="col-lg-12">
-        <input
-          nbInput
-          formControlName="finalPrice"
-          placeholder="Affecter prix"
-        />
-        <button nbButton status="success" type="submit">Confirmer</button>
-      </div>
-    </form></nb-card-footer
-  >
+  <div class="row">
+    <div class="col-lg-12">
+      <form [formGroup]="AdminTechForm" (ngSubmit)="submitTicket()">
+        <div class="col-lg-12 final-price">
+          <p>Prix total des composants:</p>
+          <p>
+            {{
+              calculateTotalPrixTotale() | currency : "TND" : "symbol" : "1.2-2"
+            }}
+          </p>
+        </div>
+
+        <div class="col-lg-12">
+          <input
+            nbInput
+            formControlName="finalPrice"
+            [placeholder]="
+              calculateTotalPrixTotale() | currency : 'TND' : 'symbol' : '1.2-2'
+            "
+          />
+          <button nbButton status="success" type="submit">Confirmer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br />
 </nb-card>

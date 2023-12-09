@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = "default";
 
-  userMenu = [{ title: "Profile" }, { title: "Log out" }];
+  userMenu = [{ title: "Déconnexion" }];
 
   constructor(
     private sidebarService: NbSidebarService,
@@ -97,7 +97,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onContecxtItemSelection(title) {
-    if (title === "Log out") {
+    if (title === "Déconnexion") {
       localStorage.clear();
       this.router.navigate(["/auth"]);
     }

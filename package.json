@@ -45,6 +45,7 @@
     "@apollo/client": "3.5.10",
     "@apollo/server": "^4.7.0",
     "@asymmetrik/ngx-leaflet": "3.0.1",
+    "@fortawesome/angular-fontawesome": "^0.14.0",
     "@nebular/auth": "8.0.0",
     "@nebular/eva-icons": "8.0.0",
     "@nebular/security": "8.0.0",
