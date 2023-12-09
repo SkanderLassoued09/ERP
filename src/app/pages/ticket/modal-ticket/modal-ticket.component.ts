@@ -13,13 +13,19 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { NbDialogRef, NbTagComponent, NbToastrService } from "@nebular/theme";
+import {
+  NbDialogRef,
+  NbDialogService,
+  NbTagComponent,
+  NbToastrService,
+} from "@nebular/theme";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
 import * as moment from "moment";
 import { ShareService } from "../../../share-data/share.service";
 import { LocationStrategy } from "@angular/common";
 import { URL } from "../../../URLs";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "ngx-modal-ticket",
@@ -76,7 +82,8 @@ export class ModalTicketComponent implements OnInit {
     private share: ShareService,
     private cdr: ChangeDetectorRef,
     private toastr: NbToastrService,
-    private location: LocationStrategy
+    private location: LocationStrategy,
+    private nbDialog: NbDialogService
   ) {}
 
   ngOnInit(): void {
@@ -231,36 +238,41 @@ export class ModalTicketComponent implements OnInit {
     };
 
     console.log(dataToUpdate, "data to update");
+    this.nbDialog
+      .open(ConfirmationModalComponent, { context: "voulez-vous confirmer" })
+      .onClose.subscribe((resultat) => {
+        if (resultat) {
+          if (
+            this.updateTicket.value.reparable === "oui" ||
+            this.updateTicket.value.pdr === "oui"
+          ) {
+            this.apollo
+              .mutate<any>({
+                mutation: this.ticketService.updateTicketByTech(dataToUpdate),
+              })
+              .subscribe(({ data }) => {
+                console.log(data);
+                this.isModalOpened = data;
+                // this.ticketService.sendToMagasin(dataToUpdate);
+              });
+          }
 
-    if (
-      this.updateTicket.value.reparable === "oui" ||
-      this.updateTicket.value.pdr === "oui"
-    ) {
-      this.apollo
-        .mutate<any>({
-          mutation: this.ticketService.updateTicketByTech(dataToUpdate),
-        })
-        .subscribe(({ data }) => {
-          console.log(data);
-          this.isModalOpened = data;
-          // this.ticketService.sendToMagasin(dataToUpdate);
-        });
-    }
+          if (
+            this.updateTicket.value.reparable === "non" ||
+            this.updateTicket.value.pdr === "non"
+          ) {
+            this.apollo
+              .mutate<any>({
+                mutation: this.ticketService.noPdrNoReparable(dataToUpdate._id),
+              })
+              .subscribe(({ data }) => {
+                console.log(data, "update toMagasin");
+              });
+          }
 
-    if (
-      this.updateTicket.value.reparable === "non" ||
-      this.updateTicket.value.pdr === "non"
-    ) {
-      this.apollo
-        .mutate<any>({
-          mutation: this.ticketService.noPdrNoReparable(dataToUpdate._id),
-        })
-        .subscribe(({ data }) => {
-          console.log(data, "update toMagasin");
-        });
-    }
-
-    this.dialogRef.close(true);
+          this.dialogRef.close(true);
+        }
+      });
   }
 
   getAllComposant() {

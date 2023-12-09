@@ -85,42 +85,7 @@ export class TicketComponentTraiter implements OnInit {
           }
         },
       },
-      // composants: {
-      //   title: "Date Arrivage",
-      //   type: "string",
-      //   valuePrepareFunction: (val) => {
-      //     console.log(val, "val");
-      //     return val.map((el) => {
-      //       var raw = new Date(el.comingDate);
-      //       console.log(el, "el");
-      //       var formatted = this.datePipe.transform(
-      //         raw,
-      //         "dd MMM yyyy hh:mm:ss"
-      //       );
-      //       return formatted;
-      //     });
-      //   },
-      // },
 
-      // createdAt: {
-      //   title: "Créé le",
-      //   type: "string",
-      //   valuePrepareFunction: (date) => {
-      //     var raw = new Date(date);
-
-      //     var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
-      //     return formatted;
-      //   },
-      // },
-      // updatedAt: {
-      //   title: "Dérniere modification",
-      //   type: "string",
-      //   valuePrepareFunction: (date) => {
-      //     var raw = new Date(date);
-      //     var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
-      //     return formatted;
-      //   },
-      // },
       openModalAffectation: {
         title: "Diagnostique",
         type: "custom",

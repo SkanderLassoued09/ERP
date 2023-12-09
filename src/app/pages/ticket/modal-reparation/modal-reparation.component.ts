@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { NbDialogRef, NbToastrService } from "@nebular/theme";
+import { NbDialogRef, NbDialogService, NbToastrService } from "@nebular/theme";
 import { Apollo } from "apollo-angular";
 import { ModalTicketComponent } from "../modal-ticket/modal-ticket.component";
 import { TicketService } from "../ticket/ticket.service";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "ngx-modal-reparation",
@@ -39,7 +41,9 @@ export class ModalReparationComponent implements OnInit {
     private dialogRef: NbDialogRef<ModalReparationComponent>,
     private ticketService: TicketService,
     private apollo: Apollo,
-    private toastr: NbToastrService
+    private toastr: NbToastrService,
+    private nbDialog: NbDialogService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -100,19 +104,30 @@ export class ModalReparationComponent implements OnInit {
 
       "hello lap"
     );
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.updateRemarqueReparation(
-          this.rowData._id,
-          this.formReaparationTech.value.remarqueTech,
-          this.lapTime
-        ),
-      })
-      .subscribe(({ data }) => {
-        console.log(data, "updated");
+    this.nbDialog
+      .open(ConfirmationModalComponent, { context: "voulez-vous confirmer ?" })
+      .onClose.subscribe((resultat) => {
+        if (resultat) {
+          this.apollo
+            .mutate<any>({
+              mutation: this.ticketService.updateRemarqueReparation(
+                this.rowData._id,
+                this.formReaparationTech.value.remarqueTech,
+                this.lapTime
+              ),
+            })
+            .subscribe(({ data }) => {
+              console.log(data, "updated");
+            });
+          this.updateStatusToFinish();
+          this.dialogRef.close(true);
+          this.router
+            .navigateByUrl("/test", { skipLocationChange: false })
+            .then(() => {
+              this.router.navigate(["pages/ticket/ticket-list"]);
+            });
+        }
       });
-    this.updateStatusToFinish();
-    this.dialogRef.close(true);
   }
   updateStatusToFinish() {
     this.apollo

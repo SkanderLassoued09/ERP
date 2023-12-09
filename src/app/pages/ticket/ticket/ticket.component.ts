@@ -175,11 +175,14 @@ export class TicketComponent implements OnInit {
     this.apollo
       .query<any>({
         query: this.ticketService.getAllTicket(),
+        errorPolicy: "all",
       })
-      .subscribe(({ data }) => {
+
+      .subscribe(({ data, errors }) => {
         console.log(data, "tickets");
         const filterArr = this.removeDuplicateObjects(data.getTicketByTech);
         this.listOfTicket = new LocalDataSource(filterArr);
+        console.log(errors, "Errors");
       });
   }
 

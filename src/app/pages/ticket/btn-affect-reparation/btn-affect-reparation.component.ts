@@ -27,6 +27,7 @@ export class BtnAffectReparationComponent implements OnInit {
     console.log(this.rowData, "fix reparation coordinator");
     this.getAllTech();
     this.handleBtn();
+    this.toHandleSelect();
   }
 
   openToRepatation() {}
@@ -67,27 +68,6 @@ export class BtnAffectReparationComponent implements OnInit {
             this.toastr.info("", "Vous avez ignoré le processus");
           }
         });
-
-      // this.nbDialog
-      //   .open(ConfirmationModalComponent)
-      //   .onClose.subscribe((data) => {
-      //     if (data) {
-      //       this.tech = techSelected;
-      //       let payload = {
-      //         _id: this.rowData._id,
-      //         sentTo: techSelected,
-      //       };
-      //       this.ticketService.coordinatorSendTicketToTech(payload);
-      //       this.isDisable = true;
-      //       this.router
-      //         .navigateByUrl("/test", { skipLocationChange: false })
-      //         .then(() => {
-      //           this.router.navigate(["pages/ticket/coordinator"]);
-      //         });
-      //     } else {
-      //       this.toastr.info("", "Vous avez ignoré le processus");
-      //     }
-      //   });
     }
   }
 

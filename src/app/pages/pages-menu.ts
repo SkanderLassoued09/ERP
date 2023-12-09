@@ -317,12 +317,7 @@ export const MENU_ITEMS_COORDINATOR: NbMenuItem[] = [
     icon: "file-text-outline",
     children: [
       {
-        title: "Listes des DI",
-        link: "/pages/ticket/ticket-list",
-        icon: "folder-outline",
-      },
-      {
-        title: "DI consulté cordinateur",
+        title: "DI pour coordinatrice",
         link: "/pages/ticket/coordinator",
         icon: "clipboard-outline",
       },

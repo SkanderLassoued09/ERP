@@ -41,7 +41,6 @@ export class DropDownAffectationComponent implements OnInit {
     private toastr: NbToastrService,
     private shareData: ShareDataService,
     private cdr: ChangeDetectorRef,
-    private sharedService: ShareService,
     private router: Router,
     private nbDialog: NbDialogService
   ) {}

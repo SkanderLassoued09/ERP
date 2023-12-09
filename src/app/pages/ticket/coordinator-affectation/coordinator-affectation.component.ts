@@ -6,6 +6,7 @@ import { DropDownAdminsCooComponent } from "../drop-down-admins-coo/drop-down-ad
 import { BtnAffectReparationComponent } from "../btn-affect-reparation/btn-affect-reparation.component";
 import { AllInfoComponent } from "../all-info/all-info.component";
 import { NbDialogService } from "@nebular/theme";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "ngx-coordinator-affectation",
@@ -21,7 +22,7 @@ export class CoordinatorAffectationComponent implements OnInit {
       custom: [
         {
           name: "seeData",
-          title: `<i class="nb-compose" title="Voir toutes les informations"></i>`,
+          title: `<span ><img src="assets/images/document.png" alt=""/></span>`,
         },
       ],
     },
@@ -46,12 +47,33 @@ export class CoordinatorAffectationComponent implements OnInit {
         type: "string",
       },
       status: {
-        title: "Status",
-        type: "string",
+        title: "status",
+        type: "html",
+        valuePrepareFunction: (cell) => {
+          console.log(cell);
+          if (cell === "PENDING") {
+            return '<div class="pending">' + "En attente" + "</div>";
+          }
+          if (cell === "IN_PROGRESS") {
+            return '<div class="enCours">' + "En cours" + "</div>";
+          }
+          if (cell === "FINISHED") {
+            return '<div class="finished">' + "Finie" + "</div>";
+          }
+          if (cell === "PCR") {
+            return '<div class="pcr">' + "PCR" + "</div>";
+          }
+          if (cell === "IGNORED") {
+            return '<div class="ignored">' + "Annulé" + "</div>";
+          }
+          if (cell === "RETURN") {
+            return '<div class="ignored">' + "Retour" + "</div>";
+          }
+        },
       },
 
       emplacement: {
-        title: "emplacement",
+        title: "Local",
         type: "string",
         valuePrepareFunction: (data) => {
           if (!data) {
@@ -84,13 +106,13 @@ export class CoordinatorAffectationComponent implements OnInit {
         },
       },
       selectTech: {
-        title: "Choisir tech",
+        title: "Diagnostique",
         type: "custom",
         width: "15rem",
         renderComponent: DropDownAffectationComponent,
       },
       selectAdmin: {
-        title: "dop",
+        title: "Révision",
         type: "custom",
         renderComponent: DropDownAdminsCooComponent,
       },
@@ -105,7 +127,8 @@ export class CoordinatorAffectationComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private ticketservice: TicketService,
-    private nbDialog: NbDialogService
+    private nbDialog: NbDialogService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -124,12 +147,7 @@ export class CoordinatorAffectationComponent implements OnInit {
   }
 
   seeData(seeData) {
-    console.log(seeData, "see test");
-    let modal = this.nbDialog.open(AllInfoComponent, {
-      closeOnBackdropClick: true,
-      closeOnEsc: true,
-    });
-    modal.componentRef.instance.allData = seeData.data;
-    console.log("this is where my data come", seeData);
+    const ticketId = seeData.data._id;
+    this.route.navigate(["pages/ticket/details-ticket", ticketId]);
   }
 }

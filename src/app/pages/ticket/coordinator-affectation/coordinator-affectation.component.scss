@@ -36,3 +36,57 @@
   a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
   color: #5dcfe3;
 }
+
+:host ::ng-deep .finished {
+  width: auto;
+  border-radius: 4px;
+  background-color: #6dee1a;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+:host ::ng-deep .pending {
+  width: auto;
+  border-radius: 4px;
+  background-color: #fabf2c;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+:host ::ng-deep .enCours {
+  width: auto;
+  border-radius: 4px;
+  background-color: #08c1ffe0;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+:host ::ng-deep .pcr {
+  width: auto;
+  border-radius: 4px;
+  background-color: #eaff00;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+:host ::ng-deep .ignored {
+  width: auto;
+  border-radius: 4px;
+  background-color: #000000;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}

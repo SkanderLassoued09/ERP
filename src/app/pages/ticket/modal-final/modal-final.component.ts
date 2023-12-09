@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Apollo } from "apollo-angular";
 import { TicketService } from "../ticket/ticket.service";
-import { NbDialogRef, NbToastrService } from "@nebular/theme";
+import { NbDialogRef, NbDialogService, NbToastrService } from "@nebular/theme";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "ngx-modal-final",
@@ -36,7 +37,8 @@ export class ModalFinalComponent implements OnInit {
     private apollo: Apollo,
     private ticketService: TicketService,
     private toastr: NbToastrService,
-    private refDialog: NbDialogRef<ModalFinalComponent>
+    private refDialog: NbDialogRef<ModalFinalComponent>,
+    private nbDialog: NbDialogService
   ) {}
 
   ngOnInit(): void {
@@ -178,43 +180,77 @@ export class ModalFinalComponent implements OnInit {
   }
 
   submitManager() {
-    // console.log(this.pdfStr, "pdf str");
-    // console.log(this.facturePdf, "facture str");
-    // console.log(this.devis, "devise str");
-    // console.log(this.bl, "bl str");
-    // console.log(this.managerForm, "heyyyy");
-
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.updateTicketManager(
-          this.rowData._id,
-          this.caculateDiscount(
-            this.rowData.finalPrice,
-            this.managerForm.value.remise
-          ).finalPrice,
-          this.managerForm.value.statusFinal,
-          this.pdfStr,
-          this.bl,
-          this.facturePdf,
-          this.devis
-        ),
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: {
+          data: "êtes-vous sûr d'affecter le prix",
+        },
       })
-      .subscribe(({ data }) => {
-        if (data) {
-          this.toastr.success(
-            `la réduction est de ${
-              this.caculateDiscount(
-                this.rowData.finalPrice,
-                this.managerForm.value.remise
-              ).discount
-            }`,
-            "Réussite de l'affectation",
-            { duration: 0 }
-          );
+      .onClose.subscribe((result) => {
+        if (result) {
+          this.apollo
+            .mutate<any>({
+              mutation: this.ticketService.updateTicketManager(
+                this.rowData._id,
+                this.caculateDiscount(
+                  this.rowData.finalPrice,
+                  this.managerForm.value.remise
+                ).finalPrice,
+                this.managerForm.value.statusFinal,
+                this.pdfStr,
+                this.bl,
+                this.facturePdf,
+                this.devis
+              ),
+            })
+            .subscribe(({ data }) => {
+              if (data) {
+                this.toastr.success(
+                  `la réduction est de ${
+                    this.caculateDiscount(
+                      this.rowData.finalPrice,
+                      this.managerForm.value.remise
+                    ).discount
+                  }`,
+                  "Réussite de l'affectation",
+                  { duration: 0 }
+                );
+              }
+            });
+          this.refDialog.close(true);
         }
       });
-    this.refDialog.close(true);
   }
+
+  // sendTicket() {
+  //   this.nbDialog
+  //     .open(ConfirmationModalComponent, {
+  //       context: {
+  //         data: "êtes-vous sûr d'ajouter cette demande d'intervention",
+  //       },
+  //     })
+  //     .onClose.subscribe((result) => {
+  //       if (result) {
+  //         this.addTicket.value.createdBy = localStorage.getItem("username");
+  //         this.addTicket.value.image = this.imageStr;
+
+  //         this.apollo
+  //           .mutate<any>({
+  //             mutation: this.ticketService.addTicket(this.addTicket.value),
+  //           })
+  //           .subscribe(({ data }) => {
+  //             console.log(data);
+  //             this.nbToastr.success(
+  //               "Ticket a été ajouté avec succès",
+  //               "Ticket ajouté"
+  //             );
+  //           });
+
+  //         this.addTicket.reset();
+  //       }
+  //     });
+  // }
+
   statusToggle(status: boolean) {
     console.log(status, "toggle status");
     this.stautsToggle = status;

@@ -34,7 +34,9 @@ export class AllInfoComponent implements OnInit {
     // console.log("all data", this.allData);
     // this.calculateTotalPrixTotale();
 
-    this.ticketId = this.activatedRoute.snapshot.paramMap.get("idTicket");
+    this.ticketId = this.activatedRoute.snapshot.paramMap.get("idTicket")
+      ? this.activatedRoute.snapshot.paramMap.get("idTicket")
+      : this.allData._id;
 
     console.log(this.ticketId, "id");
 
