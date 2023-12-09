@@ -46,7 +46,7 @@ export class ModalAdminsComponent implements OnInit {
             .subscribe(({ data }) => {
               if (data) {
                 this.AdminTechForm.reset();
-                this.toastr.success("", "Prix affécté");
+                this.toastr.success("", "Prix affecté");
                 this.refDialog.close(true);
               }
             });
@@ -60,7 +60,7 @@ export class ModalAdminsComponent implements OnInit {
             .subscribe(({ data }) => {
               if (data) {
                 this.AdminTechForm.reset();
-                this.toastr.success("", "Prix affécté");
+
                 this.refDialog.close(true);
               }
             });

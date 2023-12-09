@@ -11,6 +11,7 @@ import { ActivatedRoute } from "@angular/router";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
 import { NbToastrService } from "@nebular/theme";
+import { URL } from "../../../URLs";
 
 @Component({
   selector: "ngx-all-info",
@@ -22,6 +23,7 @@ export class AllInfoComponent implements OnInit {
   allData;
   ticketId: string;
   ticket: any;
+  urlHost: any;
   // totalPrix: number;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -33,7 +35,8 @@ export class AllInfoComponent implements OnInit {
   ngOnInit(): void {
     // console.log("all data", this.allData);
     // this.calculateTotalPrixTotale();
-
+    this.urlHost = URL.SOCKET;
+    console.log(this.urlHost, "gggggg");
     this.ticketId = this.activatedRoute.snapshot.paramMap.get("idTicket")
       ? this.activatedRoute.snapshot.paramMap.get("idTicket")
       : this.allData._id;

@@ -1,11 +1,11 @@
 import { NbMenuItem } from "@nebular/theme";
 
 export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
-  // {
-  //   title: "Accueil",
-  //   icon: "pie-chart-outline",
-  //   link: "/pages/dashboardGlobal/dashboardGlobal",
-  // },
+  {
+    title: "Accueil",
+    icon: "pie-chart-outline",
+    link: "/pages/dashboardGlobal/dashboardGlobal",
+  },
 
   {
     title: "Responsable Admnistration",
@@ -78,12 +78,12 @@ export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
 ];
 
 export const MENU_ITEMS_ADMIN_TECH: NbMenuItem[] = [
-  // {
-  //   title: "Accueil",
-  //   icon: "pie-chart-outline",
-  //   link: "/pages/dashboardGlobal/dashboardGlobal",
-  //   home: true,
-  // },
+  {
+    title: "Accueil",
+    icon: "pie-chart-outline",
+    link: "/pages/dashboardGlobal/dashboardGlobal",
+    home: true,
+  },
 
   {
     title: "Responsable Technique",

@@ -16,7 +16,8 @@ export class DetailsTableComponent implements OnInit {
   selectedItemSave: { [field: string]: boolean } = {};
   constructor(
     private tableClientService: TableClientService,
-    private apollo: Apollo
+    private apollo: Apollo,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -46,9 +47,9 @@ export class DetailsTableComponent implements OnInit {
   }
 
   send(field: string, name: string) {
-    console.log(this.updateValue, "i send");
-    console.log(name, "this obj---------");
-    console.log("send is fired", field);
+    console.log(this.updateValue, "Value");
+    console.log(name, "Obj");
+    console.log(field, "fired");
 
     // Ensure that the property exists in selectedItem
     if (!this.selectedItem.hasOwnProperty(field)) {
@@ -62,6 +63,16 @@ export class DetailsTableComponent implements OnInit {
       this.selectedItemSave[field],
       "this.selectedItemSave[field] in send "
     );
+
+    // Update the specific property
+    const propertyParts = name.split("."); // Assuming name is in the format "property.subproperty"
+    let currentObject = this.detailsCompany;
+
+    for (const part of propertyParts.slice(0, -1)) {
+      currentObject = currentObject[part];
+    }
+
+    currentObject[propertyParts[propertyParts.length - 1]] = this.updateValue;
 
     this.apollo
       .mutate<any>({

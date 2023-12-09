@@ -27,7 +27,7 @@ export class BtnAffectReparationComponent implements OnInit {
     console.log(this.rowData, "fix reparation coordinator");
     this.getAllTech();
     this.handleBtn();
-    this.toHandleSelect();
+    // this.toHandleSelect();
   }
 
   openToRepatation() {}
@@ -74,7 +74,7 @@ export class BtnAffectReparationComponent implements OnInit {
   handleBtn() {
     if (
       this.rowData.finalPrice !== null &&
-      this.rowData.isReparable === false
+      this.rowData.assignedToRep === null
     ) {
       this.closeBtn = false;
     } else {

@@ -7,6 +7,7 @@ import { NbDialogService } from "@nebular/theme";
 import { BtnFinalComponent } from "../btn-final/btn-final.component";
 import { ToggleIgnoreComponent } from "../toggle-ignore/toggle-ignore.component";
 import { AllInfoComponent } from "../all-info/all-info.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "ngx-ticket",
@@ -107,7 +108,8 @@ export class TicketComponentTraiter implements OnInit {
     private apollo: Apollo,
     private ticketService: TicketService,
     private datePipe: DatePipe,
-    private nbDialog: NbDialogService
+    private nbDialog: NbDialogService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -126,12 +128,7 @@ export class TicketComponentTraiter implements OnInit {
   }
 
   seeData(seeData) {
-    console.log(seeData, "see");
-    let modal = this.nbDialog.open(AllInfoComponent, {
-      closeOnBackdropClick: true,
-      closeOnEsc: true,
-    });
-    modal.componentRef.instance.allData = seeData.data;
-    console.log("this is where my data come", seeData);
+    const ticketId = seeData.data._id;
+    this.route.navigate(["pages/ticket/details-ticket", ticketId]);
   }
 }

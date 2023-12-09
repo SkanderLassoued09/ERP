@@ -184,7 +184,7 @@ export class TicketService {
           affectedToCompany
           status
           magasinDone
-
+          assignedToRep
           toMagasin
           coordinatorToAdmin
           finalPrice
@@ -644,6 +644,10 @@ export class TicketService {
           techNameSug
           statusFinal
           price
+          bl
+          facture
+          Devis
+          bc
           typeClient
           isReadyForDiag
           isReparationFinishedByTech

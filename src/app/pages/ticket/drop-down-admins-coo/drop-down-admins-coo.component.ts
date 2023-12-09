@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { TicketService } from "../ticket/ticket.service";
-import { NbToastrService } from "@nebular/theme";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
 import { ShareDataService } from "../../../share-data.service";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "ngx-drop-down-admins-coo",
@@ -19,7 +20,8 @@ export class DropDownAdminsCooComponent implements OnInit {
     private ticketService: TicketService,
     private toastr: NbToastrService,
     private cdr: ChangeDetectorRef,
-    private shareData: ShareDataService
+    private shareData: ShareDataService,
+    private nbDialog: NbDialogService
   ) {}
 
   ngOnInit(): void {
@@ -40,17 +42,23 @@ export class DropDownAdminsCooComponent implements OnInit {
   }
 
   valider() {
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.makeTicketAvailableForAdmin(
-          this.rowData._id
-        ),
-      })
-      .subscribe(({ data }) => {
-        if (data) {
-          this.toastr.success("", "Ticket available for admins");
-          this.disableBtnAffectToAdmin = true;
-          this.cdr.detectChanges();
+    this.nbDialog
+      .open(ConfirmationModalComponent, { context: "Voulez-vous confirmer ?" })
+      .onClose.subscribe((result) => {
+        if (result) {
+          this.apollo
+            .mutate<any>({
+              mutation: this.ticketService.makeTicketAvailableForAdmin(
+                this.rowData._id
+              ),
+            })
+            .subscribe(({ data }) => {
+              if (data) {
+                this.toastr.success("", "Ticket available for admins");
+                this.disableBtnAffectToAdmin = true;
+                this.cdr.detectChanges();
+              }
+            });
         }
       });
   }

@@ -1,8 +1,12 @@
 <div class="fix-width">
   <nb-select
     (selectedChange)="affectTicketToTech($event)"
-    [placeholder]="this.rowData.assignedTo"
-    [disabled]="isDisable"
+    [placeholder]="
+      this.rowData.assignedToRep
+        ? this.rowData.assignedToRep
+        : this.rowData.assignedTo
+    "
+    [disabled]="closeBtn"
     fullWidth
   >
     <nb-option

@@ -325,7 +325,7 @@ export class DashboardComponent implements OnInit {
         query: this.ticketService.getAllTech(),
       })
       .subscribe(({ data }) => {
-        //console.log(data);
+        // console.log(data);
         // this.techs = data.getAllTech;
       });
   }
@@ -423,8 +423,8 @@ export class DashboardComponent implements OnInit {
         query: this.dashboardService.cardTech(),
       })
       .subscribe(({ data }) => {
-        //console.log(data, "card tech");
-        // this.techs = data.getTicketByProfile;
+        console.log(data, "card tech");
+        this.techs = data.getTicketByProfile;
       });
   }
 
