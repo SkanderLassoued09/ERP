@@ -38,7 +38,7 @@ export class TicketService {
     mutation {
       createTicket(
         createTicketInput: {
-          title: "${ticket.titre}"
+          title: "${ticket.title}"
           designiation: "${ticket.designiation}"
           typeClient: "${ticket.typeClient}"
           affectedToCompany: "${ticket.affectedToCompany}"

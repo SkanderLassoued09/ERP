@@ -14,7 +14,7 @@ export interface Ticket {
   updatedAt?: Date;
   lapTime?: string;
   role?: string;
-  titre?: string;
+  title?: string;
   pdfComposant?: string;
   affectedToCompany?: string;
   affectedToClient?: string;
