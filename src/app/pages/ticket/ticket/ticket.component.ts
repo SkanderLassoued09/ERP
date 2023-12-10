@@ -16,6 +16,7 @@ import { BtnAdminsComponent } from "../btn-admins/btn-admins.component";
 import { ToggleActivateComponent } from "../toggle-activate/toggle-activate.component";
 import { AllInfoComponent } from "../all-info/all-info.component";
 import { Route, Router } from "@angular/router";
+import { AddPriceTechComponent } from "../add-price-tech/add-price-tech.component";
 @Component({
   selector: "ngx-ticket",
   templateUrl: "./ticket.component.html",
@@ -211,7 +212,12 @@ export class TicketComponent implements OnInit {
       closeOnEsc: true,
     });
   }
-
+  openModalTarifTech() {
+    let modal = this.nbDialog.open(AddPriceTechComponent, {
+      closeOnBackdropClick: true,
+      closeOnEsc: true,
+    });
+  }
   getNotificationSocket() {
     // const currentUser = localStorage.getItem("username");
     // let notificationData = this.ticketService.getNotification(currentUser);

@@ -680,4 +680,21 @@ export class TicketService {
       }
     `;
   }
+
+  getPriceTech() {
+    return gql`
+      query {
+        getPriceTech
+      }
+    `;
+  }
+
+  updatePriceTech(newPriceTech: number) {
+    return gql`
+  mutation{
+    updatePriceTech
+    (newPriceTech:${newPriceTech})
+  }
+  `;
+  }
 }

@@ -48,6 +48,7 @@ import { DropDownAdminsCooComponent } from "./drop-down-admins-coo/drop-down-adm
 import { BtnAffectReparationComponent } from "./btn-affect-reparation/btn-affect-reparation.component";
 import { MatSliderModule } from "@angular/material/slider";
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
+import { AddPriceTechComponent } from './add-price-tech/add-price-tech.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { TicketDetailsComponent } from './ticket-details/ticket-details.componen
     DropDownAdminsCooComponent,
     BtnAffectReparationComponent,
     TicketDetailsComponent,
+    AddPriceTechComponent,
   ],
   imports: [
     DragDropModule,

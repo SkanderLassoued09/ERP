@@ -12,6 +12,8 @@ import { NbToastrService } from "@nebular/theme";
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit {
+  ThePriceTech: number = 50;
+
   final_price: number = 0;
   options = {
     backgroundColor: echarts.bg,
@@ -207,6 +209,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getPriceTech();
     this.getTotality();
     this.getChart();
     this.getClientByRegion();
@@ -417,10 +420,22 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  cardTech() {
-    this.apollo
+  async getPriceTech(): Promise<any> {
+    await this.apollo
       .query<any>({
-        query: this.dashboardService.cardTech(),
+        query: this.ticketService.getPriceTech(),
+      })
+      .subscribe(({ data }) => {
+        this.ThePriceTech = data.getPriceTech;
+        console.log("it work this the price of tech =>", data.getPriceTech);
+        console.log(" this.ThePriceTech =>", this.ThePriceTech);
+      });
+  }
+  //nezih to rectify this i need to get the value from getPriceTech
+  async cardTech() {
+    await this.apollo
+      .query<any>({
+        query: this.dashboardService.cardTech(this.ThePriceTech),
       })
       .subscribe(({ data }) => {
         console.log(data, "card tech");

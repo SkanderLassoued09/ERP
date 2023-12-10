@@ -5,7 +5,7 @@ import { Component } from "@angular/core";
   styleUrls: ["./footer.component.scss"],
   template: `
     <span class="created-by">
-      Fixtronix systeme de gestion des intervention créer par Skander & Nezih
+      Fixtronix systeme de gestion des Demnades interventions
     </span>
     <div class="socials">
       <a href="https://fixtronix.tn/" target="_blank">

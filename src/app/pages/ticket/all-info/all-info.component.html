@@ -8,7 +8,7 @@
             <tr class="header-tech">
               <th>Identifiant ticket</th>
               <th>Designation</th>
-              <th>Type de probleme</th>
+              <th>Remarque Admnistration</th>
               <th>emplacement</th>
               <th>{{ ticket?.typeClient }}</th>
               <th>Créé le</th>
@@ -18,7 +18,7 @@
             <tr class="list-tech">
               <td>{{ ticket?._id }}</td>
               <td>{{ ticket?.title }}</td>
-              <td>{{ ticket?.issue }}</td>
+              <td>{{ ticket?.designiation }}</td>
               <td>{{ ticket?.emplacement }}</td>
               <td>
                 {{ ticket?.affectedToCompany || ticket?.affectedToClient }}
@@ -57,13 +57,13 @@
           <thead>
             <tr class="header-tech">
               <th>Remarque Technicien</th>
-              <th>Remarque Admnistration</th>
+              <th>Type de probleme</th>
             </tr>
           </thead>
           <tbody>
             <tr class="list-tech">
               <td>{{ ticket?.remarqueTech }}</td>
-              <td>{{ ticket?.designiation }}</td>
+              <td>{{ ticket?.issue }}</td>
             </tr>
           </tbody>
         </table>

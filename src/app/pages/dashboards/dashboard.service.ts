@@ -40,10 +40,18 @@ export class DashboardService {
     `;
   }
 
-  cardTech() {
+  getPriceTech() {
+    return gql`
+      query {
+        getPriceTech
+      }
+    `;
+  }
+
+  cardTech(givenPrice: number) {
     return gql`
       {
-        getTicketByProfile {
+        getTicketByProfile(givenPrice: ${givenPrice}) {
           techName
           totalDiag
           totalRep

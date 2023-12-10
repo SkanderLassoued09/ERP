@@ -69,11 +69,7 @@ export class TableClientComponent implements OnInit {
         type: "string",
       },
       firstName: {
-        title: "Prénom",
-        type: "string",
-      },
-      lastName: {
-        title: "Nom",
+        title: "Nom & Prenom",
         type: "string",
       },
     },

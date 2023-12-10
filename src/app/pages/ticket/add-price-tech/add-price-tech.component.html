@@ -1,0 +1,25 @@
+<nb-card>
+  <nb-card-header>Affecter Tarif des techniciens</nb-card-header>
+  <nb-card-body>
+    <form class="row">
+      <div class="col-lg-12">
+        <nb-card>
+          <strong>Tarif actuel {{ ThePriceTech }}</strong>
+        </nb-card>
+        <label class="label">Changer Tarif Technicien</label>
+        <input
+          type="text"
+          nbInput
+          name="TarifInput"
+          [(ngModel)]="TarifInput"
+          fullWidth
+        />
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer
+    ><button nbButton status="success" (click)="updatePriceTech()">
+      Valider
+    </button></nb-card-footer
+  >
+</nb-card>
