@@ -44,7 +44,7 @@ export class TicketService {
           affectedToCompany: "${ticket.affectedToCompany}"
           affectedToClient: "${ticket.affectedToClient}"
           emplacement: "${ticket.emplacement}"
-          numero: "${ticket.numero}"
+          numero: "${ticket.numSerie}"
           image: "${ticket.image}"
         }
       ) {
@@ -633,6 +633,8 @@ export class TicketService {
         getTicketById(id: "${id}") {
           _id
           title
+          affectedToClient
+          affectedToCompany
           designiation
           emplacement
           numero
@@ -674,6 +676,7 @@ export class TicketService {
             purchasePrice
             comingDate
             package
+            statusComposant
           }
           finalPrice
         }

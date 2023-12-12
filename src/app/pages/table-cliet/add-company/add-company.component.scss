@@ -4,7 +4,13 @@
   align-items: center;
   margin: 1rem;
 }
-
+.toggle-CS {
+  margin-left: auto;
+}
+nb-card-header {
+  display: flex;
+  justify-content: space-between;
+}
 p {
   margin: 1rem auto;
 }

@@ -62,7 +62,7 @@ export class CompanyListComponent implements OnInit {
         title: "Télephone",
         type: "string",
       },
-      fix: {
+      fax: {
         title: "Fax",
         type: "string",
       },
@@ -79,11 +79,15 @@ export class CompanyListComponent implements OnInit {
         type: "string",
       },
       raisonSociale: {
-        title: "Raison Sociale",
+        title: "Identifiant Unique",
         type: "string",
       },
       Exoneration: {
         title: "Exoneration",
+        type: "string",
+      },
+      Region: {
+        title: "Region",
         type: "string",
       },
     },

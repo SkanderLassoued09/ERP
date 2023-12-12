@@ -9,7 +9,9 @@
     <form [formGroup]="addCompany">
       <div class="row">
         <div class="col-lg-6">
-          <label class="label" for="">Nom de l'entreprise</label>
+          <label class="label" for=""
+            >Nom de l'entreprise (Raison Sociale)</label
+          >
           <input nbInput type="text" fullWidth formControlName="companyName" />
         </div>
         <div class="col-lg-6">
@@ -35,7 +37,7 @@
           />
         </div>
         <div class="col-lg-6">
-          <label class="label" for="">Raison Sociale</label>
+          <label class="label" for="">Identifiant Unique</label>
           <input
             nbInput
             type="text"
@@ -67,7 +69,7 @@
           <input nbInput type="text" fullWidth formControlName="phone" />
         </div>
         <div class="col-lg-6">
-          <label class="label" for="">Numero de fix</label>
+          <label class="label" for="">Numero fax</label>
           <input nbInput type="text" fullWidth formControlName="fax" />
         </div>
         <div class="col-lg-6">
@@ -204,4 +206,10 @@
       </div>
     </form>
   </nb-card-body>
+  <div class="note">
+    <strong>NB:</strong> Les champs obligatoires sont
+    <strong>Raison Sociale</strong>, <strong>ID unique</strong>,
+    <strong>Adresse</strong>, et <strong>Région</strong>. Vous devez également
+    sélectionner les services suivants : <strong>Achat & Financier</strong>.
+  </div>
 </nb-card>

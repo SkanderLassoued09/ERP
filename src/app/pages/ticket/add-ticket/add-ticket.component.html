@@ -38,7 +38,11 @@
 
         <div class="col-lg-8" *ngIf="checkedTypeClient === 'Société'">
           <label class="label" for="">Choisir la société</label>
-          <nb-select fullWidth formControlName="affectedToCompany">
+          <nb-select
+            fullWidth
+            formControlName="affectedToCompany"
+            [filter]="true"
+          >
             <nb-option *ngFor="let c of listOfCompany" [value]="c.companyName">
               {{ c.companyName }}
             </nb-option>

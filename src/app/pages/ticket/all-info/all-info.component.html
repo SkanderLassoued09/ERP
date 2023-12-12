@@ -10,6 +10,7 @@
               <th>Designation</th>
               <th>Remarque Admnistration</th>
               <th>emplacement</th>
+              <th>N° Serie</th>
               <th>{{ ticket?.typeClient }}</th>
               <th>Créé le</th>
             </tr>
@@ -20,8 +21,13 @@
               <td>{{ ticket?.title }}</td>
               <td>{{ ticket?.designiation }}</td>
               <td>{{ ticket?.emplacement }}</td>
+              <td>{{ ticket?.numero }}</td>
               <td>
-                {{ ticket?.affectedToCompany || ticket?.affectedToClient }}
+                {{
+                  ticket?.typeClient == "Société"
+                    ? ticket?.affectedToCompany
+                    : ticket?.affectedToClient
+                }}
               </td>
               <td>{{ ticket?.createdAt | date : "dd/MM/yyyy HH:mm" }}</td>
             </tr>
@@ -49,7 +55,7 @@
               <td>{{ ticket?.assignedTo }}</td>
               <td>{{ ticket?.assignedToRep }}</td>
               <td>{{ ticket?.diagnosticTimeByTech }}</td>
-              <td>{{ ticket?.assignedToRep }}</td>
+              <td>{{ ticket?.reparationTimeByTech }}</td>
             </tr>
           </tbody>
         </table>
@@ -80,6 +86,7 @@
             <tr class="header-tech">
               <th>Prix initial</th>
               <th>Prix aprés remise</th>
+              <th>Pourcentage Remise</th>
               <th>Dernier modification</th>
             </tr>
           </thead>
@@ -87,6 +94,17 @@
             <tr class="list-tech">
               <td>{{ ticket?.price }}</td>
               <td>{{ ticket?.finalPrice }}</td>
+              <td>
+                {{
+                  ticket?.finalPrice !== null &&
+                  ticket?.price !== null &&
+                  ticket?.price !== 0
+                    ? ((1 - ticket?.finalPrice / ticket?.price) * 100).toFixed(
+                        2
+                      ) + "%"
+                    : ""
+                }}
+              </td>
               <td>{{ ticket?.updatedAt | date : "dd/MM/yyyy HH:mm" }}</td>
             </tr>
           </tbody>
@@ -102,24 +120,26 @@
         <table class="col-lg-12 equal-width-table">
           <thead>
             <tr class="header-tech">
-              <th>Packages des composants</th>
-              <th>Listes Noms des composants</th>
-              <th>Quantites pour chaque composants</th>
-              <th>Prix d'achats des composants</th>
-              <th>Prix de ventes des composants</th>
-              <th>Status des composants</th>
+              <th>Packagee du composant</th>
+              <th>Nom composant</th>
+              <th>Quantites</th>
+              <th>Prix d'achat</th>
+              <th>Prix de vente</th>
+              <th>Status composant</th>
               <th>Date d'arrivage</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="list-tech">
-              <td>{{ ticket?.composants.package }}</td>
-              <td>{{ ticket?.composants.nameComposant }}</td>
-              <td>{{ ticket?.composants.quantity }}</td>
-              <td>{{ ticket?.composants.purchasePrice }}</td>
-              <td>{{ ticket?.composants.sellPrice }}</td>
-              <td>{{ ticket?.composants.statusComposant }}</td>
-              <td>{{ ticket?.composants.comingDate }}</td>
+            <tr class="list-tech" *ngFor="let composant of ticket?.composants">
+              <td>{{ composant.package }}</td>
+              <td>{{ composant.nameComposant }}</td>
+              <td>{{ composant.quantity }}</td>
+              <td>{{ composant.purchasePrice }}</td>
+              <td>{{ composant.sellPrice }}</td>
+              <td>{{ composant.statusComposant }}</td>
+              <td>
+                {{ composant.comingDate ? composant.comingDate : "En stock" }}
+              </td>
             </tr>
           </tbody>
         </table>

@@ -15,7 +15,9 @@
   height: 0 !important;
   margin-left: -17%;
 }
-
+.note strong {
+  font-weight: bold;
+}
 :host
   ::ng-deep
   ng2-st-tbody-custom
