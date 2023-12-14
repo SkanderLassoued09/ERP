@@ -52,6 +52,10 @@ export class TableClientComponent implements OnInit {
         type: "string",
         editable: false,
       },
+      firstName: {
+        title: "Nom & Prenom",
+        type: "string",
+      },
       address: {
         title: "Address",
         type: "string",
@@ -66,10 +70,6 @@ export class TableClientComponent implements OnInit {
       },
       phone: {
         title: "phone",
-        type: "string",
-      },
-      firstName: {
-        title: "Nom & Prenom",
         type: "string",
       },
     },

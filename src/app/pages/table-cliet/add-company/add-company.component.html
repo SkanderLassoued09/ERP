@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-lg-6">
           <label class="label" for=""
-            >Nom de l'entreprise (Raison Sociale)</label
+            >Nom de l'entreprise (Raison Sociale)*</label
           >
           <input nbInput type="text" fullWidth formControlName="companyName" />
         </div>
@@ -37,7 +37,7 @@
           />
         </div>
         <div class="col-lg-6">
-          <label class="label" for="">Identifiant Unique</label>
+          <label class="label" for="">Identifiant Unique *</label>
           <input
             nbInput
             type="text"
@@ -52,11 +52,11 @@
       </div>
       <div class="row">
         <div class="col-lg-6">
-          <label class="label" for="">Adresse</label>
+          <label class="label" for="">Adresse *</label>
           <input nbInput type="text" fullWidth formControlName="address" />
         </div>
         <div class="col-lg-6">
-          <label class="label" for="">Région</label>
+          <label class="label" for="">Region *</label>
           <nb-select formControlName="region" fullWidth>
             <nb-option *ngFor="let r of regions" [value]="r">
               {{ r }}
@@ -81,7 +81,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="achat" *ngIf="toHideAchat" formGroupName="achat">
-            <label for="" class="label"> Service Achat</label>
+            <label for="" class="label"> Service Achat *</label>
             <div class="input">
               <input
                 name="Nom & Prénom"
@@ -110,7 +110,7 @@
             *ngIf="toHideFinancier"
             formGroupName="financier"
           >
-            <label for="" class="label">Service Financier</label>
+            <label for="" class="label">Service Financier *</label>
             <div class="input">
               <input
                 placeholder="Nom & Prénom"
@@ -206,10 +206,4 @@
       </div>
     </form>
   </nb-card-body>
-  <div class="note">
-    <strong>NB:</strong> Les champs obligatoires sont
-    <strong>Raison Sociale</strong>, <strong>ID unique</strong>,
-    <strong>Adresse</strong>, et <strong>Région</strong>. Vous devez également
-    sélectionner les services suivants : <strong>Achat & Financier</strong>.
-  </div>
 </nb-card>

@@ -73,7 +73,7 @@ export class CoordinatorAffectationComponent implements OnInit {
       },
 
       emplacement: {
-        title: "Local",
+        title: "Emplacement",
         type: "string",
         valuePrepareFunction: (data) => {
           if (!data) {
