@@ -57,7 +57,7 @@ export class TableClientComponent implements OnInit {
         type: "string",
       },
       region: {
-        title: "region",
+        title: "Region",
         type: "string",
       },
       email: {

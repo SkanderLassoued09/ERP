@@ -86,7 +86,7 @@ export class CompanyListComponent implements OnInit {
         title: "Exoneration",
         type: "string",
       },
-      Region: {
+      region: {
         title: "Region",
         type: "string",
       },
