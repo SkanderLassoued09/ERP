@@ -700,4 +700,42 @@ export class TicketService {
   }
   `;
   }
+
+  delete_ticket(_id: string) {
+    return gql`
+      mutation {
+        deleteTicket(_id: "${_id}") {
+          deleteTicket {
+            deletedCount
+          }
+          responseError {
+            message
+            code
+          }
+        }
+      }
+    `;
+  }
+
+  updateTicket(
+    _id: string,
+    numero: string,
+    emplacement: string,
+    designiation: string,
+    title: string
+  ) {
+    return gql`
+      mutation {
+        updateTicketcField(
+          updateTicket: {
+            _id: "${_id}"
+            numero: "${numero}"
+            emplacement: "${emplacement}"
+            designiation: "${designiation}"
+            title: "${title}"
+          }
+        )
+      }
+    `;
+  }
 }

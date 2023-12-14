@@ -7,7 +7,7 @@ import { BtnOpenTicketModalComponent } from "../btn-open-ticket-modal/btn-open-t
 import * as moment from "moment";
 import { DatePipe } from "@angular/common";
 import { BtnReparationComponent } from "../btn-reparation/btn-reparation.component";
-import { NbDialogService } from "@nebular/theme";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
 import { ModalAddIssueComponent } from "../modal-add-issue/modal-add-issue.component";
 import { AddLocationComponent } from "../add-location/add-location.component";
 import { BtnOpenModalMagasinComponent } from "../btn-open-modal-magasin/btn-open-modal-magasin.component";
@@ -17,6 +17,7 @@ import { ToggleActivateComponent } from "../toggle-activate/toggle-activate.comp
 import { AllInfoComponent } from "../all-info/all-info.component";
 import { Route, Router } from "@angular/router";
 import { AddPriceTechComponent } from "../add-price-tech/add-price-tech.component";
+import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 @Component({
   selector: "ngx-ticket",
   templateUrl: "./ticket.component.html",
@@ -34,8 +35,8 @@ export class TicketComponent implements OnInit {
   settings = {
     actions: {
       add: false,
-      edit: false,
-      delete: false,
+      edit: true,
+      delete: true,
       custom: [
         {
           name: "seeData",
@@ -50,23 +51,35 @@ export class TicketComponent implements OnInit {
       cancelButtonContent: '<i class="nb-close"></i>',
     },
     edit: {
-      editButtonContent: '<i class="nb-edit"  title="Modifier" ></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
+      editButtonContent: `<span ><img src="assets/images/edit.png" alt=""/></span>`,
+      saveButtonContent: `<span ><img src="assets/images/check.png" alt=""/></span>`,
+      cancelButtonContent: `<span ><img src="assets/images/cross.png" alt=""/></span>`,
       confirmSave: true,
     },
     delete: {
-      deleteButtonContent: '<i class="nb-trash"  title="Desactiver"></i>',
+      deleteButtonContent: `<span ><img src="assets/images/trash.png" alt=""/></span>`,
       confirmDelete: true,
     },
     columns: {
       _id: {
         title: "ID",
         type: "string",
+        editable: false,
       },
+      title: {
+        title: "Titre",
+        type: "string",
+      },
+
+      designiation: {
+        title: "Désigniation",
+        type: "string",
+      },
+
       typeClient: {
         title: "Type",
         type: "string",
+        editable: false,
       },
 
       emplacement: {
@@ -77,11 +90,17 @@ export class TicketComponent implements OnInit {
       reparable: {
         title: "reparable",
         type: "string",
+        editable: false,
+      },
+      numero: {
+        title: "numero",
+        type: "string",
       },
 
       status: {
         title: "status",
         type: "html",
+        editable: false,
         valuePrepareFunction: (cell) => {
           console.log(cell);
           if (cell === "PENDING") {
@@ -108,6 +127,7 @@ export class TicketComponent implements OnInit {
       createdAt: {
         title: "créé le",
         type: "string",
+        editable: false,
         valuePrepareFunction: (date) => {
           var raw = new Date(date);
 
@@ -118,6 +138,7 @@ export class TicketComponent implements OnInit {
       updatedAt: {
         title: "Dérniere modification",
         type: "string",
+        editable: false,
         valuePrepareFunction: (date) => {
           var raw = new Date(date);
 
@@ -129,26 +150,31 @@ export class TicketComponent implements OnInit {
         title: "Diagnostique",
         type: "custom",
         renderComponent: BtnOpenTicketModalComponent,
+        editable: false,
       },
       modalReparation: {
         title: "Réparation",
         type: "custom",
         renderComponent: BtnReparationComponent,
+        editable: false,
       },
       openModalMagasin: {
         title: "Remplissage",
         type: "custom",
         renderComponent: BtnOpenModalMagasinComponent,
+        editable: false,
       },
       affectationPrice: {
         title: "Affectation les prix",
         type: "custom",
         renderComponent: BtnAdminsComponent,
+        editable: false,
       },
       reactivateDiagnostique: {
         title: "Reouverture diagnostique",
         type: "custom",
         renderComponent: ToggleActivateComponent,
+        editable: false,
       },
     },
   };
@@ -162,7 +188,8 @@ export class TicketComponent implements OnInit {
     private ticketService: TicketService,
     private datePipe: DatePipe,
     private nbDialog: NbDialogService,
-    private route: Router
+    private route: Router,
+    private toastr: NbToastrService
   ) {}
 
   ngOnInit(): void {
@@ -262,5 +289,64 @@ export class TicketComponent implements OnInit {
   seeData(seeData) {
     const ticketId = seeData.data._id;
     this.route.navigate(["pages/ticket/details-ticket", ticketId]);
+  }
+
+  deleteTicket(event) {
+    console.log(event, "data");
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: "Voulez-vous supprimer le ticket ?",
+      })
+      .onClose.subscribe((result) => {
+        if (result) {
+          this.apollo
+            .mutate<any>({
+              mutation: this.ticketService.delete_ticket(event.data._id),
+              errorPolicy: "all",
+            })
+            .subscribe(({ data, errors }) => {
+              if (data) {
+                this.toastr.danger("", "Ticket supprimé");
+                event.confirm.resolve();
+              }
+              if (errors) {
+                this.toastr.danger("", "vous n'êtes pas autorisé");
+              }
+            });
+        }
+      });
+  }
+
+  editTicket(event) {
+    console.log(event, "update");
+    console.log(
+      event.newData._id,
+      event.newData.numero,
+      event.newData.emplacement,
+      event.newData.designiation,
+      event.newData.title,
+      "update"
+    );
+    this.nbDialog
+      .open(ConfirmationModalComponent, { context: "Voulez-vous confirmer ?" })
+      .onClose.subscribe((result) => {
+        if (result) {
+          this.apollo
+            .mutate<any>({
+              mutation: this.ticketService.updateTicket(
+                event.newData._id,
+                event.newData.numero,
+                event.newData.emplacement,
+                event.newData.designiation,
+                event.newData.title
+              ),
+            })
+            .subscribe(({ data }) => {
+              console.log(data);
+              this.toastr.success("", "Les champs ont changé");
+              event.confirm.resolve(event.newdata);
+            });
+        }
+      });
   }
 }

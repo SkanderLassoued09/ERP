@@ -7,8 +7,17 @@
 :host ::ng-deep ng2-st-tbody-edit-delete {
   display: flex !important;
   height: 0 !important;
+  // margin-left: -17%;
 }
 
+:host ::ng-deep ng2-st-tbody-create-cancel {
+  display: flex !important;
+  height: 0 !important;
+  margin-left: -17%;
+}
+.note strong {
+  font-weight: bold;
+}
 :host
   ::ng-deep
   ng2-st-tbody-custom
@@ -37,6 +46,13 @@
   color: #5dcfe3;
 }
 
+:host ::ng-deep {
+  ng2-smart-table .ng2-smart-actions a.ng2-smart-action span img {
+    position: absolute;
+    top: 25%;
+  }
+}
+
 :host ::ng-deep .finished {
   width: auto;
   border-radius: 4px;
@@ -45,6 +61,7 @@
   margin: auto;
   text-align: center;
   color: #ffffff;
+
   font-weight: 600;
 }
 
