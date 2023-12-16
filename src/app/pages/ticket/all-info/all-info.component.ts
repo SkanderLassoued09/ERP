@@ -24,13 +24,16 @@ export class AllInfoComponent implements OnInit {
   ticketId: string;
   ticket: any;
   urlHost: any;
+  imageUrl: string;
   // totalPrix: number;
   constructor(
     private activatedRoute: ActivatedRoute,
     private ticketService: TicketService,
     private apollo: Apollo,
     private toastr: NbToastrService
-  ) {}
+  ) {
+    this.imageUrl = URL.SOCKET;
+  }
 
   ngOnInit(): void {
     // console.log("all data", this.allData);

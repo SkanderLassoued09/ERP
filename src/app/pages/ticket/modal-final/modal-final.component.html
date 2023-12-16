@@ -18,7 +18,7 @@
     </span>
   </nb-card-header>
   <nb-card-body>
-    <form [formGroup]="managerForm" (ngSubmit)="submitManager()">
+    <form [formGroup]="managerForm">
       <div class="row">
         <div class="col-lg-12 fix-inputs">
           <nb-toggle
@@ -85,14 +85,18 @@
                   fullWidth
                   formControlName="updatePrice" /></span
               ><span
-                ><button nbButton (click)="affectationFinalPrice()">
+                ><button
+                  status="info"
+                  nbButton
+                  (click)="affectationFinalPrice()"
+                >
                   Réaffecte prix
                 </button></span
               >
             </div>
           </div>
 
-          <input
+          <!-- <input
             fullWidth
             nbInput
             placeholder=" Devis"
@@ -123,8 +127,10 @@
             formControlName="facture"
             type="file"
             (change)="onSelectFileFacture($event)"
-          />
-          <button nbButton status="info" type="submit">Terminer</button>
+          /> -->
+          <button nbButton status="info" (click)="submitManager()">
+            Affecter prix
+          </button>
         </div>
       </div>
     </form>

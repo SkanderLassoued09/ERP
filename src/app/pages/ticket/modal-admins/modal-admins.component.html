@@ -39,7 +39,7 @@
             <th>Prix de vente</th>
             <th>quantity</th>
             <th>statusComposant</th>
-            <th>comingDate</th>
+            <th>Date d'arrivage</th>
           </tr>
         </thead>
         <tbody>
@@ -58,7 +58,11 @@
               {{ item.statusComposant }}
             </td>
             <td>
-              {{ item.comingDate | date : "dd/MM/yyyy" }}
+              {{
+                item.comingDate
+                  ? (item.comingDate | date : "dd/MM/yyyy")
+                  : "No date available"
+              }}
             </td>
           </tr>
         </tbody>

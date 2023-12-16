@@ -16,26 +16,24 @@
                     <thead>
                       <tr class="header-tech">
                         <th>Package</th>
-                        <th nbTooltip="Temps total diagnostique">
-                          Nom du composant
-                        </th>
-                        <th nbTooltip="Temps total Réparation">Quntité</th>
-                        <th nbTooltip="Prix de heure">Lien</th>
+                        <th>Nom du composant</th>
+                        <th>Quntité</th>
+                        <th>Lien</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr class="list-tech">
                         <td class="scrollable-cell">{{ c.package }}</td>
-                        <td nbTooltip="Temps total diagnostique">
+                        <td>
                           {{ c.nameComposant }}
                         </td>
-                        <td nbTooltip="Temps total Réparation">
+                        <td>
                           {{ c.quantity }}
                         </td>
-                        <td nbTooltip="Prix de heure">
-                          <a [href]="urlHost + c.pdfComposant" target="_blank">
-                            <strong> Lien de l'image</strong>
-                          </a>
+                        <td>
+                          <strong>
+                            {{ c.linkProvider ? c.linkProvider : "-" }}
+                          </strong>
                         </td>
                       </tr>
                     </tbody>

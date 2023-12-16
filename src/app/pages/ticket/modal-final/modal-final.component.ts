@@ -57,41 +57,46 @@ export class ModalFinalComponent implements OnInit {
   }
 
   affectationFinalPrice() {
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.affectationFinalPrice(
-          this.rowData._id,
-          this.finalPrice
-        ),
-      })
-      .subscribe(({ data }) => {
-        console.log(data, "update prix");
-      });
-  }
-
-  toAdminTech() {
-    //to open slide to admin tech
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.setFinalPriceAvaiblableToAdminTech(
-          this.rowData._id
-        ),
-      })
-      .subscribe(({ data }) => {
-        console.log(data, "sent to admin tech");
-      });
+    console.log(this.finalPrice, "final");
+    this.nbDialog.open(ConfirmationModalComponent).onClose.subscribe((el) => {
+      if (el) {
+        this.apollo
+          .mutate<any>({
+            mutation: this.ticketService.affectationFinalPrice(
+              this.rowData._id,
+              this.managerForm.get("updatePrice").value
+            ),
+          })
+          .subscribe(({ data }) => {
+            console.log(data, "update prix");
+            if (data) {
+              this.refDialog.close(true);
+            }
+          });
+      }
+    });
   }
 
   toAdminManager() {
-    //to open slide to admin manager
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.setFinalPriceAvaiblableToAdminManager(
-          this.rowData._id
-        ),
+    this.nbDialog
+      .open(ConfirmationModalComponent, {
+        context: "Voulez-vous envoyer à Naim",
       })
-      .subscribe(({ data }) => {
-        console.log(data, "sent to admin manager");
+      .onClose.subscribe((el) => {
+        if (el) {
+          //to open slide to admin tech
+          //to open slide to admin manager
+          this.apollo
+            .mutate<any>({
+              mutation:
+                this.ticketService.setFinalPriceAvaiblableToAdminManager(
+                  this.rowData._id
+                ),
+            })
+            .subscribe(({ data }) => {
+              console.log(data, "sent to admin manager");
+            });
+        }
       });
   }
 

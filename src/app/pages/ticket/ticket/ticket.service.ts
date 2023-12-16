@@ -134,6 +134,7 @@ export class TicketService {
             isAffected
             pdfComposant
             package
+            linkProvider
           }
         }
       }
@@ -628,6 +629,7 @@ export class TicketService {
   }
 
   getTicketById(id: string) {
+    // image added first time
     return gql`
       mutation {
         getTicketById(id: "${id}") {
@@ -642,6 +644,7 @@ export class TicketService {
           remarqueTech
           reparable
           issue
+          image
           pdr
           techNameSug
           statusFinal

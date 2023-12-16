@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { NbDialogRef, NbDialogService } from "@nebular/theme";
 
 @Component({
@@ -8,10 +8,14 @@ import { NbDialogRef, NbDialogService } from "@nebular/theme";
 })
 export class ConfirmationModalComponent implements OnInit {
   @Input() data: any;
-  constructor(private ref: NbDialogRef<ConfirmationModalComponent>) {}
+  constructor(
+    private ref: NbDialogRef<ConfirmationModalComponent>,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     console.log(this.data, "from input");
+    this.cdr.detectChanges();
   }
 
   confirm() {

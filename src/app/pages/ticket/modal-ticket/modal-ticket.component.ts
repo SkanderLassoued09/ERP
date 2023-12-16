@@ -84,7 +84,9 @@ export class ModalTicketComponent implements OnInit {
     private toastr: NbToastrService,
     private location: LocationStrategy,
     private nbDialog: NbDialogService
-  ) {}
+  ) {
+    this.urlHost = URL.SOCKET;
+  }
 
   ngOnInit(): void {
     this.title = this.rowData.title;
@@ -100,7 +102,6 @@ export class ModalTicketComponent implements OnInit {
       package: new FormControl(null),
       linkProvider: new FormControl(null),
     });
-    this.urlHost = URL.URL;
   }
   myForm: FormGroup;
 

@@ -5,6 +5,7 @@ import { Apollo } from "apollo-angular";
 import { NbDialogRef, NbDialogService, NbToastrService } from "@nebular/theme";
 import { URL } from "../../../URLs";
 import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "ngx-ticket-magasin-list",
@@ -28,13 +29,14 @@ export class TicketMagasinListComponent implements OnInit {
     private ticketService: TicketService,
     private toastr: NbToastrService,
     private dialogRef: NbDialogRef<TicketMagasinListComponent>,
-    private nbDilog: NbDialogService
+    private nbDilog: NbDialogService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
     console.log(this.dataTicketSelected, "row selected");
     this.getListOfComposant();
-    this.urlHost = URL.URL;
+    this.urlHost = URL.SOCKET;
     this.magasinField.get("etat").valueChanges.subscribe((e) => {
       this.checkedStatus = e;
       console.log(this.checkedStatus, "sttuzsssssssssssss");
@@ -48,6 +50,14 @@ export class TicketMagasinListComponent implements OnInit {
    * @param purchasePrice feeds
    *
    */
+
+  getSafeUrl() {
+    this.composant.map((el) => {
+      return this.sanitizer.bypassSecurityTrustUrl(
+        "https://" + el.linkProvider
+      );
+    });
+  }
 
   updateMagasin(nameComposant: string) {
     let toDisableBtn: boolean;
