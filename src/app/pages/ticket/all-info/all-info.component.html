@@ -169,15 +169,19 @@
           </thead>
           <tbody>
             <tr class="list-tech">
-              <td>
-                <a
-                  *ngIf="urlHost && ticket?.bc"
-                  [href]="urlHost + ticket?.bc"
-                  target="_blank"
-                >
+              <td class="cadre">
+                <a [href]="ticket?.bl" target="_blank">
                   <strong>Lien</strong>
                   <!-- Your link content here -->
                 </a>
+                <button
+                  class="col-lg-6 justify-btn"
+                  nbButton
+                  status="success"
+                  fullWidth
+                >
+                  Ajouter
+                </button>
               </td>
               <td>
                 <a [href]="urlHost + ticket?.bl" target="_blank">

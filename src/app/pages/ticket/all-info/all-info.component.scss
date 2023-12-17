@@ -13,8 +13,16 @@
   max-width: 100px;
   margin-right: 20px;
 }
+.justify-btn {
+  width: 100%;
+  display: flex;
 
-.custom-card {
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
+  border-radius: 100%;
+}
+custom-card {
   width: 50%;
   height: 80%;
   position: absolute;

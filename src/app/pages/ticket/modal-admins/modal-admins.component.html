@@ -85,6 +85,24 @@
           </p>
         </div>
 
+        <div class="col-lg-12 final-price">
+          <p>Tarif Technicien</p>
+          <p>
+            {{
+              PriceTechSecond * TimeTech | currency : "TND" : "symbol" : "1.2-2"
+            }}
+          </p>
+        </div>
+        <div class="col-lg-12 final-price">
+          <p>Total:</p>
+          <p>
+            {{
+              calculateTotalPrixTotale() + PriceTechSecond * TimeTech
+                | currency : "TND" : "symbol" : "1.2-2"
+            }}
+          </p>
+        </div>
+
         <div class="col-lg-12">
           <input
             nbInput

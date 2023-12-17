@@ -4,6 +4,12 @@ import { Apollo } from "apollo-angular";
 import { TicketService } from "../ticket/ticket.service";
 import { NbDialogRef, NbDialogService, NbToastrService } from "@nebular/theme";
 import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
+import { log } from "console";
+
+function timeToSeconds(timeString) {
+  const [hours, minutes, seconds] = timeString.split(":").map(Number);
+  return hours * 3600 + minutes * 60 + seconds;
+}
 
 @Component({
   selector: "ngx-modal-admins",
@@ -12,6 +18,9 @@ import { ConfirmationModalComponent } from "../../../share-data/confirmation-mod
 })
 export class ModalAdminsComponent implements OnInit {
   rowData;
+  PriceTechSecond = 0;
+  TimeTech;
+
   AdminTechForm = new FormGroup({
     finalPrice: new FormControl("", [Validators.required]),
   });
@@ -26,9 +35,25 @@ export class ModalAdminsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.rowData, "haha");
+    this.getPriceTech();
+    this.TimeTech = timeToSeconds(this.rowData.diagnosticTimeByTech);
+    console.log("this price per second , ", this.TimeTech);
   }
   say() {
     console.log("hello");
+  }
+
+  getPriceTech() {
+    this.apollo
+      .query<any>({
+        query: this.ticketService.getPriceTech(),
+      })
+      .subscribe(({ data }) => {
+        console.log(data.getPriceTech, "getPriceTech");
+        this.PriceTechSecond = parseFloat(
+          (data.getPriceTech / 3600).toFixed(5)
+        );
+      });
   }
 
   submitTicket() {
