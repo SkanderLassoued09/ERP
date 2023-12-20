@@ -67,19 +67,17 @@ export class TicketComponent implements OnInit {
         editable: false,
       },
       title: {
-        title: "Titre",
+        title: "Designation",
         type: "string",
       },
 
-      designiation: {
-        title: "Désigniation",
+      affectedToCompany: {
+        title: "Nom Sociéte",
         type: "string",
       },
-
-      typeClient: {
-        title: "Type",
+      affectedToClient: {
+        title: "Nom Client",
         type: "string",
-        editable: false,
       },
 
       emplacement: {
