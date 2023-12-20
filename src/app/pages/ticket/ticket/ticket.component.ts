@@ -91,7 +91,7 @@ export class TicketComponent implements OnInit {
         editable: false,
       },
       numero: {
-        title: "numero",
+        title: "N° Serie",
         type: "string",
       },
 
