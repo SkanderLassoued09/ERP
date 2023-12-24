@@ -66,7 +66,7 @@ export class PagesComponent implements OnInit {
       })
       .toPromise();
 
-    console.log(profile.data.getTokenData.role, "role");
+    // console.log(profile.data.getTokenData.role, "role");
     return profile.data.getTokenData.role;
   }
 

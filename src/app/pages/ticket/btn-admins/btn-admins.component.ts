@@ -16,7 +16,7 @@ export class BtnAdminsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.rowData, "row");
+    // console.log(this.rowData, "row");
     this.handleBtn();
   }
   openModalAdmins() {

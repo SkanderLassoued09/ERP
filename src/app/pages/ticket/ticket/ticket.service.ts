@@ -87,10 +87,10 @@ export class TicketService {
     });
   }
 
-  getAllTicket() {
+  getAllTicket(skip: number, numberOfTicketPerPage: number) {
     return gql`
       {
-        getTicketByTech {
+        getTicketByTech(numberOfTicketPerPage: ${numberOfTicketPerPage}, skip: ${skip}) {
           _id
           title
           designiation

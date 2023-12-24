@@ -100,7 +100,6 @@ export class TicketComponent implements OnInit {
         type: "html",
         editable: false,
         valuePrepareFunction: (cell) => {
-          console.log(cell);
           if (cell === "PENDING") {
             return '<div class="pending">' + "En attente" + "</div>";
           }
@@ -126,23 +125,23 @@ export class TicketComponent implements OnInit {
         title: "créé le",
         type: "string",
         editable: false,
-        valuePrepareFunction: (date) => {
-          var raw = new Date(date);
+        // valuePrepareFunction: (date) => {
+        //   var raw = new Date(date);
 
-          var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
-          return formatted;
-        },
+        //   var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
+        //   return formatted;
+        // },
       },
       updatedAt: {
         title: "Dérniere modification",
         type: "string",
         editable: false,
-        valuePrepareFunction: (date) => {
-          var raw = new Date(date);
+        // valuePrepareFunction: (date) => {
+        //   var raw = new Date(date);
 
-          var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
-          return formatted;
-        },
+        //   var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
+        //   return formatted;
+        // },
       },
       configTicket: {
         title: "Diagnostique",
@@ -177,7 +176,7 @@ export class TicketComponent implements OnInit {
     },
   };
 
-  listOfTicket: LocalDataSource;
+  listOfTicket = new LocalDataSource([]);
   listOfTech: any;
   loggedInUser: string;
 
@@ -192,15 +191,18 @@ export class TicketComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedInUser = localStorage.getItem("role");
-    this.getAllTicket();
+
     this.getNotificationSocket();
     this.toHideColumns();
+
+    this.getAllTicket();
   }
 
   getAllTicket() {
+    const numberOfpage = 20;
     this.apollo
       .query<any>({
-        query: this.ticketService.getAllTicket(),
+        query: this.ticketService.getAllTicket(1, 20),
         errorPolicy: "all",
       })
 
@@ -208,8 +210,41 @@ export class TicketComponent implements OnInit {
         console.log(data, "tickets");
         const filterArr = this.removeDuplicateObjects(data.getTicketByTech);
         this.listOfTicket = new LocalDataSource(filterArr);
-        console.log(errors, "Errors");
+        this.listOfTicket.onChanged().subscribe((changeInFunction) => {
+          console.log("🥖[changeInFunction]:", changeInFunction);
+          //! By default load 30 doc, every time change page load 30 docs
+          if (changeInFunction.action === "page") {
+            // to load data from external function
+            // changeInFunction.paging.page === index
+            // changeInFunction.paging.perPage === number of element
+            this.loadTicketForPagination(changeInFunction.paging.page);
+          }
+        });
+
+        // console.log(errors, "Errors");
       });
+  }
+
+  loadTicketForPagination(indexPage: number) {
+    let index = indexPage - 1;
+    console.log("🥡 HELOOOOOOO");
+    const numberOfpage = 20;
+    // indexPage: number, amountOfDoc: number
+    this.apollo
+      .query<any>({
+        query: this.ticketService.getAllTicket(indexPage, numberOfpage), // should pass parameter here indexPage,amountOfDoc
+        errorPolicy: "all",
+      })
+      .subscribe(({ data, errors }) => {
+        console.log("🍗[data loaded fired]:", data);
+        // load fetched data in table
+        if (data.getTicketByTech && indexPage > index) {
+          data.getTicketByTech.forEach((element) => {
+            this.listOfTicket.add(element);
+          });
+        }
+      });
+    console.log("🍅  this.listOfTicket", this.listOfTicket);
   }
 
   removeDuplicateObjects(arr: any[]) {
@@ -250,7 +285,7 @@ export class TicketComponent implements OnInit {
   }
 
   toHideColumns() {
-    console.log(this.IsBeShowen, "this.loggedInUser");
+    // console.log(this.IsBeShowen, "this.loggedInUser");
     if (
       this.loggedInUser === ROLE.MANAGER ||
       this.loggedInUser === ROLE.ADMIN_MANAGER

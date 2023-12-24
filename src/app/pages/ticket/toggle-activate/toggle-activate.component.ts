@@ -20,7 +20,7 @@ export class ToggleActivateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.rowData, "ROWWWWWWWWWWW");
+    // console.log(this.rowData, "ROWWWWWWWWWWW");
     this.status = this.rowData.isOpenByTech;
   }
 

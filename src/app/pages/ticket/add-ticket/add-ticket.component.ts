@@ -96,7 +96,7 @@ export class AddTicketComponent implements OnInit {
               );
             });
 
-          this.addTicket.reset();
+          // this.addTicket.reset();
         }
       });
   }
