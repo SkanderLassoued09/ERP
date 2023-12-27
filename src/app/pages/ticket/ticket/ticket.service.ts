@@ -87,10 +87,10 @@ export class TicketService {
     });
   }
 
-  getAllTicket(skip: number, numberOfTicketPerPage: number) {
+  getAllTicket() {
     return gql`
       {
-        getTicketByTech(numberOfTicketPerPage: ${numberOfTicketPerPage}, skip: ${skip}) {
+        getTicketByTech {
           _id
           title
           designiation
@@ -740,5 +740,42 @@ export class TicketService {
         )
       }
     `;
+  }
+
+  updateBl(_id: string, file: any) {
+    return gql`
+    mutation {
+      updateBl(_id: "${_id}", file: "${file}") {
+        _id
+      }
+    }
+  `;
+  }
+  updateBc(_id: string, file: any) {
+    return gql`
+    mutation {
+      updateBc(_id: "${_id}", file: "${file}") {
+        _id
+      }
+    }
+  `;
+  }
+  updateDevis(_id: string, file: any) {
+    return gql`
+    mutation {
+      updateDevis(_id: "${_id}", file: "${file}") {
+        _id
+      }
+    }
+  `;
+  }
+  updateFacture(_id: string, file: any) {
+    return gql`
+    mutation {
+      updateFacture(_id: "${_id}", file: "${file}") {
+        _id
+      }
+    }
+  `;
   }
 }

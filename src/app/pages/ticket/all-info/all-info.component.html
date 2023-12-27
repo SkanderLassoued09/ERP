@@ -1,9 +1,10 @@
 <div #printPDF>
   <nb-card>
     <div class="row">
-      <div class="col-lg-12 img-container">
+      <div class="col-lg-12 img-container" *ngIf="ticket?.image">
         <img [src]="imageUrl + ticket?.image" alt="" />
       </div>
+      <div class="col-lg-12 img-container" *ngIf="!ticket?.image">no image</div>
     </div>
   </nb-card>
 
@@ -161,8 +162,8 @@
         <table class="col-lg-12 equal-width-table">
           <thead>
             <tr class="header-tech">
-              <th>Bon de commande</th>
               <th>Bon de livraison</th>
+              <th>Bon de commande</th>
               <th>Facture</th>
               <th>Devis</th>
             </tr>
@@ -170,33 +171,87 @@
           <tbody>
             <tr class="list-tech">
               <td class="cadre">
-                <a [href]="ticket?.bl" target="_blank">
-                  <strong>Lien</strong>
-                  <!-- Your link content here -->
-                </a>
-                <!-- <button
-                  class="col-lg-6 justify-btn"
-                  nbButton
-                  status="success"
-                  fullWidth
+                <a *ngIf="ticket?.bl" [href]="ticket?.bl" target="_blank">
+                  <strong>Lien</strong></a
                 >
-                  Ajouter
-                </button> -->
+                <input
+                  fullWidth
+                  nbInput
+                  placeholder=" Bon de livraison"
+                  type="file"
+                  (change)="onSelectFileBl($event)"
+                />
+                <button nbButton (click)="uploadBl()" size="tiny" status="info">
+                  mise à jour
+                </button>
               </td>
+
               <td>
-                <a [href]="urlHost + ticket?.bl" target="_blank">
+                <a
+                  *ngIf="ticket?.bc"
+                  [href]="urlHost + ticket?.bc"
+                  target="_blank"
+                >
                   <strong> Lien</strong>
                 </a>
+                <input
+                  fullWidth
+                  nbInput
+                  placeholder="Bon de commande"
+                  type="file"
+                  (change)="onSelectFile($event)"
+                />
+                <button nbButton (click)="uploadBc()" size="tiny" status="info">
+                  mise à jour
+                </button>
               </td>
               <td>
-                <a [href]="urlHost + ticket?.facture" target="_blank">
+                <a
+                  *ngIf="ticket?.facture"
+                  [href]="urlHost + ticket?.facture"
+                  target="_blank"
+                >
                   <strong> Lien</strong>
                 </a>
+                <input
+                  fullWidth
+                  nbInput
+                  placeholder=" Facture"
+                  type="file"
+                  (change)="onSelectFileFacture($event)"
+                />
+                <button
+                  nbButton
+                  (click)="uploadFacture()"
+                  size="tiny"
+                  status="info"
+                >
+                  mise à jour
+                </button>
               </td>
               <td>
-                <a [href]="urlHost + ticket?.Devis" target="_blank">
+                <a
+                  *ngIf="ticket?.Devis"
+                  [href]="urlHost + ticket?.Devis"
+                  target="_blank"
+                >
                   <strong> Lien</strong>
                 </a>
+                <input
+                  fullWidth
+                  nbInput
+                  placeholder="Devis"
+                  type="file"
+                  (change)="onSelectFileDevis($event)"
+                />
+                <button
+                  nbButton
+                  status="info"
+                  (click)="uploadDevis()"
+                  size="tiny"
+                >
+                  mise à jour
+                </button>
               </td>
             </tr>
           </tbody>

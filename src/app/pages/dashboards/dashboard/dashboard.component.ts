@@ -200,6 +200,7 @@ export class DashboardComponent implements OnInit {
     filterGain: new FormControl(null, [Validators.required]),
   });
   flipped: boolean;
+  tableDiagRepError: string;
 
   constructor(
     private apollo: Apollo,
@@ -420,8 +421,8 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  async getPriceTech(): Promise<any> {
-    await this.apollo
+  getPriceTech() {
+    this.apollo
       .query<any>({
         query: this.ticketService.getPriceTech(),
       })
@@ -432,14 +433,21 @@ export class DashboardComponent implements OnInit {
       });
   }
   //nezih to rectify this i need to get the value from getPriceTech
-  async cardTech() {
-    await this.apollo
+  cardTech() {
+    this.apollo
       .query<any>({
         query: this.dashboardService.cardTech(this.ThePriceTech),
+        errorPolicy: "all",
       })
-      .subscribe(({ data }) => {
-        console.log(data, "card tech");
-        this.techs = data.getTicketByProfile;
+      .subscribe(({ data, errors }) => {
+        if (data) {
+          console.log(data, "card tech");
+          this.techs = data.getTicketByProfile;
+        }
+        if (errors) {
+          this.tableDiagRepError = "Aucun DI finie";
+          console.log("🍋[errors]:", errors);
+        }
       });
   }
 

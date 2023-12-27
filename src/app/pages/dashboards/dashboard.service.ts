@@ -126,6 +126,7 @@ export class DashboardService {
       filter.end ? filter.end : null
     }" }) {
           createdAt
+          finalPrice
         }
       }
     `;

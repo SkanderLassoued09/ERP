@@ -1,5 +1,5 @@
 import { HttpClientModule } from "@angular/common/http";
-import { ApolloModule, APOLLO_OPTIONS } from "apollo-angular";
+import { ApolloModule, APOLLO_OPTIONS, APOLLO_FLAGS } from "apollo-angular";
 import { HttpLink } from "apollo-angular/http";
 import { InMemoryCache, ApolloLink } from "@apollo/client/core";
 // import { BrowserModule } from "@angular/platform-browser";
@@ -57,6 +57,12 @@ export function createApollo(httpLink: HttpLink) {
 @NgModule({
   imports: [ApolloModule, HttpClientModule],
   providers: [
+    {
+      provide: APOLLO_FLAGS,
+      useValue: {
+        useMutationLoading: true, // enable it here
+      },
+    },
     {
       provide: APOLLO_OPTIONS,
       useFactory: createApollo,

@@ -44,19 +44,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tech of techs" class="list-tech">
-        <td class="scrollable-cell">{{ tech.techName }}</td>
-        <td nbTooltip="Temps total diagnostique">{{ tech.totalDiag }}</td>
-        <td nbTooltip="Temps total Réparation">{{ tech.totalRep }}</td>
-        <td nbTooltip="Temps moyen diagnostique">{{ tech.moyDiag }}</td>
-        <td nbTooltip="Temps moyen Réparation">{{ tech.moyRep }}</td>
-        <td nbTooltip="Prix de heure">
-          {{ tech.techCostDiag | currency : "TND" : "symbol" : "1.2-2" }}
-        </td>
-        <td nbTooltip="Prix de heure">
-          {{ tech.techCostRep | currency : "TND" : "symbol" : "1.2-2" }}
-        </td>
-      </tr>
+      <ng-container *ngIf="techs">
+        <tr *ngFor="let tech of techs" class="list-tech">
+          <td class="scrollable-cell">{{ tech.techName }}</td>
+          <td nbTooltip="Temps total diagnostique">{{ tech.totalDiag }}</td>
+          <td nbTooltip="Temps total Réparation">{{ tech.totalRep }}</td>
+          <td nbTooltip="Temps moyen diagnostique">{{ tech.moyDiag }}</td>
+          <td nbTooltip="Temps moyen Réparation">{{ tech.moyRep }}</td>
+          <td nbTooltip="Prix de heure">
+            {{ tech.techCostDiag | currency : "TND" : "symbol" : "1.2-2" }}
+          </td>
+          <td nbTooltip="Prix de heure">
+            {{ tech.techCostRep | currency : "TND" : "symbol" : "1.2-2" }}
+          </td>
+        </tr></ng-container
+      >
+      <ng-container *ngIf="tableDiagRepError">
+        <div class="noFoundData">
+          <h6>{{ tableDiagRepError }}</h6>
+        </div></ng-container
+      >
     </tbody>
   </table>
 </nb-card>
