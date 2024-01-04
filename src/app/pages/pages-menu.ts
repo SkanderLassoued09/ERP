@@ -65,7 +65,7 @@ export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
       },
       {
         title: "Listes des DI",
-        link: "/pages/ticket/ticket-list",
+        link: "/pages/ticket/ticket-for-admin-manager",
         icon: "folder-outline",
       },
       {
@@ -123,15 +123,10 @@ export const MENU_ITEMS_ADMIN_TECH: NbMenuItem[] = [
     children: [
       {
         title: "Listes des DI",
-        link: "/pages/ticket/ticket-list",
+        link: "/pages/ticket/ticket-for-admin-tec",
         icon: "folder-outline",
         home: true,
       },
-      // {
-      //   title: "DI consulté cordinateur",
-      //   link: "/pages/ticket/ticket-list-traiter",
-      //   icon: "clipboard-outline",
-      // },
     ],
   },
 ];
@@ -274,7 +269,7 @@ export const MENU_ITEMS_TECH: NbMenuItem[] = [
     children: [
       {
         title: "Listes des DI",
-        link: "/pages/ticket/ticket-list",
+        link: "/pages/ticket/ticket-for-tech",
         icon: "folder-outline",
         home: true,
       },
@@ -318,7 +313,7 @@ export const MENU_ITEMS_COORDINATOR: NbMenuItem[] = [
     children: [
       {
         title: "DI pour coordinatrice",
-        link: "/pages/ticket/coordinator",
+        link: "/pages/ticket/ticket-for-coordinator",
         icon: "clipboard-outline",
       },
     ],

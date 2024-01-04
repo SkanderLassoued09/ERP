@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { gql } from "apollo-angular";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable({
@@ -13,5 +14,16 @@ export class ShareDataService {
 
   updateDataForCoordinator(newData: any) {
     this.dataConfigCoordinator.next(newData);
+  }
+
+  notif() {
+    return gql`
+      subscription {
+        notificationTech {
+          techname
+          message
+        }
+      }
+    `;
   }
 }

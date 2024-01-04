@@ -7,13 +7,17 @@ import { ROLE } from "../../../roles";
 import { URL } from "../../../URLs";
 import { id } from "@swimlane/ngx-charts";
 import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
 })
 export class TicketService {
   socket: Socket;
-  constructor(private toastr: NbToastrService) {
+  constructor(
+    private toastr: NbToastrService,
+    private readonly http: HttpClient
+  ) {
     this.socket = io(URL.SOCKET, {
       transports: ["websocket", "polling"],
     });
@@ -59,9 +63,34 @@ export class TicketService {
     this.socket.emit("send-data-magasin", ticket);
   }
 
+  // coordinatorSendTicketToTech(paylodToSend) {
+  //   this.socket.emit("send-to-tech", paylodToSend);
+  // }
   coordinatorSendTicketToTech(paylodToSend) {
-    this.socket.emit("send-to-tech", paylodToSend);
+    return gql`
+    mutation {
+      affectTechToTechByCoordinator(_id: "${paylodToSend._id}", sentTo: "${paylodToSend.sentTo}")
+    }
+  `;
   }
+
+  notif() {
+    return gql`
+      subscription {
+        notificationTech {
+          techname
+          message
+        }
+      }
+    `;
+  }
+
+  /**
+   *
+   *  to finish all tables check with nezih
+   * re-implemrnt affectation
+   * add notification
+   */
 
   getNotifcationForTechFroCoordinator(): Observable<any> {
     return new Observable((observer) => {
@@ -91,6 +120,60 @@ export class TicketService {
     return gql`
       {
         getTicketByTech {
+          _id
+          title
+          designiation
+          emplacement
+          numero
+          remarqueTech
+          reparable
+          pdr
+          isReparationFinishedByTech
+          techNameSug
+          isReparable
+          isReadyForDiag
+          typeClient
+          createdBy
+          assignedTo
+          image
+          price
+          affectedToCompany
+          affectedToClient
+          createdAt
+          updatedAt
+          coordinatorToAdmin
+          status
+          magasinDone
+          diagnosticTimeByTech
+          priority
+          Devis
+          facture
+          bc
+          bl
+          titre
+          isOpenByTech
+          pdfComposant
+          composants {
+            nameComposant
+            quantity
+            purchasePrice
+            sellPrice
+            statusComposant
+            comingDate
+            isAffected
+            pdfComposant
+            package
+            linkProvider
+          }
+        }
+      }
+    `;
+  }
+
+  getTicketForAdminTech() {
+    return gql`
+      {
+        getTicketForAdminTech {
           _id
           title
           designiation
@@ -777,5 +860,13 @@ export class TicketService {
       }
     }
   `;
+  }
+
+  /**
+   * TESTING PURPOSE
+   */
+
+  getTicketFromController() {
+    return this.http.get("http://localhost:3000/ticket/getTicket");
   }
 }

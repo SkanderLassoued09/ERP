@@ -29,6 +29,7 @@ import { CommonModule } from "@angular/common";
 import { LoginComponent } from "./pages/login/login.component";
 import { URL } from "./URLs";
 import { ShareDataModule } from "./share-data/share-data.module";
+import { ShareDataService } from "./share-data.service";
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -58,5 +59,6 @@ import { ShareDataModule } from "./share-data/share-data.module";
     ThemeModule.forRoot(),
   ],
   bootstrap: [AppComponent],
+  providers: [ShareDataService],
 })
 export class AppModule {}

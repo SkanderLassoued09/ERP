@@ -46,7 +46,7 @@ export class DropDownAffectationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.rowData, "rowDatra");
+    // console.log(this.rowData, "rowDatra");
     this.getAllTech();
     this.toHandleSelect();
   }
@@ -57,7 +57,7 @@ export class DropDownAffectationComponent implements OnInit {
         query: this.ticketService.getAllTech(),
       })
       .subscribe(({ data }) => {
-        console.log(data);
+        // console.log(data);
         this.listOfTech = data.getAllTech;
       });
   }
@@ -73,13 +73,23 @@ export class DropDownAffectationComponent implements OnInit {
               _id: this.rowData._id,
               sentTo: techSelected,
             };
-            this.ticketService.coordinatorSendTicketToTech(payload);
-
-            this.isDisable = true;
-            this.router
-              .navigateByUrl("/test", { skipLocationChange: false })
-              .then(() => {
-                this.router.navigate(["pages/ticket/coordinator"]);
+            // this.ticketService.coordinatorSendTicketToTech(payload);
+            this.apollo
+              .mutate<any>({
+                mutation:
+                  this.ticketService.coordinatorSendTicketToTech(payload),
+              })
+              .subscribe(({ data }) => {
+                if (data) {
+                  this.isDisable = true;
+                  this.router
+                    .navigateByUrl("/test", { skipLocationChange: false })
+                    .then(() => {
+                      this.router.navigate([
+                        "pages/ticket/ticket-for-coordinator",
+                      ]);
+                    });
+                }
               });
           } else {
             this.toastr.info("", "Vous avez ignoré le processus");
@@ -89,7 +99,7 @@ export class DropDownAffectationComponent implements OnInit {
   }
 
   toHandleSelect() {
-    console.log(this.rowData.assignedTo, "error was here");
+    // console.log(this.rowData.assignedTo, "error was here");
 
     if (
       this.rowData.assignedTo !== null &&

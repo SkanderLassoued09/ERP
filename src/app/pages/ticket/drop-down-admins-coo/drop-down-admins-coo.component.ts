@@ -85,7 +85,7 @@ export class DropDownAdminsCooComponent implements OnInit {
 
     // to check later
     this.shareData.configCoordinator$.subscribe((data) => {
-      console.log(data, "toAdmins");
+      // console.log(data, "toAdmins");
       if (data) {
         if (data._id === this.rowData._id) {
           this.disableBtnAffectToAdmin = data.statusBtn;

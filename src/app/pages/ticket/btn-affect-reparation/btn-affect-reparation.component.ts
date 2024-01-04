@@ -24,7 +24,7 @@ export class BtnAffectReparationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.rowData, "fix reparation coordinator");
+    // console.log(this.rowData, "fix reparation coordinator");
     this.getAllTech();
     this.handleBtn();
     // this.toHandleSelect();
@@ -38,7 +38,7 @@ export class BtnAffectReparationComponent implements OnInit {
         query: this.ticketService.getAllTech(),
       })
       .subscribe(({ data }) => {
-        console.log(data);
+        // console.log(data);
         this.listOfTech = data.getAllTech;
       });
   }
@@ -58,7 +58,7 @@ export class BtnAffectReparationComponent implements OnInit {
               })
               .subscribe(({ data }) => {
                 if (data) {
-                  console.log(data, "data");
+                  // console.log(data, "data");
                   this.toastr.success("", "Reparation opened");
                   this.closeBtn = true;
                   this.cdr.detectChanges();
@@ -83,7 +83,7 @@ export class BtnAffectReparationComponent implements OnInit {
   }
 
   toHandleSelect() {
-    console.log(this.rowData.assignedTo, "error was here");
+    // console.log(this.rowData.assignedTo, "error was here");
 
     if (
       this.rowData.assignedTo !== null &&

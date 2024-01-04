@@ -45,8 +45,6 @@ export class ModalTicketComponent implements OnInit {
     pdr: new FormControl("non", [Validators.required]),
     remarqueTech: new FormControl("", [Validators.required]),
     emplacement: new FormControl("", [Validators.required]),
-    // pdfComposant: new FormControl("", [Validators.required]),
-    // package: new FormControl("", [Validators.required]),
   });
 
   pdrControl: FormControl;
@@ -74,6 +72,7 @@ export class ModalTicketComponent implements OnInit {
   pdfStr: string | ArrayBuffer;
   url: string | ArrayBuffer;
   urlHost: string;
+  urlPdfDiagnostique: any;
 
   constructor(
     private dialogRef: NbDialogRef<ModalTicketComponent>,
@@ -98,7 +97,7 @@ export class ModalTicketComponent implements OnInit {
     this.myForm = new FormGroup({
       nomComposant: new FormControl(null),
       quantite: new FormControl(null),
-      pdfComposant: new FormControl(null, [Validators.required]),
+      // pdfComposant: new FormControl(null, [Validators.required]),
       package: new FormControl(null),
       linkProvider: new FormControl(null),
     });
@@ -138,6 +137,27 @@ export class ModalTicketComponent implements OnInit {
     // ...
   }
 
+  onSelectFile(pdf: any) {
+    console.log(pdf, "bc");
+    const file = pdf.target.files && pdf.target.files[0];
+    console.log(file, "file");
+    if (file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (event) => {
+        console.log(event, "event onload");
+        this.pdfStr = reader.result;
+        this.urlPdfDiagnostique = (<FileReader>event.target).result;
+        if (this.urlPdfDiagnostique) {
+          this.urlPdfDiagnostique = reader.result;
+        }
+      };
+    }
+
+    console.log(this.pdfStr, "pdf str");
+  }
+
   ajouterComposant() {
     console.log(this.rowData, "row data in modal");
     let objectComposant: any = {
@@ -156,7 +176,7 @@ export class ModalTicketComponent implements OnInit {
 
     const nomComposantValue = this.myForm.get("nomComposant").value;
     const quantiteValue = this.myForm.get("quantite").value;
-    const pdfComposant = this.pdfStr;
+    const pdfComposant = this.urlPdfDiagnostique;
     const packageName = this.myForm.get("package").value;
     const linkProvider = this.myForm.get("linkProvider").value;
 
@@ -172,29 +192,6 @@ export class ModalTicketComponent implements OnInit {
 
   dateFormat(date: string) {
     return moment(date).format("HH:mm:ss");
-  }
-
-  onSelectFile(pdf: any) {
-    console.log(pdf, "bc");
-    const file = pdf.target.files && pdf.target.files[0];
-    console.log(file, "file");
-    if (file) {
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onload = (event) => {
-        console.log(event, "event onload");
-        this.pdfStr = reader.result;
-        this.url = (<FileReader>event.target).result;
-        if (this.pdfStr) {
-          this.pdfStr = reader.result;
-        } else {
-          this.pdfStr = "";
-        }
-      };
-    }
-
-    console.log(this.pdfStr, "pdf str");
   }
 
   isOpenCheck() {
@@ -251,9 +248,15 @@ export class ModalTicketComponent implements OnInit {
               .mutate<any>({
                 mutation: this.ticketService.updateTicketByTech(dataToUpdate),
               })
-              .subscribe(({ data }) => {
+              .subscribe(({ data, loading }) => {
                 console.log(data);
-                this.isModalOpened = data;
+                if (data) {
+                  this.isModalOpened = data;
+                  this.toastr.success("", "Success");
+                }
+                if (loading) {
+                  this.toastr.warning("Uploding ...", "Loading");
+                }
                 // this.ticketService.sendToMagasin(dataToUpdate);
               });
           }

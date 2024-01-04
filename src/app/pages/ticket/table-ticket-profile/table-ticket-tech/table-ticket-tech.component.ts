@@ -1,38 +1,24 @@
 import { Component, OnInit } from "@angular/core";
-import { Apollo } from "apollo-angular";
-import { LocalDataSource, ServerDataSource } from "ng2-smart-table";
-import { TicketService } from "./ticket.service";
-import { ModalTicketComponent } from "../modal-ticket/modal-ticket.component";
-import { BtnOpenTicketModalComponent } from "../btn-open-ticket-modal/btn-open-ticket-modal.component";
-import * as moment from "moment";
+import { BtnAdminsComponent } from "../../btn-admins/btn-admins.component";
+import { BtnOpenModalMagasinComponent } from "../../btn-open-modal-magasin/btn-open-modal-magasin.component";
+import { BtnOpenTicketModalComponent } from "../../btn-open-ticket-modal/btn-open-ticket-modal.component";
+import { BtnReparationComponent } from "../../btn-reparation/btn-reparation.component";
+import { ToggleActivateComponent } from "../../toggle-activate/toggle-activate.component";
+import { ConfirmationModalComponent } from "../../../../share-data/confirmation-modal/confirmation-modal.component";
 import { DatePipe } from "@angular/common";
-import { BtnReparationComponent } from "../btn-reparation/btn-reparation.component";
-import { NbDialogService, NbToastrService } from "@nebular/theme";
-import { ModalAddIssueComponent } from "../modal-add-issue/modal-add-issue.component";
-import { AddLocationComponent } from "../add-location/add-location.component";
-import { BtnOpenModalMagasinComponent } from "../btn-open-modal-magasin/btn-open-modal-magasin.component";
-import { ROLE } from "../../../roles";
-import { BtnAdminsComponent } from "../btn-admins/btn-admins.component";
-import { ToggleActivateComponent } from "../toggle-activate/toggle-activate.component";
-import { AllInfoComponent } from "../all-info/all-info.component";
-import { Route, Router } from "@angular/router";
-import { AddPriceTechComponent } from "../add-price-tech/add-price-tech.component";
-import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
 import { HttpClient } from "@angular/common/http";
-@Component({
-  selector: "ngx-ticket",
-  templateUrl: "./ticket.component.html",
-  styleUrls: ["./ticket.component.scss"],
-})
-export class TicketComponent implements OnInit {
-  firstForm;
-  secondForm;
-  IsBeShowen: boolean = true;
-  options = [
-    { value: "This is value 1", label: "Option 1" },
-    { value: "This is value 2", label: "Option 2" },
-  ];
+import { Router } from "@angular/router";
+import { NbDialogService, NbToastrService } from "@nebular/theme";
+import { Apollo } from "apollo-angular";
+import { TicketService } from "../../ticket/ticket.service";
+import { LocalDataSource } from "ng2-smart-table";
 
+@Component({
+  selector: "ngx-table-ticket-tech",
+  templateUrl: "./table-ticket-tech.component.html",
+  styleUrls: ["./table-ticket-tech.component.scss"],
+})
+export class TableTicketTechComponent implements OnInit {
   settings = {
     actions: {
       add: false,
@@ -137,12 +123,6 @@ export class TicketComponent implements OnInit {
         title: "Dérniere modification",
         type: "string",
         editable: false,
-        // valuePrepareFunction: (date) => {
-        //   var raw = new Date(date);
-
-        //   var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
-        //   return formatted;
-        // },
       },
       configTicket: {
         title: "Diagnostique",
@@ -176,11 +156,7 @@ export class TicketComponent implements OnInit {
       },
     },
   };
-
-  listOfTicket = new LocalDataSource([]);
-  listOfTech: any;
-  loggedInUser: string;
-  _sourceDataWithPagination: ServerDataSource;
+  listOfTicket: LocalDataSource;
 
   constructor(
     private apollo: Apollo,
@@ -193,13 +169,18 @@ export class TicketComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loggedInUser = localStorage.getItem("role");
-
-    this.getNotificationSocket();
-    this.toHideColumns();
-
     this.getAllTicket();
-    this.getTicketFromController();
+  }
+
+  removeDuplicateObjects(arr: any[]) {
+    const seenIds = new Set<number>();
+    return arr.filter((obj) => {
+      if (seenIds.has(obj._id)) {
+        return false; // Duplicate, filter it out
+      }
+      seenIds.add(obj._id);
+      return true;
+    });
   }
 
   getAllTicket() {
@@ -219,78 +200,6 @@ export class TicketComponent implements OnInit {
       });
   }
 
-  removeDuplicateObjects(arr: any[]) {
-    const seenIds = new Set<number>();
-    return arr.filter((obj) => {
-      if (seenIds.has(obj._id)) {
-        return false; // Duplicate, filter it out
-      }
-      seenIds.add(obj._id);
-      return true;
-    });
-  }
-
-  // open modal add issue
-  openModal() {
-    let modal = this.nbDialog.open(ModalAddIssueComponent, {
-      closeOnBackdropClick: true,
-      closeOnEsc: true,
-    });
-  }
-
-  openModalLocation() {
-    let modal = this.nbDialog.open(AddLocationComponent, {
-      closeOnBackdropClick: true,
-      closeOnEsc: true,
-    });
-  }
-  openModalTarifTech() {
-    let modal = this.nbDialog.open(AddPriceTechComponent, {
-      closeOnBackdropClick: true,
-      closeOnEsc: true,
-    });
-  }
-  getNotificationSocket() {
-    // const currentUser = localStorage.getItem("username");
-    // let notificationData = this.ticketService.getNotification(currentUser);
-    // console.log(notificationData, "in component");
-  }
-
-  toHideColumns() {
-    // console.log(this.IsBeShowen, "this.loggedInUser");
-    if (
-      this.loggedInUser === ROLE.MANAGER ||
-      this.loggedInUser === ROLE.ADMIN_MANAGER
-    ) {
-      delete this.settings.columns.reparable;
-      delete this.settings.columns.modalReparation;
-      delete this.settings.columns.openModalMagasin;
-      delete this.settings.columns.configTicket;
-    }
-
-    if (
-      this.loggedInUser === ROLE.ADMIN_TECH ||
-      this.loggedInUser === ROLE.TECH
-    ) {
-      delete this.settings.columns.openModalMagasin;
-    }
-
-    if (this.loggedInUser === ROLE.MAGASIN) {
-      delete this.settings.columns.reparable;
-      delete this.settings.columns.modalReparation;
-
-      delete this.settings.columns.configTicket;
-    }
-
-    if (
-      this.loggedInUser === ROLE.MAGASIN ||
-      this.loggedInUser === ROLE.TECH ||
-      this.loggedInUser === ROLE.MANAGER
-    ) {
-      delete this.settings.columns.affectationPrice;
-      delete this.settings.columns.reactivateDiagnostique;
-    }
-  }
   seeData(seeData) {
     const ticketId = seeData.data._id;
     this.route.navigate(["pages/ticket/details-ticket", ticketId]);
@@ -321,7 +230,6 @@ export class TicketComponent implements OnInit {
         }
       });
   }
-
   editTicket(event) {
     console.log(event, "update");
     console.log(
@@ -353,21 +261,5 @@ export class TicketComponent implements OnInit {
             });
         }
       });
-  }
-
-  getTicketFromController() {
-    // return this.ticketService
-    //   .getTicketFromController()
-    //   .subscribe((pagination) => {
-    //     console.log("🎂[pagination]:", pagination);
-    //   });
-    // this._sourceDataWithPagination
-    this._sourceDataWithPagination = new ServerDataSource(this.http, {
-      endPoint: "http://localhost:3000/ticket/getTicketAdmins",
-      dataKey: "getAllTicket",
-      pagerPageKey: "indexPage",
-      pagerLimitKey: "nbOfDocument",
-      totalKey: "allTicketCount",
-    });
   }
 }

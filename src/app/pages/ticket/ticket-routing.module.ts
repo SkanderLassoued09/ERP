@@ -5,6 +5,10 @@ import { AddTicketComponent } from "./add-ticket/add-ticket.component";
 import { TicketComponentTraiter } from "./list-ticket-finie/list-ticket-finie.component";
 import { CoordinatorAffectationComponent } from "./coordinator-affectation/coordinator-affectation.component";
 import { AllInfoComponent } from "./all-info/all-info.component";
+import { TableTicketTechComponent } from "./table-ticket-profile/table-ticket-tech/table-ticket-tech.component";
+import { TableTicketAdminTechComponent } from "./table-ticket-profile/table-ticket-admin-tech/table-ticket-admin-tech.component";
+import { TableTicketAdminComponent } from "./table-ticket-profile/table-ticket-admin/table-ticket-admin.component";
+import { TableTicketCoordinatorComponent } from "./table-ticket-profile/table-ticket-coordinator/table-ticket-coordinator.component";
 
 const routes: Routes = [
   {
@@ -26,6 +30,23 @@ const routes: Routes = [
   {
     path: "details-ticket/:idTicket",
     component: AllInfoComponent,
+  },
+
+  {
+    path: "ticket-for-tech",
+    component: TableTicketTechComponent,
+  },
+  {
+    path: "ticket-for-admin-tech",
+    component: TableTicketAdminTechComponent,
+  },
+  {
+    path: "ticket-for-admin-manager",
+    component: TableTicketAdminComponent,
+  },
+  {
+    path: "ticket-for-coordinator",
+    component: TableTicketCoordinatorComponent,
   },
 ];
 

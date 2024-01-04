@@ -47,8 +47,14 @@ import { DropDownAffectationComponent } from "./drop-down-affectation/drop-down-
 import { DropDownAdminsCooComponent } from "./drop-down-admins-coo/drop-down-admins-coo.component";
 import { BtnAffectReparationComponent } from "./btn-affect-reparation/btn-affect-reparation.component";
 import { MatSliderModule } from "@angular/material/slider";
-import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
-import { AddPriceTechComponent } from './add-price-tech/add-price-tech.component';
+import { TicketDetailsComponent } from "./ticket-details/ticket-details.component";
+import { AddPriceTechComponent } from "./add-price-tech/add-price-tech.component";
+import { TableTicketMagasinComponent } from "./table-ticket-profile/table-ticket-magasin/table-ticket-magasin.component";
+import { TableTicketTechComponent } from "./table-ticket-profile/table-ticket-tech/table-ticket-tech.component";
+import { TableTicketAdminTechComponent } from "./table-ticket-profile/table-ticket-admin-tech/table-ticket-admin-tech.component";
+import { TableTicketCoordinatorComponent } from "./table-ticket-profile/table-ticket-coordinator/table-ticket-coordinator.component";
+import { TableTicketAdminComponent } from "./table-ticket-profile/table-ticket-admin/table-ticket-admin.component";
+import { TableTicketManagerComponent } from "./table-ticket-profile/table-ticket-manager/table-ticket-manager.component";
 
 @NgModule({
   declarations: [
@@ -77,6 +83,13 @@ import { AddPriceTechComponent } from './add-price-tech/add-price-tech.component
     BtnAffectReparationComponent,
     TicketDetailsComponent,
     AddPriceTechComponent,
+    TableTicketMagasinComponent,
+    TableTicketTechComponent,
+    TableTicketAdminTechComponent,
+    TableTicketCoordinatorComponent,
+    TableTicketAdminComponent,
+
+    TableTicketManagerComponent,
   ],
   imports: [
     DragDropModule,
