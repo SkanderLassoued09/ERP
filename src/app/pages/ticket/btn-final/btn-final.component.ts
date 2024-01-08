@@ -34,10 +34,13 @@ export class BtnFinalComponent implements OnInit {
   }
 
   handleBtn() {
-    if (this.rowData.finalPrice && this.rowData.isFinalPriceAffected) {
+    console.log("🍋", this.rowData.finalPrice);
+    if (this.rowData.finalPrice) {
       this.isModalColsedFinished = true;
+      this.cdRef.detectChanges();
     } else {
       this.isModalColsedFinished = false;
+      this.cdRef.detectChanges();
     }
   }
 }

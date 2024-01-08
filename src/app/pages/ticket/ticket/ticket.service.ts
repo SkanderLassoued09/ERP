@@ -1,27 +1,20 @@
 import { Injectable } from "@angular/core";
 import { gql } from "apollo-angular";
-import { Socket, io } from "socket.io-client";
+// import { Socket, io } from "socket.io-client";
 import { Ticket } from "../ticket";
 import { NbToastrService } from "@nebular/theme";
-import { ROLE } from "../../../roles";
-import { URL } from "../../../URLs";
-import { id } from "@swimlane/ngx-charts";
-import { Observable } from "rxjs";
+
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
 })
 export class TicketService {
-  socket: Socket;
+  // socket: Socket;
   constructor(
     private toastr: NbToastrService,
     private readonly http: HttpClient
-  ) {
-    this.socket = io(URL.SOCKET, {
-      transports: ["websocket", "polling"],
-    });
-  }
+  ) {}
 
   /**
    *
@@ -58,14 +51,6 @@ export class TicketService {
   `;
   }
 
-  sendToMagasin(ticket: Ticket) {
-    console.log(ticket, "ticket magasin sending");
-    this.socket.emit("send-data-magasin", ticket);
-  }
-
-  // coordinatorSendTicketToTech(paylodToSend) {
-  //   this.socket.emit("send-to-tech", paylodToSend);
-  // }
   coordinatorSendTicketToTech(paylodToSend) {
     return gql`
     mutation {
@@ -91,30 +76,6 @@ export class TicketService {
    * re-implemrnt affectation
    * add notification
    */
-
-  getNotifcationForTechFroCoordinator(): Observable<any> {
-    return new Observable((observer) => {
-      this.socket.on("tech-recieve-coordinator", (payloadCoo: any) => {
-        observer.next(payloadCoo);
-      });
-    });
-  }
-
-  getNotification(): Observable<any> {
-    return new Observable((observer) => {
-      this.socket.on("ticket", (ticket: Ticket) => {
-        observer.next(ticket);
-      });
-    });
-  }
-
-  getTicketForMagasin(): Observable<any> {
-    return new Observable((observer) => {
-      this.socket.on("magasin", (ticket: Ticket) => {
-        observer.next(ticket);
-      });
-    });
-  }
 
   getAllTicket() {
     return gql`

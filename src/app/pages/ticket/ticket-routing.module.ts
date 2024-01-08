@@ -9,6 +9,8 @@ import { TableTicketTechComponent } from "./table-ticket-profile/table-ticket-te
 import { TableTicketAdminTechComponent } from "./table-ticket-profile/table-ticket-admin-tech/table-ticket-admin-tech.component";
 import { TableTicketAdminComponent } from "./table-ticket-profile/table-ticket-admin/table-ticket-admin.component";
 import { TableTicketCoordinatorComponent } from "./table-ticket-profile/table-ticket-coordinator/table-ticket-coordinator.component";
+import { TableTicketMagasinComponent } from "./table-ticket-profile/table-ticket-magasin/table-ticket-magasin.component";
+import { TableTicketManagerComponent } from "./table-ticket-profile/table-ticket-manager/table-ticket-manager.component";
 
 const routes: Routes = [
   {
@@ -47,6 +49,14 @@ const routes: Routes = [
   {
     path: "ticket-for-coordinator",
     component: TableTicketCoordinatorComponent,
+  },
+  {
+    path: "ticket-for-magasin",
+    component: TableTicketMagasinComponent,
+  },
+  {
+    path: "ticket-for-manager",
+    component: TableTicketManagerComponent,
   },
 ];
 

@@ -72,9 +72,15 @@ export class BtnAffectReparationComponent implements OnInit {
   }
 
   handleBtn() {
+    console.log(
+      "🧀[ this.rowData.assignedToRep ]:",
+      this.rowData.assignedToRep
+    );
+    console.log("🍷[    this.rowData.finalPrice ]:", this.rowData.finalPrice);
     if (
-      this.rowData.finalPrice !== null &&
-      this.rowData.assignedToRep === null
+      (this.rowData.finalPrice !== null &&
+        this.rowData.assignedToRep === null) ||
+      this.rowData.assignedToRep === undefined
     ) {
       this.closeBtn = false;
     } else {

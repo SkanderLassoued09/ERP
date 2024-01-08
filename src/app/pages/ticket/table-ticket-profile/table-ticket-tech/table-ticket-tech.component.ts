@@ -136,24 +136,24 @@ export class TableTicketTechComponent implements OnInit {
         renderComponent: BtnReparationComponent,
         editable: false,
       },
-      openModalMagasin: {
-        title: "Remplissage",
-        type: "custom",
-        renderComponent: BtnOpenModalMagasinComponent,
-        editable: false,
-      },
-      affectationPrice: {
-        title: "Affectation les prix",
-        type: "custom",
-        renderComponent: BtnAdminsComponent,
-        editable: false,
-      },
-      reactivateDiagnostique: {
-        title: "Reouverture diagnostique",
-        type: "custom",
-        renderComponent: ToggleActivateComponent,
-        editable: false,
-      },
+      // openModalMagasin: {
+      //   title: "Remplissage",
+      //   type: "custom",
+      //   renderComponent: BtnOpenModalMagasinComponent,
+      //   editable: false,
+      // },
+      // affectationPrice: {
+      //   title: "Affectation les prix",
+      //   type: "custom",
+      //   renderComponent: BtnAdminsComponent,
+      //   editable: false,
+      // },
+      // reactivateDiagnostique: {
+      //   title: "Reouverture diagnostique",
+      //   type: "custom",
+      //   renderComponent: ToggleActivateComponent,
+      //   editable: false,
+      // },
     },
   };
   listOfTicket: LocalDataSource;

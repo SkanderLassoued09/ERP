@@ -4,6 +4,7 @@ import { Apollo } from "apollo-angular";
 import { TicketService } from "../ticket/ticket.service";
 import { NbDialogRef, NbDialogService, NbToastrService } from "@nebular/theme";
 import { ConfirmationModalComponent } from "../../../share-data/confirmation-modal/confirmation-modal.component";
+import { Observable, Subject } from "rxjs";
 
 @Component({
   selector: "ngx-modal-final",
@@ -46,7 +47,7 @@ export class ModalFinalComponent implements OnInit {
     this.role = localStorage.getItem("role");
     console.log(this.role, "signed in");
     console.log(this.rowData, "row data from final modal");
-    this.test();
+    this.getFinalPrice();
   }
 
   caculateDiscount(price: string, percent: string) {
@@ -55,16 +56,44 @@ export class ModalFinalComponent implements OnInit {
     this.discount = discount;
     return { finalPrice: final.toString(), discount };
   }
+  getFinalPrice(): Observable<any> {
+    const fpSubject = new Subject<any>();
+
+    console.log("🍊[getFinalPrice]:");
+
+    this.managerForm.valueChanges.subscribe((el) => {
+      console.log(el.remise, "el");
+      console.log("🍹 this.rowData.finalPrice,", this.rowData.finalPrice);
+      this.valueSlider = el.remise;
+
+      console.log("🍏[ this.valueSlider]:", this.valueSlider);
+
+      const fp = this.caculateDiscount(
+        this.rowData.finalPrice,
+        this.valueSlider ? this.valueSlider.toString() : "0"
+      ).discount;
+      console.log("🍻 finalPrice ------------", fp);
+
+      fpSubject.next(fp);
+    });
+
+    return fpSubject.asObservable();
+  }
 
   affectationFinalPrice() {
-    console.log(this.finalPrice, "final");
+    let discount = this.caculateDiscount(
+      this.rowData.finalPrice,
+      this.valueSlider ? this.valueSlider.toString() : "0"
+    ).discount;
+    console.log("🥜 discount", this.valueSlider);
+
     this.nbDialog.open(ConfirmationModalComponent).onClose.subscribe((el) => {
       if (el) {
         this.apollo
           .mutate<any>({
             mutation: this.ticketService.affectationFinalPrice(
               this.rowData._id,
-              this.managerForm.get("updatePrice").value
+              discount.toString()
             ),
           })
           .subscribe(({ data }) => {
@@ -100,93 +129,9 @@ export class ModalFinalComponent implements OnInit {
       });
   }
 
-  test() {
-    this.managerForm.valueChanges.subscribe((el) => {
-      console.log(el.remise, "el");
-      this.valueSlider = el.remise;
-      this.finalPrice = this.caculateDiscount(
-        this.rowData.finalPrice,
-        el.remise
-      ).finalPrice;
-      console.log(this.finalPrice, " this.finalPrice");
-    });
-  }
-
   formatLabel(value: number): string {
     return `${value}%`;
   }
-
-  submitManager() {
-    this.nbDialog
-      .open(ConfirmationModalComponent, {
-        context: {
-          data: "êtes-vous sûr d'affecter le prix",
-        },
-      })
-      .onClose.subscribe((result) => {
-        if (result) {
-          this.apollo
-            .mutate<any>({
-              mutation: this.ticketService.updateTicketManager(
-                this.rowData._id,
-                this.caculateDiscount(
-                  this.rowData.finalPrice,
-                  this.managerForm.value.remise
-                ).finalPrice,
-                this.managerForm.value.statusFinal,
-                this.pdfStr,
-                this.bl,
-                this.facturePdf,
-                this.devis
-              ),
-            })
-            .subscribe(({ data }) => {
-              if (data) {
-                this.toastr.success(
-                  `la réduction est de ${
-                    this.caculateDiscount(
-                      this.rowData.finalPrice,
-                      this.managerForm.value.remise
-                    ).discount
-                  }`,
-                  "Réussite de l'affectation",
-                  { duration: 0 }
-                );
-              }
-            });
-          this.refDialog.close(true);
-        }
-      });
-  }
-
-  // sendTicket() {
-  //   this.nbDialog
-  //     .open(ConfirmationModalComponent, {
-  //       context: {
-  //         data: "êtes-vous sûr d'ajouter cette demande d'intervention",
-  //       },
-  //     })
-  //     .onClose.subscribe((result) => {
-  //       if (result) {
-  //         this.addTicket.value.createdBy = localStorage.getItem("username");
-  //         this.addTicket.value.image = this.imageStr;
-
-  //         this.apollo
-  //           .mutate<any>({
-  //             mutation: this.ticketService.addTicket(this.addTicket.value),
-  //           })
-  //           .subscribe(({ data }) => {
-  //             console.log(data);
-  //             this.nbToastr.success(
-  //               "Ticket a été ajouté avec succès",
-  //               "Ticket ajouté"
-  //             );
-  //           });
-
-  //         this.addTicket.reset();
-  //       }
-  //     });
-  // }
 
   statusToggle(status: boolean) {
     console.log(status, "toggle status");

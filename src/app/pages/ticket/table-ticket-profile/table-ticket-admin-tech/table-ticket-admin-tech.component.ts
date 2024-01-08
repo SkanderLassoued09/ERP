@@ -137,12 +137,12 @@ export class TableTicketAdminTechComponent implements OnInit {
         renderComponent: BtnReparationComponent,
         editable: false,
       },
-      openModalMagasin: {
-        title: "Remplissage",
-        type: "custom",
-        renderComponent: BtnOpenModalMagasinComponent,
-        editable: false,
-      },
+      // openModalMagasin: {
+      //   title: "Remplissage",
+      //   type: "custom",
+      //   renderComponent: BtnOpenModalMagasinComponent,
+      //   editable: false,
+      // },
       affectationPrice: {
         title: "Affectation les prix",
         type: "custom",

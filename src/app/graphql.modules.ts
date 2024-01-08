@@ -1,20 +1,19 @@
-import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { ApolloModule, APOLLO_OPTIONS, APOLLO_FLAGS } from "apollo-angular";
 import { HttpLink } from "apollo-angular/http";
 import { InMemoryCache, ApolloLink, split } from "@apollo/client/core";
 import { setContext } from "@apollo/client/link/context";
-import { WebSocketLink } from "@apollo/client/link/ws";
-import { getMainDefinition } from "@apollo/client/utilities";
+
+import { Observable, getMainDefinition } from "@apollo/client/utilities";
 import { URL } from "./URLs";
+import { NgModule } from "@angular/core";
 
 const uri = URL.URL;
-const wsUri = "ws://localhost:3000/graphql"; // WebSocket URL
 
 export function createApollo(httpLink: HttpLink) {
   const basic = setContext((operation, context) => ({
     headers: {
-      Accept: "charset=utf-8, application/json",
+      Accept: ["charset=utf-8", "application/json"],
     },
   }));
 
@@ -32,20 +31,67 @@ export function createApollo(httpLink: HttpLink) {
     }
   });
 
-  const http = httpLink.create({ uri });
+  const httpLinkWithAuth = ApolloLink.from([
+    basic,
+    auth,
+    httpLink.create({ uri }),
+  ]);
 
-  const ws = new WebSocketLink({
-    uri: wsUri,
-    options: {
-      reconnect: true,
-      // connectionParams: {
-      //   authToken: localStorage.getItem("token"),
-      // },
-    },
+  const customWsLink = new ApolloLink((operation, forward) => {
+    return new Observable((observer) => {
+      const context = operation.getContext();
+      const { clientAwareness } = context;
+
+      const ws = new WebSocket(`ws://localhost:3000/graphql`, "graphql-ws");
+
+      ws.addEventListener("open", (event) => {
+        // Send the GQL_START message
+        ws.send(
+          JSON.stringify({
+            type: "connection_init",
+            payload: clientAwareness || {},
+          })
+        );
+
+        // Send the GQL_START message
+        ws.send(
+          JSON.stringify({
+            id: "1", // You can use a unique identifier here
+            type: "start",
+            payload: {
+              variables: operation.variables,
+              extensions: operation.extensions,
+              operationName: operation.operationName,
+              query: operation.query,
+            },
+          })
+        );
+      });
+
+      ws.addEventListener("message", (event) => {
+        const message = JSON.parse(event.data);
+
+        if (message.type === "data") {
+          observer.next(message.payload);
+        }
+
+        if (message.type === "complete") {
+          observer.complete();
+        }
+
+        if (message.type === "error") {
+          observer.error(message.payload);
+        }
+      });
+
+      return () => {
+        // Cleanup logic when the Observable is unsubscribed
+        ws.close();
+      };
+    });
   });
 
   const link = split(
-    // split based on operation type
     ({ query }) => {
       const definition = getMainDefinition(query);
       return (
@@ -53,8 +99,8 @@ export function createApollo(httpLink: HttpLink) {
         definition.operation === "subscription"
       );
     },
-    ws,
-    ApolloLink.from([basic, auth, http])
+    customWsLink,
+    httpLinkWithAuth
   );
 
   const cache = new InMemoryCache();

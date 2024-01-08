@@ -195,7 +195,6 @@ export class TicketComponent implements OnInit {
   ngOnInit(): void {
     this.loggedInUser = localStorage.getItem("role");
 
-    this.getNotificationSocket();
     this.toHideColumns();
 
     this.getAllTicket();
@@ -249,11 +248,6 @@ export class TicketComponent implements OnInit {
       closeOnBackdropClick: true,
       closeOnEsc: true,
     });
-  }
-  getNotificationSocket() {
-    // const currentUser = localStorage.getItem("username");
-    // let notificationData = this.ticketService.getNotification(currentUser);
-    // console.log(notificationData, "in component");
   }
 
   toHideColumns() {

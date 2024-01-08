@@ -40,7 +40,12 @@ export class BtnAdminsComponent implements OnInit {
   // }
 
   handleBtn() {
-    if (this.rowData.coordinatorToAdmin && this.rowData.price === null) {
+    console.log("🍻", this.rowData.price);
+    console.log("🍻", this.rowData.coordinatorToAdmin);
+    if (
+      this.rowData.coordinatorToAdmin &&
+      (this.rowData.price === null || this.rowData.price === undefined)
+    ) {
       this.btnStatus = false;
     } else {
       this.btnStatus = true;

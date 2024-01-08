@@ -48,7 +48,7 @@ export class DropDownAffectationComponent implements OnInit {
   ngOnInit(): void {
     // console.log(this.rowData, "rowDatra");
     this.getAllTech();
-    this.toHandleSelect();
+    // this.toHandleSelect();
   }
 
   getAllTech() {

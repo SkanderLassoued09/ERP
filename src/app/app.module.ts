@@ -24,12 +24,13 @@ import {
   NbToggleModule,
 } from "@nebular/theme";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { GraphQlModule } from "./graphql.modules";
+// import { GraphQlModule } from "./graphql.modules";
 import { CommonModule } from "@angular/common";
 import { LoginComponent } from "./pages/login/login.component";
 import { URL } from "./URLs";
 import { ShareDataModule } from "./share-data/share-data.module";
 import { ShareDataService } from "./share-data.service";
+import { GraphQlModule } from "./graphql.modules";
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],

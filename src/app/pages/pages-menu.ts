@@ -122,10 +122,15 @@ export const MENU_ITEMS_ADMIN_TECH: NbMenuItem[] = [
     icon: "file-text-outline",
     children: [
       {
-        title: "Listes des DI",
-        link: "/pages/ticket/ticket-for-admin-tec",
+        title: "Listes des DI walid",
+        link: "/pages/ticket/ticket-for-admin-tech",
         icon: "folder-outline",
         home: true,
+      },
+      {
+        title: "Listes des DI",
+        link: "/pages/ticket/ticket-for-admin-manager",
+        icon: "folder-outline",
       },
     ],
   },
@@ -183,7 +188,7 @@ export const MENU_ITEMS_MANAGER: NbMenuItem[] = [
       },
       {
         title: "DI consulté cordinateur",
-        link: "/pages/ticket/ticket-list-traiter",
+        link: "/pages/ticket/ticket-for-manager",
         icon: "clipboard-outline",
       },
     ],
@@ -226,7 +231,7 @@ export const MENU_ITEMS_MAGASIN: NbMenuItem[] = [
     children: [
       {
         title: "List tickets",
-        link: "/pages/ticket/ticket-list",
+        link: "/pages/ticket/ticket-for-magasin",
         home: true,
       },
     ],

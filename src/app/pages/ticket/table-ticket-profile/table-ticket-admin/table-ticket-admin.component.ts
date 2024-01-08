@@ -132,24 +132,24 @@ export class TableTicketAdminComponent implements OnInit {
         //   return formatted;
         // },
       },
-      configTicket: {
-        title: "Diagnostique",
-        type: "custom",
-        renderComponent: BtnOpenTicketModalComponent,
-        editable: false,
-      },
-      modalReparation: {
-        title: "Réparation",
-        type: "custom",
-        renderComponent: BtnReparationComponent,
-        editable: false,
-      },
-      openModalMagasin: {
-        title: "Remplissage",
-        type: "custom",
-        renderComponent: BtnOpenModalMagasinComponent,
-        editable: false,
-      },
+      // configTicket: {
+      //   title: "Diagnostique",
+      //   type: "custom",
+      //   renderComponent: BtnOpenTicketModalComponent,
+      //   editable: false,
+      // },
+      // modalReparation: {
+      //   title: "Réparation",
+      //   type: "custom",
+      //   renderComponent: BtnReparationComponent,
+      //   editable: false,
+      // },
+      // openModalMagasin: {
+      //   title: "Remplissage",
+      //   type: "custom",
+      //   renderComponent: BtnOpenModalMagasinComponent,
+      //   editable: false,
+      // },
       affectationPrice: {
         title: "Affectation les prix",
         type: "custom",

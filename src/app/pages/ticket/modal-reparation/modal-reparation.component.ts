@@ -124,7 +124,7 @@ export class ModalReparationComponent implements OnInit {
           this.router
             .navigateByUrl("/test", { skipLocationChange: false })
             .then(() => {
-              this.router.navigate(["pages/ticket/ticket-list"]);
+              this.router.navigate(["pages/ticket/ticket-for-tech"]);
             });
         }
       });

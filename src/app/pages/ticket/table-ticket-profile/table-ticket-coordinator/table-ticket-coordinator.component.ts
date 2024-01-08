@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { NbDialogService, NbToastrService } from "@nebular/theme";
-import { Apollo } from "apollo-angular";
+import { Apollo, QueryRef, gql } from "apollo-angular";
 import { ServerDataSource } from "ng2-smart-table";
 import { ConfirmationModalComponent } from "../../../../share-data/confirmation-modal/confirmation-modal.component";
 import { TicketService } from "../../ticket/ticket.service";
@@ -15,6 +15,7 @@ import { ToggleActivateComponent } from "../../toggle-activate/toggle-activate.c
 import { BtnAffectReparationComponent } from "../../btn-affect-reparation/btn-affect-reparation.component";
 import { DropDownAdminsCooComponent } from "../../drop-down-admins-coo/drop-down-admins-coo.component";
 import { DropDownAffectationComponent } from "../../drop-down-affectation/drop-down-affectation.component";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "ngx-table-ticket-coordinator",
@@ -58,7 +59,7 @@ export class TableTicketCoordinatorComponent implements OnInit {
         title: "status",
         type: "html",
         valuePrepareFunction: (cell) => {
-          // console.log(cell);
+          console.log(cell);
           if (cell === "PENDING") {
             return '<div class="pending">' + "En attente" + "</div>";
           }
@@ -133,6 +134,9 @@ export class TableTicketCoordinatorComponent implements OnInit {
   };
   listOfCoordinator: any;
   _sourceDataWithPagination: ServerDataSource;
+  private subscription: Subscription;
+  private queryRef: QueryRef<any>;
+  note: any;
   constructor(
     private apollo: Apollo,
     private ticketservice: TicketService,
@@ -143,23 +147,21 @@ export class TableTicketCoordinatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTicketFromController();
-    this.notif();
+    this.subscribeToNotifications();
   }
 
-  notif() {
-    console.log("🥞[notif]:");
+  subscribeToNotifications() {
+    console.log("🍩[subscribeToNotifications]:");
+    // Subscribe to GraphQL notifications
+    this.queryRef = this.apollo.watchQuery({
+      query: this.ticketservice.notif(),
+    });
 
-    this.apollo
-      .subscribe<any>({
-        query: this.ticketservice.notif(),
-      })
-      .subscribe((result) => {
-        if (result.data?.notificationTech) {
-          console.log("🍾[result]:", result);
-          const notificationTech = result.data?.notificationTech;
-          console.log("Received notification:", notificationTech);
-        }
-      });
+    // Handle incoming data
+    this.subscription = this.queryRef.valueChanges.subscribe(({ data }) => {
+      console.log("Received notification:", data);
+      // Handle the received data as needed
+    });
   }
 
   seeData(seeData) {
