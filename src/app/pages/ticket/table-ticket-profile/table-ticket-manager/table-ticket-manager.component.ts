@@ -118,48 +118,13 @@ export class TableTicketManagerComponent implements OnInit {
         title: "Dérniere modification",
         type: "string",
         editable: false,
-        // valuePrepareFunction: (date) => {
-        //   var raw = new Date(date);
-
-        //   var formatted = this.datePipe.transform(raw, "dd MMM yyyy hh:mm:ss");
-        //   return formatted;
-        // },
       },
-      // configTicket: {
-      //   title: "Diagnostique",
-      //   type: "custom",
-      //   renderComponent: BtnOpenTicketModalComponent,
-      //   editable: false,
-      // },
+
       openModalAffectation: {
         title: "Prix final",
         type: "custom",
         renderComponent: BtnFinalComponent,
       },
-      // modalReparation: {
-      //   title: "Réparation",
-      //   type: "custom",
-      //   renderComponent: BtnReparationComponent,
-      //   editable: false,
-      // },
-      // openModalMagasin: {
-      //   title: "Remplissage",
-      //   type: "custom",
-      //   renderComponent: BtnOpenModalMagasinComponent,
-      //   editable: false,
-      // },
-      // affectationPrice: {
-      //   title: "Affectation les prix",
-      //   type: "custom",
-      //   renderComponent: BtnAdminsComponent,
-      //   editable: false,
-      // },
-      // reactivateDiagnostique: {
-      //   title: "Reouverture diagnostique",
-      //   type: "custom",
-      //   renderComponent: ToggleActivateComponent,
-      //   editable: false,
-      // },
     },
   };
   constructor(

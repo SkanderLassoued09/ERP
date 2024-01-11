@@ -5,6 +5,7 @@ import { Ticket } from "../ticket";
 import { NbToastrService } from "@nebular/theme";
 
 import { HttpClient } from "@angular/common/http";
+import { ROLE } from "../../../roles";
 
 @Injectable({
   providedIn: "root",
@@ -671,7 +672,29 @@ export class TicketService {
       }
     `;
   }
+  switchFalgsToHandleBtnAffectationPriceForbothRoleAdminManagerAndManger(
+    _id: string,
+    role: string
+  ) {
+    if (role === ROLE.ADMIN_MANAGER) {
+      return gql`
+      mutation {
+        setfinalPriceToAdminManafertoFalseAfterAdlinManagerAffectFinalPrice(_id: "${_id}")
+      }
+    `;
+    }
 
+    if (role === ROLE.MANAGER) {
+      return gql`
+      mutation {
+        setfinalPriceToAdminTechtoFalseAfterManagerAffectFinalPrice(_id: "${_id}")
+      }
+    `;
+    }
+  }
+  setfinalPriceToAdminManafertoFalseAfterAdlinManagerAffectFinalPrice(
+    _id: string
+  ) {}
   getTicketById(id: string) {
     // image added first time
     return gql`

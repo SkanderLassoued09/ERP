@@ -34,6 +34,7 @@ export class ModalFinalComponent implements OnInit {
   valueSlider: number;
   role: string;
   newPrice;
+  currentRole: string;
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
@@ -48,6 +49,7 @@ export class ModalFinalComponent implements OnInit {
     console.log(this.role, "signed in");
     console.log(this.rowData, "row data from final modal");
     this.getFinalPrice();
+    this.currentRole = localStorage.getItem("role");
   }
 
   caculateDiscount(price: string, percent: string) {
@@ -99,11 +101,26 @@ export class ModalFinalComponent implements OnInit {
           .subscribe(({ data }) => {
             console.log(data, "update prix");
             if (data) {
+              this.changeFlag();
               this.refDialog.close(true);
             }
           });
       }
     });
+  }
+
+  changeFlag() {
+    this.apollo
+      .mutate<any>({
+        mutation:
+          this.ticketService.switchFalgsToHandleBtnAffectationPriceForbothRoleAdminManagerAndManger(
+            this.rowData._id,
+            this.currentRole
+          ),
+      })
+      .subscribe(({ data }) => {
+        console.log("🍝[data change flags]:", data);
+      });
   }
 
   toAdminManager() {
