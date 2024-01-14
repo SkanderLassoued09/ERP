@@ -1,0 +1,46 @@
+<nb-card>
+  <nb-card>
+    <nb-card-header
+      >Réapration to add title ticket {{ minutes }}:{{ seconds }}:{{
+        milliseconds
+      }}
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="formReaparationTech">
+        <div class="row">
+          <div class="col-lg-12">
+            <label class="label" for="">Description réel</label>
+            <textarea
+              nbInput
+              type="text"
+              fullWidth
+              formControlName="remarqueTech"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 justify-btn">
+            <button
+              nbButton
+              status="success"
+              fullWidth
+              (click)="submitTechRemarque()"
+            >
+              Ajouter
+            </button>
+
+            <button
+              nbButton
+              status="danger"
+              fullWidth
+              (click)="updateTicket.reset()"
+            >
+              Annuler
+            </button>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</nb-card>

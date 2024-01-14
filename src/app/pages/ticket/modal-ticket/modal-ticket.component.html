@@ -1,0 +1,162 @@
+<nb-card class="fix-modal">
+  <nb-card-header class="justify-header">
+    <span>Compteur diagnostique</span>
+    <span>{{ minutes }}:{{ seconds }}:{{ milliseconds }}</span>
+    <span>
+      <a [href]="urlHost + rowData.image" target="_blank">
+        <nb-icon icon="image-outline"></nb-icon> </a
+    ></span>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="updateTicket">
+      <div class="row">
+        <div class="col-lg-12" *ngIf="rowData.title">
+          <label class="label" for="">Titre</label>
+          <h6>{{ rowData.title }}</h6>
+        </div>
+        <div class="col-lg-12" *ngIf="rowData.designiation">
+          <label class="label" for="">Description</label>
+          <h6>{{ rowData.designiation }}</h6>
+        </div>
+        <div class="col-lg-12" *ngIf="rowData.remarqueManager">
+          <label class="label" for="">Remarque administration</label>
+          <p>{{ rowData.remarqueManager }}</p>
+        </div>
+        <label class="label" for="">Choisir type de panne</label>
+        <nb-select fullWidth formControlName="issue">
+          <nb-option *ngFor="let i of listOfIssue" [value]="i.issueName">
+            {{ i.issueName }}
+          </nb-option>
+        </nb-select>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="" class="label">Réparable</label>
+          <nb-radio-group
+            (ngModelChange)="updateReparableValue($event)"
+            formControlName="reparable"
+            class="radio-btn"
+            name="raprable"
+          >
+            <nb-radio value="oui" checked>Oui</nb-radio>
+            <nb-radio value="non">Non</nb-radio>
+          </nb-radio-group>
+        </div>
+        <div class="col-lg-12" *ngIf="isReparable === 'oui'">
+          <label for="" class="label">PDR</label>
+          <nb-radio-group
+            (ngModelChange)="updatePDRValue($event)"
+            formControlName="pdr"
+            class="radio-btn"
+            name="pdr"
+          >
+            <nb-radio value="oui">Oui</nb-radio>
+            <nb-radio value="non">Non</nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+
+      <form [formGroup]="myForm" *ngIf="pdrStatus === 'oui'" class="composant">
+        <div class="row spacing">
+          <div class="col-lg-6">
+            <input
+              nbInput
+              type="text"
+              fullWidth
+              formControlName="nomComposant"
+              placeholder="Nom de composant"
+            />
+          </div>
+          <div class="col-lg-6">
+            <input
+              nbInput
+              type="file"
+              fullWidth
+              placeholder="Ajouter PDF (optionel)"
+              (change)="onSelectFile($event)"
+            />
+          </div>
+          <div class="col-lg-6">
+            <input
+              nbInput
+              type="text"
+              fullWidth
+              formControlName="package"
+              placeholder="Package"
+            />
+          </div>
+          <div class="col-lg-6">
+            <input
+              nbInput
+              type="text"
+              fullWidth
+              formControlName="quantite"
+              placeholder="Quantité"
+            />
+          </div>
+          <div class="col-lg-6">
+            <input
+              nbInput
+              type="text"
+              fullWidth
+              formControlName="linkProvider"
+              placeholder="lien de fournisseur"
+            />
+          </div>
+          <div class="col-lg-4">
+            <button
+              size="small"
+              status="info"
+              nbButton
+              (click)="ajouterComposant()"
+            >
+              Ajouter
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="col-lg-12">
+        <nb-card>
+          <nb-card-body>
+            <nb-tag-list (tagRemove)="onTagRemove($event)">
+              <nb-tag
+                *ngFor="let tree of trees"
+                [text]="tree.nameComposant"
+                [removable]="trees.length > 0"
+              >
+              </nb-tag>
+            </nb-tag-list>
+          </nb-card-body>
+        </nb-card>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="" class="label">Remarque</label>
+          <textarea
+            nbInput
+            fullWidth
+            placeholder="Textarea"
+            formControlName="remarqueTech"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="justify-btn">
+          <button
+            nbButton
+            status="success"
+            fullWidth
+            [disabled]="myForm.invalid"
+            (click)="updateTicketConfirm()"
+          >
+            Confirmer
+          </button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

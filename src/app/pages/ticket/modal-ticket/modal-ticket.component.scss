@@ -1,0 +1,53 @@
+.justify-header {
+  display: flex;
+  justify-content: space-between;
+}
+.Scroll {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.radio-btn {
+  display: flex;
+  flex-direction: row;
+}
+
+.composant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.fix-row {
+  margin: 0px auto;
+}
+.fix-modal {
+  max-height: 100vh;
+}
+
+.justify-btn {
+  width: 50%;
+  margin: 0px auto;
+  display: block;
+  margin-top: 1rem;
+}
+
+.spacing {
+  padding: 0.5rem;
+}
+.spacing div {
+  margin-bottom: 0.5rem;
+}
+.fix-modal {
+  max-width: 50rem;
+  min-width: 50rem;
+  max-height: 70vh;
+  min-height: 70vh;
+}

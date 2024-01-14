@@ -1,0 +1,12 @@
+<nb-card>
+  <nb-card-header> </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table
+      [settings]="settings"
+      [source]="_sourceDataWithPagination"
+      (custom)="seeData($event)"
+      (deleteConfirm)="deleteTicket($event)"
+      (editConfirm)="editTicket($event)"
+    ></ng2-smart-table>
+  </nb-card-body>
+</nb-card>

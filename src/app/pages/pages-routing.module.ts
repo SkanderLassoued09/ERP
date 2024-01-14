@@ -1,0 +1,137 @@
+import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from "@angular/core";
+
+import { PagesComponent } from "./pages.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { ECommerceComponent } from "./e-commerce/e-commerce.component";
+import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
+import { GuardAuth } from "./login/guard.service";
+import { ROLE } from "../roles";
+
+const routes: Routes = [
+  {
+    path: "",
+    component: PagesComponent,
+    canActivate: [GuardAuth],
+    data: {
+      role: [
+        ROLE.ADMIN_MANAGER,
+        ROLE.ADMIN_TECH,
+        ROLE.MANAGER,
+        ROLE.MAGASIN,
+        ROLE.TECH,
+        ROLE.COORDINATOR,
+      ],
+    },
+    children: [
+      {
+        path: "dashboard",
+        component: ECommerceComponent,
+      },
+      {
+        path: "iot-dashboard",
+        component: DashboardComponent,
+      },
+      {
+        path: "layout",
+        loadChildren: () =>
+          import("./layout/layout.module").then((m) => m.LayoutModule),
+      },
+      {
+        path: "dashboardGlobal",
+        loadChildren: () =>
+          import("./dashboards/dashboards.module").then(
+            (m) => m.DashboardsModule
+          ),
+      },
+      {
+        path: "tableClient",
+        loadChildren: () =>
+          import("./table-cliet/table-cliet.module").then(
+            (m) => m.TableClietModule
+          ),
+      },
+      {
+        path: "profile",
+        loadChildren: () =>
+          import("./profile/profile/profile.module").then(
+            (m) => m.ProfileModule
+          ),
+      },
+      {
+        path: "ticket",
+        loadChildren: () =>
+          import("./ticket/ticket.module").then((m) => m.TicketModule),
+      },
+      {
+        path: "forms",
+        loadChildren: () =>
+          import("./forms/forms.module").then((m) => m.FormsModule),
+      },
+      {
+        path: "ui-features",
+        loadChildren: () =>
+          import("./ui-features/ui-features.module").then(
+            (m) => m.UiFeaturesModule
+          ),
+      },
+      {
+        path: "modal-overlays",
+        loadChildren: () =>
+          import("./modal-overlays/modal-overlays.module").then(
+            (m) => m.ModalOverlaysModule
+          ),
+      },
+      {
+        path: "extra-components",
+        loadChildren: () =>
+          import("./extra-components/extra-components.module").then(
+            (m) => m.ExtraComponentsModule
+          ),
+      },
+      {
+        path: "maps",
+        loadChildren: () =>
+          import("./maps/maps.module").then((m) => m.MapsModule),
+      },
+      {
+        path: "charts",
+        loadChildren: () =>
+          import("./charts/charts.module").then((m) => m.ChartsModule),
+      },
+
+      {
+        path: "tables",
+        loadChildren: () =>
+          import("./tables/tables.module").then((m) => m.TablesModule),
+      },
+      {
+        path: "miscellaneous",
+        loadChildren: () =>
+          import("./miscellaneous/miscellaneous.module").then(
+            (m) => m.MiscellaneousModule
+          ),
+      },
+      {
+        path: "tickets",
+        loadChildren: () =>
+          import("./ticket/ticket.module").then((m) => m.TicketModule),
+      },
+      {
+        path: "",
+        redirectTo: "dashboard",
+        pathMatch: "full",
+      },
+      {
+        path: "**",
+        component: NotFoundComponent,
+      },
+    ],
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class PagesRoutingModule {}

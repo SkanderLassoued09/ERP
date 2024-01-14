@@ -1,0 +1,17 @@
+<!-- <nb-select
+  (selectedChange)="affectTicketToAdmin($event)"
+  placeholder="Select Showcase"
+>
+  <nb-option *ngFor="let tech of listOfAdmins" [value]="tech.username">
+    {{ tech.username }}
+  </nb-option>
+</nb-select> -->
+
+<button
+  nbButton
+  (click)="valider()"
+  status="info"
+  [disabled]="disableBtnAffectToAdmin"
+>
+  Envoyer aux admins
+</button>

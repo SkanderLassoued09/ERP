@@ -1,0 +1,27 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #3e9df6;
+  color: white;
+}
+
+td {
+  background-color: #fff;
+}
+
+.field {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}

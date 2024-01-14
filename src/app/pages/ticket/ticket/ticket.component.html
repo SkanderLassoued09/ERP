@@ -1,0 +1,25 @@
+<nb-card>
+  <nb-card-header class="header"
+    ><span>Liste des demandes d'intervention</span
+    ><span class="justify-btn" *ngIf="loggedInUser === 'ADMIN_TECH'">
+      <button nbButton status="info" (click)="openModal()">
+        Ajouter panne
+      </button>
+      <button nbButton status="warn" (click)="openModalLocation()">
+        Ajouter emplacement
+      </button>
+      <button nbButton status="danger" (click)="openModalTarifTech()">
+        Tarif Techs
+      </button>
+    </span>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table
+      [settings]="settings"
+      [source]="_sourceDataWithPagination"
+      (custom)="seeData($event)"
+      (deleteConfirm)="deleteTicket($event)"
+      (editConfirm)="editTicket($event)"
+    ></ng2-smart-table>
+  </nb-card-body>
+</nb-card>

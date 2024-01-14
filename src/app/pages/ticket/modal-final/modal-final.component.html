@@ -1,0 +1,106 @@
+<nb-card [status]="stautsToggle ? 'success' : 'danger'">
+  <nb-card-header
+    ><span
+      >Prix finale:
+      <strong>
+        {{
+          finalPrice
+            ? (finalPrice | currency : "TND" : "symbol" : "1.2-2")
+            : (rowData.finalPrice | currency : "TND" : "symbol" : "1.2-2")
+        }}
+      </strong>
+      <p *ngIf="discountDisplay">
+        <strong
+          >Réduction:
+          {{ discountDisplay | currency : "TND" : "symbol" : "1.2-2" }}</strong
+        >
+      </p>
+    </span>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="managerForm">
+      <div class="row">
+        <div class="col-lg-12 fix-inputs">
+          <nb-toggle
+            formControlName="statusFinal"
+            (ngModelChange)="statusToggle($event)"
+            [status]="stautsToggle ? 'success' : 'danger'"
+          >
+            {{ stautsToggle ? "Valider" : "Annuler" }}
+          </nb-toggle>
+
+          <div class="c">
+            <span *ngIf="role === 'MANAGER'">
+              <mat-slider
+                formControlName="remise"
+                min="0.0"
+                max="20.0"
+                step="0.1"
+                showTickMarks="true"
+                discrete
+                [displayWith]="formatLabel"
+                thumbLabel="true"
+              >
+                <input matSliderThumb /> </mat-slider
+            ></span>
+            <span *ngIf="role === 'ADMIN_MANAGER'">
+              <mat-slider
+                [disabled]="!rowData.finalPriceToAdminManager"
+                formControlName="remise"
+                min="20.0"
+                max="25.0"
+                step="0.1"
+                showTickMarks="true"
+                discrete
+                [displayWith]="formatLabel"
+                thumbLabel="true"
+              >
+                <input matSliderThumb /> </mat-slider
+            ></span>
+
+            <span *ngIf="valueSlider === 20 && role === 'MANAGER'"
+              ><button
+                nbButton
+                size="tiny"
+                status="info"
+                nbTooltip="Envoyer à admin manager"
+                nbTooltipPlacement="top"
+                (click)="toAdminManager()"
+              >
+                <nb-icon
+                  size="tiny"
+                  icon="arrow-forward-outline"
+                ></nb-icon></button
+            ></span>
+
+            <div
+              class="update-price"
+              *ngIf="valueSlider === 25 && role === 'ADMIN_MANAGER'"
+            >
+              <span>
+                <input
+                  nbInput
+                  type="text"
+                  placeholder="set new price"
+                  fullWidth
+                  formControlName="updatePrice" /></span
+              ><span
+                ><button
+                  status="info"
+                  nbButton
+                  (click)="affectationFinalPrice()"
+                >
+                  Réaffecte prix
+                </button></span
+              >
+            </div>
+          </div>
+
+          <button nbButton status="info" (click)="affectationFinalPrice()">
+            Affecter prix
+          </button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

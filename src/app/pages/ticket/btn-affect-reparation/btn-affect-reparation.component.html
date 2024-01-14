@@ -1,0 +1,35 @@
+<div class="fix-width">
+  <nb-select
+    (selectedChange)="affectTicketToTech($event)"
+    [placeholder]="
+      this.rowData.assignedToRep
+        ? this.rowData.assignedToRep
+        : this.rowData.assignedTo
+    "
+    [disabled]="closeBtn"
+    fullWidth
+  >
+    <nb-option
+      *ngFor="let tech of listOfTech"
+      [value]="tech.username"
+      [disabled]="tech.ticketCount >= 3"
+    >
+      <div class="option">
+        <span>{{ tech.username }}</span
+        ><span
+          [ngClass]="
+            tech.ticketCount === 0 || tech.ticketCount === 1
+              ? 'color-badge-green'
+              : tech.ticketCount === 2
+              ? 'color-badge-orange '
+              : tech.ticketCount === 3
+              ? 'color-badge-red'
+              : 'badge'
+          "
+        >
+          {{ tech.ticketCount }}
+        </span>
+      </div>
+    </nb-option>
+  </nb-select>
+</div>

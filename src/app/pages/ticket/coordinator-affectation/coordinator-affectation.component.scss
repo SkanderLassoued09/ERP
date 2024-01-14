@@ -1,0 +1,92 @@
+:host ::ng-deep {
+  .ng2-smart-title {
+    width: 4rem !important;
+  }
+}
+
+:host ::ng-deep ng2-st-tbody-edit-delete {
+  display: flex !important;
+  height: 0 !important;
+}
+
+:host
+  ::ng-deep
+  ng2-st-tbody-custom
+  a.ng2-smart-action.ng2-smart-action-custom-custom {
+  display: flex;
+  width: 100%;
+  text-align: center;
+}
+
+:host ::ng-deep {
+  ng2-smart-table .ng2-smart-actions a.ng2-smart-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 0%;
+    width: 100%;
+    font-size: 2rem !important;
+    color: #222b45;
+  }
+}
+
+:host
+  ::ng-deep
+  ng2-st-tbody-custom
+  a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
+  color: #5dcfe3;
+}
+
+:host ::ng-deep .finished {
+  width: auto;
+  border-radius: 4px;
+  background-color: #6dee1a;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+:host ::ng-deep .pending {
+  width: auto;
+  border-radius: 4px;
+  background-color: #fabf2c;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+:host ::ng-deep .enCours {
+  width: auto;
+  border-radius: 4px;
+  background-color: #08c1ffe0;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+:host ::ng-deep .pcr {
+  width: auto;
+  border-radius: 4px;
+  background-color: #eaff00;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+:host ::ng-deep .ignored {
+  width: auto;
+  border-radius: 4px;
+  background-color: #000000;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}

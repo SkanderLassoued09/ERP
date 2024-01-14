@@ -1,0 +1,110 @@
+<nb-card>
+  <nb-card-header>Création d'une demande d'intervention</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="addTicket">
+      <div class="row">
+        <div class="col-lg-12">
+          <label class="label" for="">Designation</label>
+          <input nbInput type="text" fullWidth formControlName="title" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">Probléme</label>
+          <textarea
+            nbInput
+            type="text"
+            fullWidth
+            formControlName="designiation"
+          ></textarea>
+        </div>
+        <div class="col-lg-4">
+          <label for="" class="label">Type</label>
+          <nb-radio-group
+            class="align-radio"
+            formControlName="typeClient"
+            (ngModelChange)="getSelectedTypeClient($event)"
+          >
+            <nb-radio value="Société">Société</nb-radio>
+            <nb-radio value="Client">Client</nb-radio>
+          </nb-radio-group>
+        </div>
+        <div class="col-lg-8" *ngIf="checkedTypeClient === 'Client'">
+          <label class="label" for="">Choisir le client</label>
+          <nb-select fullWidth formControlName="affectedToClient">
+            <nb-option *ngFor="let c of listOfClient" [value]="c.firstName">
+              {{ c.firstName }} {{ c.lastName }}
+            </nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-lg-8" *ngIf="checkedTypeClient === 'Société'">
+          <label class="label" for="">Choisir la société</label>
+          <nb-select
+            fullWidth
+            formControlName="affectedToCompany"
+            [filter]="true"
+          >
+            <nb-option *ngFor="let c of listOfCompany" [value]="c.companyName">
+              {{ c.companyName }}
+            </nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4">
+              <label class="label" for="">N° série</label>
+              <input nbInput type="text" fullWidth formControlName="numSerie" />
+            </div>
+            <div class="col-lg-4">
+              <label class="label" for="">Emplacement</label>
+              <nb-select fullWidth formControlName="emplacement">
+                <nb-option
+                  *ngFor="let e of emplacement"
+                  [value]="e.locationName"
+                >
+                  {{ e.locationName }}
+                </nb-option>
+              </nb-select>
+            </div>
+            <div class="col-lg-4">
+              <label for="" class="label">Ajouter une image</label>
+              <input
+                nbInput
+                fullWidth
+                placeholder="Textarea"
+                formControlName="image"
+                type="file"
+                (change)="onSelectFile($event)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 justify-btn">
+          <button
+            nbButton
+            status="success"
+            [disabled]="addTicket.invalid"
+            fullWidth
+            (click)="sendTicket()"
+          >
+            Ajouter
+          </button>
+
+          <button
+            nbButton
+            status="danger"
+            fullWidth
+            (click)="addTicket.reset()"
+          >
+            Annuler
+          </button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

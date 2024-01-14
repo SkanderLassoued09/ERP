@@ -1,0 +1,41 @@
+.justify-radio {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem;
+}
+.toggle-CS {
+  margin-left: auto;
+}
+nb-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+p {
+  margin: 1rem auto;
+}
+
+.justify-btn {
+  margin: 0.5rem auto;
+  display: flex;
+  gap: 1rem;
+}
+
+.input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input input {
+  width: 100%;
+}
+.divider {
+  border: 2px solid #ccc;
+  border-radius: 1rem;
+}
+
+.btns {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}

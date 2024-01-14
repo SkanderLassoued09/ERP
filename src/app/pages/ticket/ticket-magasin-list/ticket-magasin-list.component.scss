@@ -1,0 +1,64 @@
+.fix-list {
+  display: flex;
+  flex-direction: initial;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.justify-inputs {
+  display: flex;
+  justify-content: center;
+}
+
+.fix-items {
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
+}
+
+.inputs {
+  margin-bottom: 1rem;
+  max-width: 100% !important;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.items a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.fix-modal {
+  min-width: 50rem;
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+
+  border-radius: 0.25rem;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #ffffff;
+}
+
+th {
+  background-color: #dddddd;
+}
+
+.fix-input {
+  display: flex;
+  flex-direction: column;
+}
+
+strong {
+  color: #222b45;
+}

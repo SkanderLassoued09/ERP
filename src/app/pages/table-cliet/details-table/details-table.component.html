@@ -1,0 +1,320 @@
+<nb-card>
+  <nb-card-header>Details société</nb-card-header>
+  <nb-card-body>
+    <table>
+      <thead>
+        <tr>
+          <th>Service Technique</th>
+          <th>Service Financier</th>
+          <th>Service Achat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <h6>Nom et prenom</h6>
+            <div class="field">
+              <p *ngIf="!selectedItemSave[detailsCompany.achat.fullName]">
+                {{ detailsCompany.achat.fullName }}
+              </p>
+
+              <input
+                nbInput
+                type="text"
+                *ngIf="selectedItemSave[detailsCompany.achat.fullName]"
+                [(ngModel)]="updateValue"
+              />
+              <button
+                nbButton
+                size="tiny"
+                (click)="changeToggle(detailsCompany.achat.fullName)"
+                *ngIf="!selectedItemSave[detailsCompany.achat.fullName]"
+              >
+                Edit
+              </button>
+              <button
+                nbButton
+                size="tiny"
+                (click)="send(detailsCompany.achat.fullName, 'achat.fullName')"
+                *ngIf="selectedItemSave[detailsCompany.achat.fullName]"
+              >
+                Save
+              </button>
+            </div>
+          </td>
+          <td>
+            <h6>Nom et prenom</h6>
+            <div class="field">
+              <p *ngIf="!selectedItemSave[detailsCompany.financier.fullName]">
+                {{ detailsCompany.financier.fullName }}
+              </p>
+
+              <input
+                nbInput
+                type="text"
+                [(ngModel)]="updateValue"
+                *ngIf="selectedItemSave[detailsCompany.financier.fullName]"
+              />
+              <button
+                nbButton
+                size="tiny"
+                (click)="changeToggle(detailsCompany.financier.fullName)"
+                *ngIf="!selectedItemSave[detailsCompany.financier.fullName]"
+              >
+                Edit
+              </button>
+              <button
+                nbButton
+                size="tiny"
+                (click)="
+                  send(detailsCompany.financier.fullName, 'financier.fullName')
+                "
+                *ngIf="selectedItemSave[detailsCompany.financier.fullName]"
+              >
+                Save
+              </button>
+            </div>
+          </td>
+          <td>
+            <h6>Nom et prenom</h6>
+            <!-- <p>{{ detailsCompany.technique.fullName }}</p> -->
+            <div class="field">
+              <p *ngIf="!selectedItemSave[detailsCompany.technique.fullName]">
+                {{ detailsCompany.technique.fullName }}
+              </p>
+
+              <input
+                nbInput
+                type="text"
+                [(ngModel)]="updateValue"
+                *ngIf="selectedItemSave[detailsCompany.technique.fullName]"
+              />
+              <button
+                nbButton
+                size="tiny"
+                (click)="changeToggle(detailsCompany.technique.fullName)"
+                *ngIf="!selectedItemSave[detailsCompany.technique.fullName]"
+              >
+                Edit
+              </button>
+              <button
+                nbButton
+                size="tiny"
+                (click)="
+                  send(detailsCompany.technique.fullName, 'technique.fullName')
+                "
+                *ngIf="selectedItemSave[detailsCompany.technique.fullName]"
+              >
+                Save
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h6>E-mail</h6>
+            <!-- <p>{{ detailsCompany.achat.email }}</p> -->
+            <div class="field">
+              <p *ngIf="!selectedItemSave[detailsCompany.achat.email]">
+                {{ detailsCompany.achat.email }}
+              </p>
+
+              <input
+                nbInput
+                type="text"
+                [(ngModel)]="updateValue"
+                *ngIf="selectedItemSave[detailsCompany.achat.email]"
+              />
+              <button
+                nbButton
+                size="tiny"
+                (click)="changeToggle(detailsCompany.achat.email)"
+                *ngIf="!selectedItemSave[detailsCompany.achat.email]"
+              >
+                Edit
+              </button>
+              <button
+                nbButton
+                size="tiny"
+                (click)="send(detailsCompany.achat.email, 'achat.email')"
+                *ngIf="selectedItemSave[detailsCompany.achat.email]"
+              >
+                Save
+              </button>
+            </div>
+          </td>
+          <td>
+            <h6>E-mail</h6>
+            <!-- <p>{{ detailsCompany.financier.email }}</p> -->
+            <div class="field">
+              <p *ngIf="!selectedItemSave[detailsCompany.financier.email]">
+                {{ detailsCompany.financier.email }}
+              </p>
+
+              <input
+                nbInput
+                type="text"
+                [(ngModel)]="updateValue"
+                *ngIf="selectedItemSave[detailsCompany.financier.email]"
+              />
+              <button
+                nbButton
+                size="tiny"
+                (click)="changeToggle(detailsCompany.financier.email)"
+                *ngIf="!selectedItemSave[detailsCompany.financier.email]"
+              >
+                Edit
+              </button>
+              <button
+                nbButton
+                size="tiny"
+                (click)="
+                  send(detailsCompany.financier.email, 'financier.email')
+                "
+                *ngIf="selectedItemSave[detailsCompany.financier.email]"
+              >
+                Save
+              </button>
+            </div>
+          </td>
+          <td>
+            <h6>E-mail</h6>
+            <!-- <p>{{ detailsCompany.technique.email }}</p> -->
+            <div class="field">
+              <p *ngIf="!selectedItemSave[detailsCompany.technique.email]">
+                {{ detailsCompany.technique.email }}
+              </p>
+
+              <input
+                nbInput
+                type="text"
+                [(ngModel)]="updateValue"
+                *ngIf="selectedItemSave[detailsCompany.technique.email]"
+              />
+              <button
+                nbButton
+                size="tiny"
+                (click)="changeToggle(detailsCompany.technique.email)"
+                *ngIf="!selectedItemSave[detailsCompany.technique.email]"
+              >
+                Edit
+              </button>
+              <button
+                nbButton
+                size="tiny"
+                (click)="
+                  send(detailsCompany.technique.email, 'technique.email')
+                "
+                *ngIf="selectedItemSave[detailsCompany.technique.email]"
+              >
+                Save
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h6>Téléphone</h6>
+            <!-- <p>{{ detailsCompany.achat.phone }}</p> -->
+            <div class="field">
+              <p *ngIf="!selectedItemSave[detailsCompany.achat.phone]">
+                {{ detailsCompany.achat.phone }}
+              </p>
+
+              <input
+                nbInput
+                type="text"
+                [(ngModel)]="updateValue"
+                *ngIf="selectedItemSave[detailsCompany.achat.phone]"
+              />
+              <button
+                nbButton
+                size="tiny"
+                (click)="changeToggle(detailsCompany.achat.phone)"
+                *ngIf="!selectedItemSave[detailsCompany.achat.phone]"
+              >
+                Edit
+              </button>
+              <button
+                nbButton
+                size="tiny"
+                (click)="send(detailsCompany.achat.phone, 'achat.phone')"
+                *ngIf="selectedItemSave[detailsCompany.achat.phone]"
+              >
+                Save
+              </button>
+            </div>
+          </td>
+          <td>
+            <h6>Téléphone</h6>
+            <!-- <p>{{ detailsCompany.financier.phone }}</p> -->
+            <div class="field">
+              <p *ngIf="!selectedItemSave[detailsCompany.financier.phone]">
+                {{ detailsCompany.financier.phone }}
+              </p>
+
+              <input
+                nbInput
+                type="text"
+                [(ngModel)]="updateValue"
+                *ngIf="selectedItemSave[detailsCompany.financier.phone]"
+              />
+              <button
+                nbButton
+                size="tiny"
+                (click)="changeToggle(detailsCompany.financier.phone)"
+                *ngIf="!selectedItemSave[detailsCompany.financier.phone]"
+              >
+                Edit
+              </button>
+              <button
+                nbButton
+                size="tiny"
+                (click)="
+                  send(detailsCompany.financier.phone, 'financier.phone')
+                "
+                *ngIf="selectedItemSave[detailsCompany.financier.phone]"
+              >
+                Save
+              </button>
+            </div>
+          </td>
+          <td>
+            <h6>Téléphone</h6>
+            <!-- <p>{{ detailsCompany.technique.phone }}</p> -->
+            <div class="field">
+              <p *ngIf="!selectedItemSave[detailsCompany.technique.phone]">
+                {{ detailsCompany.technique.phone }}
+              </p>
+
+              <input
+                nbInput
+                type="text"
+                [(ngModel)]="updateValue"
+                *ngIf="selectedItemSave[detailsCompany.technique.phone]"
+              />
+              <button
+                nbButton
+                size="tiny"
+                (click)="changeToggle(detailsCompany.technique.phone)"
+                *ngIf="!selectedItemSave[detailsCompany.technique.phone]"
+              >
+                Edit
+              </button>
+              <button
+                nbButton
+                size="tiny"
+                (click)="
+                  send(detailsCompany.technique.phone, 'technique.phone')
+                "
+                *ngIf="selectedItemSave[detailsCompany.technique.phone]"
+              >
+                Save
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>
